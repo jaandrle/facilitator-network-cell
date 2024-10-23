@@ -2,16 +2,17 @@
 	"name": "facilitator-network-cell",
 	"version": "1.0.0",
 	"private": true,
-	"description": "An Amazing Capacitor App",
+	"description": "Facilitator Android app for Network Cell Manager (https://github.com/IndigoMultimediaTeam/android-tv-network-cell)",
 	"type": "module",
 	"keywords": [
 		"capacitor",
-		"mobile"
+		"mobile",
+		"android",
+		"websocket",
+		"network-cell"
 	],
 	"scripts": {
-		"start": "vite",
-		"build": "vite build",
-		"preview": "vite preview"
+		"prepare": "bs/npm/prepare"
 	},
 	"dependencies": {
 		"@capacitor/android": "^6.1.2",
@@ -23,6 +24,13 @@
 		"@capacitor/cli": "latest",
 		"vite": "^5.4.2"
 	},
-	"author": "",
-	"license": "ISC"
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:IndigoMultimediaTeam/facilitator-network-cell.git"
+	},
+	"homepage": "https://github.com/IndigoMultimediaTeam/facilitator-network-cell",
+	"bugs": {
+		"url": "https://github.com/IndigoMultimediaTeam/facilitator-network-cell/issues"
+	},
+	"author": "Jan Andrle <andrle.jan@centrum.cz>"
 }

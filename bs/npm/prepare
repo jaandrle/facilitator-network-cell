@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+. "$(dirname -- "${BASH_SOURCE[0]}")/"../.bash-head
+
+git config core.hooksPath bs/git-hooks
