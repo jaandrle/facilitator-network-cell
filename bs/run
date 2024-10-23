@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+. "$(dirname -- "${BASH_SOURCE[0]}")/".bash-head
+
+npx vite build
+npx cap run android $*
+exit 0

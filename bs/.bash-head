@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -eou pipefail
+if [[ "$(pwd)" == */bs* ]]; then
+	echo "You should run this script from the root of the project"
+	exit 1
+fi
+grep_section_by_heading() {
+	local markdown_file=$1
+	local heading=$2
+	local section=""
+	local in_section=false
+
+	while IFS= read -r line; do
+		if [[ $line =~ ^#*\ (.*) ]]; then
+			if [ "$in_section" = true ]; then
+				break
+			fi
+			if [[ "${BASH_REMATCH[1]}" == $heading* ]]; then
+				in_section=true
+				section+="$line\n"
+			fi
+		elif [ "$in_section" = true ]; then
+			section+="$line\n"
+		fi
+	done < "$markdown_file"
+	echo -e "$section"
+}
+cmd="${1:-}"
+if [[ "${cmd}" == "--help" ]]; then
+	grep_section_by_heading bs/README.md "$0"
+	echo "…for more help, see bs/README.md"
+	exit 0
+fi
