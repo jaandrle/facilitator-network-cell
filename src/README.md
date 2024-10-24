@@ -8,7 +8,7 @@ Basic React app with TypeScript.
 - [React useWebSocket](https://www.npmjs.com/package/react-use-websocket)
 
 ### App structure
-- [`./src/api`](./api): [app (data) workflow](./api/README.md)
+- [`./src/api`](./api): app (data) workflow
 - **[`./src/app`](./app/README.md): This folder contains pages/endpoints**
 - [`./src/assets`](./assets): Public static assets
 - [`./src/manifest.json`](./manifest.json): App manifest (partially generated using **bs**)

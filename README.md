@@ -19,7 +19,7 @@ and comes with a very minimal shell for building an app.
 1. `git clone git@github.com:IndigoMultimediaTeam/facilitator-network-cell.git`
 1. `cd facilitator-network-cell`
 1. `npm ci`
-1. [Project overview](./#project-overview)
+1. [Project overview](./#-project-overview)
 
 ## 🔍 Project overview
 Project uses:
