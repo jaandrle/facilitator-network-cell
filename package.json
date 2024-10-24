@@ -1,6 +1,11 @@
 {
 	"name": "facilitator-network-cell",
-	"version": "1.0.0",
+	"version": "0.1.0",
+	"config": {
+		"appId": "com.dhl.facilitatornetworkcell",
+		"appName": "Facilitator Network Cell",
+		"appColor": "#31d53d"
+	},
 	"private": true,
 	"description": "Facilitator Android app for Network Cell Manager (https://github.com/IndigoMultimediaTeam/android-tv-network-cell)",
 	"type": "module",
@@ -12,17 +17,31 @@
 		"network-cell"
 	],
 	"scripts": {
-		"prepare": "bs/npm/prepare"
+		"prepare": "bs/npm/prepare.js"
 	},
 	"dependencies": {
 		"@capacitor/android": "^6.1.2",
+		"@capacitor/app": "^6.0.1",
 		"@capacitor/camera": "latest",
 		"@capacitor/core": "latest",
-		"@capacitor/splash-screen": "latest"
+		"@capacitor/dialog": "^6.0.1",
+		"@capacitor/splash-screen": "latest",
+		"cssremedy": "^0.1.0-beta.2",
+		"react": "~18.3",
+		"react-dom": "~18.3",
+		"react-router-dom": "~6.27",
+		"react-use-websocket": "^3.0.0",
+		"styled-components": "~6.1"
 	},
 	"devDependencies": {
 		"@capacitor/cli": "latest",
-		"vite": "^5.4.2"
+		"@types/react": "~18.3",
+		"@types/react-dom": "~18.3",
+		"@vitejs/plugin-react": "~4.3",
+		"nodejsscript": "~1",
+		"typescript": "~5.6",
+		"vite": "~5.4",
+		"vite-tsconfig-paths": "~5.0"
 	},
 	"repository": {
 		"type": "git",
@@ -32,5 +51,23 @@
 	"bugs": {
 		"url": "https://github.com/IndigoMultimediaTeam/facilitator-network-cell/issues"
 	},
-	"author": "Jan Andrle <andrle.jan@centrum.cz>"
+	"author": "Jan Andrle <jan.andrle@indigo.cz>",
+	"browserslist": {
+		"production": [
+			"chrome >0 and last 2.5 years",
+			"edge >0 and last 2.5 years",
+			"safari >0 and last 2.5 years",
+			"firefox >0 and last 2.5 years",
+			"and_chr >0 and last 2.5 years",
+			"and_ff >0 and last 2.5 years",
+			"ios >0 and last 2.5 years",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
 }

@@ -1,10 +1,10 @@
 {
-  "appId": "com.dhl.facilitatornetworkcell",
-  "appName": "Facilitator Network Cell",
-  "webDir": "dist",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  }
+	"appId": "com.dhl.facilitatornetworkcell",
+	"appName": "Facilitator Network Cell",
+	"webDir": "dist",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	}
 }
