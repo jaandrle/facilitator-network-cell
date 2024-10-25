@@ -5,27 +5,32 @@ const path= $.pathFromURL(import.meta.url);
 if($.isMain(import.meta))
 	$.api("", true)
 	.describe(describeFromReadme())
-	.action(function main(){
-		buildCapacitor($.slice(1));
+	.action(async function main(){
+		await buildCapacitor($.slice(1));
 		$.exit(0);
 	})
 	.parse();
 
-export function buildCapacitor(options){
-	buildManifest();
-	buildAndroid(options);
+export async function buildCapacitor(options){
+	buildConfig();
+	await buildAndroid(options);
 }
-import { config } from "../helpers/.config.js";
-export function buildManifest(){
-	const src= path`../../capacitor.config.json`;
-	const manifest= s.cat(src).xargs(JSON.parse);
-	Object.assign(manifest, {
-		appId: config.appId,
-		appName: config.appName,
-	});
-	s.echo(JSON.stringify(manifest, null, "\t")).to(src);
-	echo(src);
+import { configJSONFileAssign } from "../helpers/.config.js";
+export function buildConfig(){
+	configJSONFileAssign(
+		path`../../capacitor.config.json`,
+		({ appId, appName }) => ({ appId, appName })
+	);
 }
-export function buildAndroid(options){
-	s.run`npx cap build android ${options}`;
+export async function buildAndroid(options){
+	try{
+		await s.$("-V").runA(
+			"npx cap build android ::options::",
+			{ options },
+			{ stdio: "inherit" }
+		);
+	} catch(e){
+		echo(e);
+		$.exit(e.exitCode || 1);
+	}
 }

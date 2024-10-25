@@ -5,9 +5,9 @@ import { buildCapacitor } from "./capacitor.js";
 
 $.api("", true)
 .describe(describeFromReadme())
-.action(function main(){
+.action(async function main(){
 	buildVite();
-	buildCapacitor($.slice(1));
+	await buildCapacitor($.slice(1));
 	$.exit(0);
 })
 .parse();

@@ -12,21 +12,20 @@ if($.isMain(import.meta))
 	.parse();
 
 export function buildVite(){
-	buildManigest();
+	buildConfig();
 	buildFE();
 }
-import { config } from "../helpers/.config.js";
-export function buildManigest(){
-	const src= path`../../src/manifest.json`;
-	const manifest= s.cat(src).xargs(JSON.parse);
-	Object.assign(manifest, {
-		name: config.appName,
-		short_name: config.appName,
-		background_color: config.appColor,
-		theme_color: config.appColor,
-	});
-	s.echo(JSON.stringify(manifest, null, "\t")).to(src);
-	echo(src);
+import { configJSONFileAssign } from "../helpers/.config.js";
+export function buildConfig(){
+	configJSONFileAssign(
+		path`../../src/manifest.json`,
+		({ appName, appColor }) => ({
+			name: appName,
+			short_name: appName,
+			background_color: appColor,
+			theme_color: appColor,
+		})
+	);
 }
 export function buildFE(){
 	s.run`npx tsc`;

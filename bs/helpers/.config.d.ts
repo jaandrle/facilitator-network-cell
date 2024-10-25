@@ -3,4 +3,5 @@ export const config: {
 	appName: string,
 	appColor: string,
 };
+export function configJSONFileAssign(src: string, update: (c: typeof config) => Record<string, any>): void;
 export default config;
