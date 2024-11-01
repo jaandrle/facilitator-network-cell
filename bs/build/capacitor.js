@@ -15,12 +15,13 @@ export async function buildCapacitor(options){
 	buildConfig();
 	await buildAndroid(options);
 }
-import { configJSONFileAssign } from "../helpers/.config.js";
+import { configJSONFileAssign, pkg } from "../helpers/.config.js";
 export function buildConfig(){
 	configJSONFileAssign(
 		path`../../capacitor.config.json`,
 		({ appId, appName }) => ({ appId, appName })
 	);
+	s.$("-V").run`npx capacitor-set-version set:android -v ${pkg.version} -b 1`;
 }
 export async function buildAndroid(options){
 	try{

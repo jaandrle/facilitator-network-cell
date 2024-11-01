@@ -1,0 +1,17 @@
+{
+	"home": {
+		"title": "CIS FOUNDATION",
+		"subtitle": "FACILITATOR",
+		"connect": "Connect",
+		"or": "- OR -",
+		"scanQrCode": "Scan QR Code",
+		"version": "version ",
+		"choose_language": "Choose Language:",
+		"code": {
+			"placeholder": "Code"
+		},
+		"messages": {
+			"select_code": "Please write code for connection from main screen."
+		}
+	}
+}

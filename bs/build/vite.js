@@ -27,7 +27,14 @@ export function buildConfig(){
 		})
 	);
 }
+import { lintFE } from "../dev/lint.js";
 export function buildFE(){
-	s.run`npx tsc`;
-	s.run`npx vite build`;
+	lintFE();
+	if(!$.is_verbose){
+		echo.use("-R", "Vite build...");
+		s.run`npx vite build --logLevel warn`;
+		echo("✓ Vite build");
+	} else {
+		s.run`npx vite build`;
+	}
 }

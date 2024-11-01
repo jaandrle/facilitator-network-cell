@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
-function NotFound() {
+export const route= "/*" as const;
+export function Page(){
 	return (
 		<>
 			<h1>Not Found</h1>
@@ -9,4 +10,4 @@ function NotFound() {
 	);
 }
 
-export default NotFound;
+export default Page;

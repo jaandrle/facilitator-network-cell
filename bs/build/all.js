@@ -6,6 +6,7 @@ import { buildCapacitor } from "./capacitor.js";
 $.api("", true)
 .describe(describeFromReadme())
 .action(async function main(){
+	$.is_verbose= true;
 	buildVite();
 	await buildCapacitor($.slice(1));
 	$.exit(0);

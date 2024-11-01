@@ -1,0 +1,20 @@
+# https://nektosact.com/usage/index.html
+# https://github.com/reviewdog/action-eclint
+name: Validates formatting and linting
+
+on: pull_request
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: reviewdog/action-eclint@v1
+        with:
+          reporter: github-pr-review # Change reporter.
+          eclint_flags: '--fix'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.16
+      - run: npm ci
+      - run: bs/dev/lint.js

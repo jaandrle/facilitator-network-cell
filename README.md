@@ -10,10 +10,6 @@ Contact:
 - [Martin Antos](mailto:martin.antos@indigo.cz), Developer
 - [Pavel Fiala](mailto:pavel.fiala@indigo.cz), Indigo Head
 
-
-This app was created using [`@capacitor/create-app`](https://github.com/ionic-team/create-capacitor-app),
-and comes with a very minimal shell for building an app.
-
 ## 👋 Quick start
 
 1. `git clone git@github.com:IndigoMultimediaTeam/facilitator-network-cell.git`
@@ -31,10 +27,14 @@ Project uses:
 	- and ↓
 1. [Capacitor by Ionic - Cross-platform apps with web technology](https://capacitorjs.com/)
 	- [Capacitor Documentation](https://capacitorjs.com/docs)
-	- relevant files: [`capacitor.config.json`](./capacitor.config.json) (partially generated using **C**, see **bs**), [`android`](./android)
+	- relevant files: [`capacitor.config.json`](./capacitor.config.json) (partially generated using **C**, see **bs**),
+	[`android`](./android)
+	- this app was created using [`@capacitor/create-app`](https://github.com/ionic-team/create-capacitor-app)
 1. [Web app (part)](./src/README.md)
 
 ## Resources
-- [IndigoMultimediaTeam/CIS-Foundation-Facilitator: Android Cordova App for Facilitators in CIS Foundation Project](https://github.com/IndigoMultimediaTeam/CIS-Foundation-Facilitator)
-- [IndigoMultimediaTeam/android-tv-network-cell: Network Cell Manager for Google TV](https://github.com/IndigoMultimediaTeam/android-tv-network-cell)
+- [IndigoMultimediaTeam/CIS-Foundation-Facilitator: Android Cordova App for Facilitators in CIS Foundation Project](
+https://github.com/IndigoMultimediaTeam/CIS-Foundation-Facilitator)
+- [IndigoMultimediaTeam/android-tv-network-cell: Network Cell Manager for Google TV](
+https://github.com/IndigoMultimediaTeam/android-tv-network-cell)
 - Discord: https://discord.com/channels/@me/855089988126244894/1298621989631819839

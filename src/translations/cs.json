@@ -1,0 +1,17 @@
+{
+	"home": {
+		"title": "ZÁKLADNÍ KURZ CIS",
+		"subtitle": "MODERÁTOR",
+		"connect": "Připojte se",
+		"or": "- NEBO -",
+		"scanQrCode": "Naskenujte QR kód",
+		"version": "verze ",
+		"choose_language": "Vyberte jazyk:",
+		"code": {
+			"placeholder": "Kód"
+		},
+		"messages": {
+			"select_code": "Opište kód pro připojení z hlavní obrazovky."
+		}
+	}
+}

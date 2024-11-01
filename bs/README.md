@@ -1,5 +1,6 @@
 ## bs: Build system based on executables
-This project uses [jaandrle/bs: The simplest possible build system using executable/bash scripts](https://github.com/jaandrle/bs).
+This project uses [jaandrle/bs: The simplest possible build system using executable/bash scripts](
+https://github.com/jaandrle/bs).
 
 ### Available executables
 You can use `* --help` to get help for each executable.
@@ -24,6 +25,9 @@ Prepares the vite configuration and builds the web (part of the) app.
 Prepares the capacitor configuration and builds the android package.
 *Internally runs `npx cap build android`*, **you
 must use additional arguments (see `npx cap build --help`).**
+
+#### bs/dev/lint.js
+Linting files (TypeScript using `tsc` and `.editorconfig`).
 
 #### bs/npm/prepare.js
 NPM life-cycle script (registers git hooks).
