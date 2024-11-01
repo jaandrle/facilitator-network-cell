@@ -5,6 +5,7 @@
 		"moduleResolution": "Node",
 		"allowSyntheticDefaultImports": true,
 		"forceConsistentCasingInFileNames": true,
+		"strictBindCallApply": true,
 		"strict": true
 	},
 	"include": [
