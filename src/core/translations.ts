@@ -1,4 +1,4 @@
-import translations from "translate-js";
+import translations, { LangJson } from "translate-js";
 import { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
 
 // fallback
@@ -6,9 +6,6 @@ import fallback from "@/translations/en.json";
 import {toast} from "react-toastify";
 const langFallback = "en";
 let setLangState: Dispatch<SetStateAction<string>> = () => {};
-type LangJsonValue = string | LangJsonObject;
-type LangJsonObject = { [member: string]: LangJsonValue };
-type LangJson = Record<string, LangJsonValue>;
 const change = (data: LangJson, lang: string)=> {
 	translations.add(data, lang);
 	translations.setLocale(lang);
