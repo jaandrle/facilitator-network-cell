@@ -4,9 +4,18 @@ import { describeFromReadme } from "../.common.js";
 $.api("", true)
 .describe(describeFromReadme())
 .action(function main(){
-	if(!s.$("-fS").run`git config core.hooksPath`.code)
-		$.exit(0);
-	s.$("-V").run`git config core.hooksPath bs/git-hooks`;
+	const path_gh= "bs/git-hooks";
+	const current= s.$("-fS").run`git config core.hooksPath`;
+	if(current.code){
+		s.$("-V").run`git config core.hooksPath ${path_gh}`;
+		return $.exit(0);
+	}
+	const path_curr= current.trim();
+	if(path_curr !== path_gh){
+		echo(`You can use git hooks from ${path_gh}! Just:`);
+		echo(`- call: \`git config core.hooksPath '${path_gh}'\` or`);
+		echo(`- make a link: \`ln ${path_gh}/script_name ${path_curr}\``);
+	}
 	$.exit(0);
 })
 .parse();

@@ -20,6 +20,10 @@ Contact:
 ## 🔍 Project overview
 Project uses:
 
+1. Git and Github Actions (CI)
+	- the `main` branch is protected
+	- use PR requests, code is linted (formatted)…
+	- relevant files: [`.github/workflows/pr.yml`](./.github/workflows/pr.yml)
 1. NPM
 	- relevant files: [`package.json`](./package.json), see `config` key (refered as **C**)
 1. Build system: [bs/README.md](./bs/README.md) (refered as **bs**)
