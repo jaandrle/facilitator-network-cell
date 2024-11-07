@@ -5,9 +5,10 @@ import { buildCapacitor } from "./capacitor.js";
 
 $.api("", true)
 .describe(describeFromReadme())
-.action(async function main(){
+.option("--lint", "Force lint before build", false)
+.action(async function main({ lint }){
 	$.is_verbose= true;
-	buildVite();
+	buildVite({ lint });
 	await buildCapacitor($.slice(1));
 	$.exit(0);
 })

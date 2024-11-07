@@ -5,14 +5,16 @@ import { buildConfig } from "./build/capacitor.js";
 
 $.api("", true)
 .describe(describeFromReadme())
-.option("--target [device]", "Target device (see `adb devices`)")
-.action(async function main(){
+.option("--target", "Target device (see `adb devices`) — `--target <device>`")
+.option("--lint", "Force lint before build", false)
+.action(async function main({ lint, _: options, ..._ }){
+	options= options.concat(restoreArgs(_));
 	try{
-		buildVite();
+		buildVite({ lint });
 		buildConfig();
 		await s.$("-V").runA(
 			"npx cap run android ::options::",
-			{ options: $.slice(1) },
+			{ options },
 			{ stdio: "inherit" }
 		);
 	} catch(e){
@@ -22,3 +24,12 @@ $.api("", true)
 	$.exit(0);
 })
 .parse();
+
+function restoreArgs(__){
+	return Object.entries(__)
+		.flatMap(([ k, v ])=> {
+			k= ( k.length>1 ? "--" : "-" ) + k;
+			if(v===true) return [ k ];
+			return [ k, v ];
+		})
+}

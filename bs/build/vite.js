@@ -5,15 +5,21 @@ const path= $.pathFromURL(import.meta.url);
 if($.isMain(import.meta))
 	$.api("", true)
 	.describe(describeFromReadme())
-	.action(function main(){
-		buildVite();
+	.option("--lint", "Force lint before build", false)
+	.action(function main({ lint }){
+		buildVite({ lint });
 		$.exit(0);
 	})
 	.parse();
 
-export function buildVite(){
+/**
+ * @typedef {Object} BuildOptions
+ * @property {boolean} [options.lint] Force lint before build
+ * */
+/** @param {BuildOptions} options */
+export function buildVite({ lint }= {}){
 	buildConfig();
-	buildFE();
+	buildFE({ lint });
 }
 import { configJSONFileAssign } from "../helpers/.config.js";
 export function buildConfig(){
@@ -28,8 +34,10 @@ export function buildConfig(){
 	);
 }
 import { lintFE } from "../dev/lint.js";
-export function buildFE(){
-	lintFE();
+/** @param {BuildOptions} options */
+export function buildFE({ lint }= {}){
+	if(lint) lintFE();
+	s.run`npx tsc --noCheck`;
 	if(!$.is_verbose){
 		echo.use("-R", "Vite build...");
 		s.run`npx vite build --logLevel warn`;

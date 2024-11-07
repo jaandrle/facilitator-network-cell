@@ -2,6 +2,7 @@
 # https://github.com/reviewdog/action-eclint
 name: On PR
 on:
+  workflow_dispatch:
   pull_request:
     branches: [main]
 
