@@ -3,15 +3,14 @@ import styled, { css } from "styled-components";
 import { color } from "@/ui/colors";
 import { cssFont, fontStep } from "@/ui/typography";
 import { cssVariable } from "@/core/cssVariable";
+import { paddingPage } from "@/ui/sizes";
 
 const headingSize= cssVariable("_heading-size", fontStep(2, "normal"));
-const widthLogo= cssVariable("_width-logo", `calc(${headingSize.var} + 5rem)`);
+const widthLogo= cssVariable("_width-logo", `calc(${headingSize.var} + ${paddingPage.var})`);
 const widthLogoHalf= `calc(${widthLogo.var} / 2)`;
-const paddingPage= cssVariable("_padding-page", "5rem");
 
 export const Layout= styled(LayoutBase)`
 	${headingSize.def}
-	${paddingPage.def}
 	${widthLogo.def}
 	display: grid;
 	padding-inline: ${paddingPage.var};
@@ -21,7 +20,7 @@ export const Layout= styled(LayoutBase)`
 		"subheader	logo"	${widthLogoHalf}
 		"header		logo"	${widthLogoHalf}
 		"main		main"	1fr
-		"footer		footer"	3rem
+		"footer		footer"	${fontStep(2, "large")}
 		/
 		1fr ${widthLogo.var};
 `;
@@ -46,7 +45,7 @@ export const SubHeader = styled.h2`
 export const Logo = styled.img`
 	grid-area: logo;
 `;
-export const Main = styled.div`
+export const Main = styled.main`
 	grid-area: main;
 `;
 export const Footer = styled.p`

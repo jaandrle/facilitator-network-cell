@@ -7,6 +7,7 @@ export const lightness= {
 type Lightness= keyof typeof lightness;
 const hs= {
 	gray: "0 0%",
+	green: "120 100%",
 	/** DHL Red color */
 	primary: "356 100%",
 	/** DHL Yellow color */
@@ -16,7 +17,7 @@ type HS= keyof typeof hs;
 const hsl= {
 	black: "0 0% 0%",
 	white: "0 0% 100%",
-	green: "120 100% 50%",
+	green: hs.green+" 50%",
 	/** DHL Red color */
 	primary: hs.primary+" 35%",
 	/** DHL Yellow color */

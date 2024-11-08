@@ -19,4 +19,7 @@ export const Input = styled.input`
 	&:focus-visible{
 		outline-width: 1px;
 	}
+	&:valid{
+		color: ${color("green", 40)}
+	}
 `;

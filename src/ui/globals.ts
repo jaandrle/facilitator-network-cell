@@ -3,6 +3,8 @@ import "../../node_modules/cssremedy/css/quotes.css";
 import { createGlobalStyle as css } from "styled-components";
 import { cssFontFaces, fontFamilyBase, fontFamilyHeadings, fontStep, variablesFontSizes } from "./typography";
 import { variables as variablesColors } from "./colors";
+import { variables as variablesSizes } from "./sizes";
+import { variables as variablesAnimations, cssOpacityFade } from "./animations";
 
 export const GlobalStyle = css`
 	${cssFontFaces}
@@ -10,6 +12,8 @@ export const GlobalStyle = css`
 		interpolate-size: allow-keywords;
 		${variablesColors}
 		${variablesFontSizes}
+		${variablesSizes}
+		${variablesAnimations}
 	}
 	html, body {
 		height: 100%;
@@ -33,6 +37,10 @@ export const GlobalStyle = css`
 		&:focus-visible { outline: 1px solid currentColor; }
 	}
 	caption, figcaption, label, legend { line-height: 1.375; }
+
+	[disabled], [aria-disabled="true"]{
+		${cssOpacityFade}
+	}
 	/* category: accessibility */
 	@media (prefers-reduced-motion: reduce) {
 		*, ::before, ::after {

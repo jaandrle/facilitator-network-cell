@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { fontStep } from "@/ui/typography";
 import { color } from "@/ui/colors";
+import { cssOpacityFade } from "@/ui/animations";
 
 import { Main as MainBase } from "./ui/layout.css";
 export const Main= styled(MainBase)`
@@ -16,20 +17,17 @@ const MainContent= css`
 export const MainIp= styled.div`
 	${MainContent}
 	&[aria-busy=true]{
-		opacity: 0.5; /* TODO */
+		${cssOpacityFade}
 	}
 `;
 export const MainHr= styled.span`
 	display: inline-block;
 	width: 75%;
-	min-width: 6em;
+	min-width: fit-content;
 	text-align: center;
 `;
 export const Form= styled.form`
 	${MainContent}
-	&[aria-disabled="true"]{
-		opacity: 0.5;
-	}
 `;
 export { LayoutEntry } from "./ui/layout";
 
