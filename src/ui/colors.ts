@@ -8,6 +8,7 @@ type Lightness= keyof typeof lightness;
 const hs= {
 	gray: "0 0%",
 	green: "120 100%",
+	red: "0 100%",
 	/** DHL Red color */
 	primary: "356 100%",
 	/** DHL Yellow color */

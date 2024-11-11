@@ -40,7 +40,7 @@ export function PartialIpForm({
 			<Input
 				name={lastIpName}
 				type="text"
-				pattern="[0-9]{3,4}"
+				pattern="[0-9]{1,4}"
 				inputMode="numeric"
 				placeholder={t`homeCodePlaceholder`}
 				required

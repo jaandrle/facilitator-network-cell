@@ -29,6 +29,7 @@ function restoreArgs(__){
 	return Object.entries(__)
 		.flatMap(([ k, v ])=> {
 			k= ( k.length>1 ? "--" : "-" ) + k;
+			if(k.startsWith("--")&&v===undefined) return [];
 			if(v===true) return [ k ];
 			return [ k, v ];
 		})

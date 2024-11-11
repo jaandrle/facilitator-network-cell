@@ -19,7 +19,7 @@ export const Input = styled.input`
 	&:focus-visible{
 		outline-width: 1px;
 	}
-	&:valid{
-		color: ${color("green", 40)}
+	&:not(:placeholder-shown):invalid{
+		color: ${color("red", 40)}
 	}
 `;
