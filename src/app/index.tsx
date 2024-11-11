@@ -5,26 +5,27 @@ import * as notFound from "./not-found";
 
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { useBackButtonRegister } from "@/core/useBackButton";
-import { useTranslationsContext } from "@/core/translations";
 import {useEffect} from "react";
+import { useTranslationInit } from "@/core/translations";
 
 export function App() {
-	const translations= useTranslationsContext();
+	const { loading, language }= useTranslationInit();
 	useEffect(()=> {
-		document.body.lang= translations.lang;
-	}, [translations.lang]);
+		document.documentElement.lang= language;
+	}, [language]);
+	useEffect(()=> {
+		document.body.dataset.js_state= loading ? "loading" : "ready";
+	}, [loading]);
 	useBackButtonRegister();
 	return (
-		<translations.Provider value={translations.lang}>
-			<HashRouter>
-				<Routes>
-					<Route path={home.route} element={<home.Page />} />
-					<Route path="/" element={<home.Page />} />
-					<Route path={ip.route} element={<ip.Page />} />
-					<Route path={notFound.route} element={<notFound.Page />} />
-				</Routes>
-			</HashRouter>
-		</translations.Provider>
+		<HashRouter>
+			<Routes>
+				<Route path={home.route} element={<home.Page />} />
+				<Route path="/" element={<home.Page />} />
+				<Route path={ip.route} element={<ip.Page />} />
+				<Route path={notFound.route} element={<notFound.Page />} />
+			</Routes>
+		</HashRouter>
 	);
 }
 export default App;

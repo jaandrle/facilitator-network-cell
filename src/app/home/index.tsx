@@ -11,7 +11,7 @@ export const route= "home" as const;
 export const path= route;
 export function Page() {
 	const [ isLoading, setIsLoading ] = useState(false);
-	const { t, lang, setLang } = useTranslation();
+	const { t, language, changeLanguage } = useTranslation();
 	const navigate= useNavigate();
 	const handleIp= useCallback(function (ip: string){
 		navigate(pathIpPage + ip);
@@ -21,20 +21,20 @@ export function Page() {
 		await new Promise(resolve => setTimeout(resolve, 1000));
 		// TODO scan qr
 		handleIp("999.999.999.999");
-		setLang(lang==="en" ? "cs" : "en");
+		changeLanguage(language==="en" ? "cs" : "en");
 		setIsLoading(false);
 	}, [handleIp]);
 	return (
 		<LayoutEntry
-			title={t`home.title`}
-			subtitle={t`home.subtitle`}
+			title={t`homeTitle`}
+			subtitle={t`homeSubtitle`}
 		>
 			<Main>
 				<MainIp aria-busy={isLoading} aria-live="polite">
 					<PartialIpForm onIp={handleIp} />
-					<MainHr>{t`home.or`}</MainHr>
+					<MainHr>{t`homeOr`}</MainHr>
 					<Button onClick={handleIpScan} type="button">
-						{t`home.scanQrCode`}
+						{t`homeScanQrCode`}
 					</Button>
 				</MainIp>
 			</Main>

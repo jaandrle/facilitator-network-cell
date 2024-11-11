@@ -4,7 +4,7 @@ import { ReactElement, useLayoutEffect, useState } from "react";
 import logoSrc from "@/assets/cis-logo.png";
 import { App } from "@capacitor/app";
 import { Capacitor } from "@capacitor/core";
-import {useTranslation} from "@/core/translations";
+import { useTranslation } from "@/core/translations";
 
 export function LayoutEntry({
 	title,
@@ -26,7 +26,7 @@ export function LayoutEntry({
 			<SubHeader>{subtitle}</SubHeader>
 			<Logo src={logoSrc} alt="CIS Logo" />
 			{children}
-			<Footer>{t`home.version`} {version}</Footer>
+			<Footer>{t`homeVersion`} {version}</Footer>
 		</Layout>
 	);
 }

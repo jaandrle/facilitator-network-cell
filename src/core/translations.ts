@@ -1,42 +1,59 @@
-import translations, { LangJson } from "translate-js";
-import { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
+import i18next from "i18next";
+import { useEffect, useState } from "react";
+import { useTranslation as useTranslationReact, initReactI18next } from "react-i18next";
 
-// fallback
-import fallback from "@/translations/en.json";
-import {toast} from "react-toastify";
-const langFallback = "en";
-let setLangState: Dispatch<SetStateAction<string>> = () => {};
-const change = (data: LangJson, lang: string)=> {
-	translations.add(data, lang);
-	translations.setLocale(lang);
-	setLangState(lang);
-};
-change(fallback, langFallback);
+const key= "language";
+const ns= "translation";
+const fallbackLng= "en";
+let lng= localStorage.getItem(key) || fallbackLng;
+i18next
+.use(initReactI18next)
+.init({
+	lng,
+	fallbackLng,
+	defaultNS: ns,
+	/*
+	 * Normally, we want `escapeValue: true` as it
+	 * ensures that i18next escapes any code in
+	 * translation messages, safeguarding against
+	 * XSS (cross-site scripting) attacks. However,
+	 * React does this escaping itself, so we turn
+	 * it off in i18next.
+	*/
+	interpolation: {
+		escapeValue: false,
+	},
+	debug: false,
+});
 
-const context = createContext(langFallback);
-
-export const setLang = async (lang: string) => {
-	try{
-		const { default: json }= await import(`../translations/${lang}.json`);
-		translations.clear();
-		change(json, lang);
-	} catch (error){
-		toast.error(`Loading translations ${lang} failed`);
-		throw error;
-	}
+export function useTranslationInit() {
+	const [ loading, setLoading ]= useState(true);
+	useEffect(() => {
+		Promise.all([
+			changeLanguage(lng),
+			(lng !== fallbackLng) && addTranslation(fallbackLng),
+		])
+		.catch(console.error)
+		.then(() => setLoading(false));
+	}, []);
+	const out= useTranslation();
+	return { loading, ...out };
 }
-type T= (template: { raw: readonly string[] | ArrayLike<string>; }, ...substitutions: any[])=> string;
-export const t: T = (template, ...substitutions) => translations(String.raw(template, ...substitutions));
-
-export function useTranslation() {
-	const lang = useContext(context);
-	return { t, lang, setLang };
-}
-export function useTranslationsContext() {
-	const [ lang, setLang ] = useState<string>(langFallback);
-	setLangState = setLang;
+export function useTranslation(){
+	const { t, i18n }= useTranslationReact(ns);
 	return {
-		lang,
-		Provider: context.Provider
-	}
+		t,
+		i18n,
+		changeLanguage,
+		language: i18n.language,
+	};
+}
+async function changeLanguage(lng: string) {
+	await addTranslation(lng);
+	i18next.changeLanguage(lng);
+	localStorage.setItem(key, lng);
+}
+async function addTranslation(lng: string) {
+	const { default: translation }= await import( `../translations/${lng}.json`);
+	i18next.addResources(lng, ns, translation);
 }

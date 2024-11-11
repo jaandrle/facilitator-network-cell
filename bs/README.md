@@ -29,6 +29,10 @@ must use additional arguments (see `npx cap build --help`).**
 #### bs/dev/lint.js
 Linting files (TypeScript using `tsc` and `.editorconfig`).
 
+#### bs/i18next/migration.js
+The helper script to migrate old translation files from
+https://github.com/IndigoMultimediaTeam/CIS-Foundation-Facilitator
+
 #### bs/npm/prepare.js
 NPM life-cycle script (registers git hooks).
 

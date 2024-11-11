@@ -42,11 +42,11 @@ export function PartialIpForm({
 				type="text"
 				pattern="[0-9]{3,4}"
 				inputMode="numeric"
-				placeholder={t`home.code.placeholder`}
+				placeholder={t`homeCodePlaceholder`}
 				required
 				disabled={disabled}
 			/>
-			<Button type="submit" disabled={disabled}>{t`home.connect`}</Button>
+			<Button type="submit" disabled={disabled}>{t`homeConnect`}</Button>
 		</Form>
 	)
 }
