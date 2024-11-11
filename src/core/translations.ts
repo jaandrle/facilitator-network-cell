@@ -48,6 +48,9 @@ export function useTranslation(){
 		language: i18n.language,
 	};
 }
+/**
+ * @throws {Error} Import error (if translation file is not found)
+ * */
 async function changeLanguage(lng: string) {
 	await addTranslation(lng);
 	i18next.changeLanguage(lng);

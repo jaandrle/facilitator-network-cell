@@ -18,10 +18,25 @@ export const Layout= styled.div<LayoutProps>`
 	${bgBase.def}
 	width: 100%;
 	height: 100%;
+	position: relative;
 	padding: ${padding.var};
-	background: ${bgBase.var};
 
-	&[data-variant="${"entry" as LayoutProps["data-variant"]}"] {
+	&::before{
+		z-index: -1;
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: ${bgBase.var};
+
+		[dir=rtl] &{
+			transform: scaleX(-1);
+		}
+	}
+	&[data-variant="${"entry" as LayoutProps["data-variant"]}"]::before {
 		${width.def}
 		background:
 			linear-gradient(-180deg, rgba(255, 204, 0, 0.7) 12%, rgba(255, 204, 0, 0) 100%)

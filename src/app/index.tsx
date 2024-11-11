@@ -9,10 +9,10 @@ import {useEffect} from "react";
 import { useTranslationInit } from "@/core/translations";
 
 export function App() {
-	const { loading, language }= useTranslationInit();
+	const { loading, language: lang, i18n }= useTranslationInit();
 	useEffect(()=> {
-		document.documentElement.lang= language;
-	}, [language]);
+		Object.assign(document.documentElement, { lang, dir: i18n.dir() });
+	}, [lang]);
 	useEffect(()=> {
 		document.body.dataset.js_state= loading ? "loading" : "ready";
 	}, [loading]);
