@@ -33,7 +33,7 @@ export { LayoutEntry } from "./ui/layout";
 
 import { Input as InputBase } from "@/components/form";
 export const Input= styled(InputBase)`
-	&[inputMode=numeric][pattern$="{1,4}"]{
+	&[inputMode=numeric][pattern$="{1,3}"]{
 		font-size: ${fontStep(2, "small")};
 		width: 8em;
 		font-variant-numeric: tabular-nums;

@@ -22,7 +22,7 @@
 	"dependencies": {
 		"@capacitor/android": "~6.1",
 		"@capacitor/app": "~6.0",
-		"@capacitor/camera": "latest",
+		"@capacitor/barcode-scanner": "^1.0.1",
 		"@capacitor/core": "latest",
 		"@capacitor/dialog": "~6.0",
 		"@capacitor/splash-screen": "latest",

@@ -9,14 +9,15 @@ import { useTranslation } from "@/core/translations";
 const lastIpName= "last-ip";
 
 export function PartialIpForm({
-	onIp
+	onIp, isLoading
 }: {
 	onIp: (ip: string) => void;
+	isLoading?: boolean
 }){
 	const { t }= useTranslation();
 	const [ ipEnding, setIpEnding ] = useState("");
 	const ipBeginningAuto = usePartialIp();
-	const disabled = ipBeginningAuto.error;
+	const disabled = ipBeginningAuto.error || isLoading;
 	const ip= ipBeginningAuto.loading ? "" : ipBeginningAuto.value + ipEnding;
 
 	useEffect(() => {
@@ -40,7 +41,7 @@ export function PartialIpForm({
 			<Input
 				name={lastIpName}
 				type="text"
-				pattern="[0-9]{1,4}"
+				pattern="[0-9]{1,3}"
 				inputMode="numeric"
 				placeholder={t`homeCodePlaceholder`}
 				required
