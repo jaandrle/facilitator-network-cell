@@ -2,6 +2,7 @@ export const config: {
 	appId: string,
 	appName: string,
 	appColor: string,
+	wsPort: number,
 };
 export const pkg: {
 	name: string,

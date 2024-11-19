@@ -1,6 +1,7 @@
 // Pages
 import * as home from "./home";
-import * as ip from "./ip";
+import * as dashboard from "./dashboard";
+import * as ip from "./dashboard/:ip";
 import * as notFound from "./not-found";
 
 import { HashRouter, Route, Routes } from "react-router-dom";
@@ -22,7 +23,10 @@ export function App() {
 			<Routes>
 				<Route path={home.route} element={<home.Page />} />
 				<Route path="/" element={<home.Page />} />
-				<Route path={ip.route} element={<ip.Page />} />
+				<Route path={dashboard.route} element={<dashboard.Layout />}>
+					<Route path={ip.route} element={<ip.Page />} />
+					{/* … routest for activities */}
+				</Route>
 				<Route path={notFound.route} element={<notFound.Page />} />
 			</Routes>
 		</HashRouter>

@@ -4,7 +4,8 @@
 	"config": {
 		"appId": "com.dhl.facilitatornetworkcell",
 		"appName": "Facilitator Network Cell",
-		"appColor": "#31d53d"
+		"appColor": "#31d53d",
+		"wsPort": 3030
 	},
 	"private": true,
 	"description": "Facilitator Android app for Network Cell Manager (https://github.com/IndigoMultimediaTeam/android-tv-network-cell)",

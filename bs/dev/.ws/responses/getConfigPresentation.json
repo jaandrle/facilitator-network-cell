@@ -1,0 +1,13 @@
+{
+	"action": "getConfigPresentation",
+	"data": {
+		"sessions": [
+			{
+				"from": 0,
+				"to": 1,
+				"title": "Title"
+			}
+		],
+		"folder": "string"
+	}
+}

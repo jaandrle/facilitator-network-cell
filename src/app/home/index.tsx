@@ -6,7 +6,7 @@ import { Button } from "@/components/buttons";
 import { PartialIpForm } from "./components/PartialIpForm";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { path as pathIpPage } from "../ip";
+import { path as pathIpPage } from "../dashboard";
 import { toast } from "react-toastify";
 
 export const route= "home" as const;

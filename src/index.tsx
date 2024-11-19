@@ -2,7 +2,7 @@ const el= (tag: string, idl: Record<string, string>)=>
 	Object.assign(document.createElement(tag), idl);
 document.head.append(
 	el("title", { textContent: VITE.config.appName }),
-	el("meta", { name: "theme-color", content: VITE.config.appColor })
+	el("meta", { name: "theme-color", content: VITE.config.appColor }),
 );
 
 import { createRoot } from "react-dom/client";

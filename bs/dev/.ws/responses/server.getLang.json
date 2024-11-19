@@ -1,0 +1,4 @@
+{
+	"action": "server.getLang",
+	"lang": "en"
+}
