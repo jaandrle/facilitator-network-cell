@@ -2,7 +2,7 @@ import i18next from "i18next";
 import { useEffect, useState } from "react";
 import { useTranslation as useTranslationReact, initReactI18next } from "react-i18next";
 
-const key= "language";
+export const key= "language";
 const ns= "translation";
 const fallbackLng= "en";
 let lng= localStorage.getItem(key) || fallbackLng;

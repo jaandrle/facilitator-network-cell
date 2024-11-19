@@ -2,8 +2,14 @@
 import { describeFromReadme } from "../.common.js";
 const path= $.pathFromURL(import.meta.url);
 const css= echo.css`
-	.ws { color: magenta; }
-	.ws::before{ content:"🔌 "; }
+	@counter-style server-time{
+		system: extends --terminal-time;
+		--terminal-mask: "01" "11111111"
+	}
+	.ws::before{
+		content: counter(i, server-time) " [🔌] ";
+		color: magenta;
+	}
 `;
 const wsEcho= (msg, ...msgs)=> echo("%c"+msg, css.ws, ...msgs);
 
@@ -53,6 +59,10 @@ export function mockWebSocket(){
 		{ port, host: "0.0.0.0", reuseAddress: true },
 		wsEcho.bind(null, `${mockWebSocket.name} on port ${port}`)
 	);
-	server.on("error", wsEcho.bind(null, "Server Error"));
 	server.on("close", wsEcho.bind(null, "Server Closed"));
+	server.on("error", function(err){
+		if(err.code === "EADDRINUSE")
+			return wsEcho(err.message);
+		wsEcho("Server Error:", err);
+	});
 }

@@ -1,5 +1,5 @@
 import { useTranslation } from "@/core/translations";
-import { LayoutEntry, Main, MainHr, MainIp } from "./index.css";
+import { LayoutEntry, Main, MainIpHr, MainIp } from "./index.css";
 
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 import { Button } from "@/components/buttons";
@@ -8,12 +8,13 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { path as pathIpPage } from "../dashboard";
 import { toast } from "react-toastify";
+import { LanguageForm } from "./components/LanguageForm";
 
 export const route= "home" as const;
 export const path= route;
 export function Page() {
 	const [ isLoading, setIsLoading ] = useState(false);
-	const { t, language, changeLanguage } = useTranslation();
+	const { t } = useTranslation();
 	const navigate= useNavigate();
 	const handleIp= useCallback(async function (ip: string){
 		try {
@@ -46,7 +47,7 @@ export function Page() {
 				return;
 			toast.error(error.message);
 		}
-	}, [handleIp]);
+	}, [isLoading, handleIp]);
 	return (
 		<LayoutEntry
 			title={t`homeTitle`}
@@ -55,11 +56,12 @@ export function Page() {
 			<Main>
 				<MainIp aria-busy={isLoading} aria-live="polite">
 					<PartialIpForm onIp={handleIp} isLoading={isLoading} />
-					<MainHr>{t`homeOr`}</MainHr>
+					<MainIpHr>{t`homeOr`}</MainIpHr>
 					<Button onClick={handleIpScan} type="button">
 						{t`homeScanQrCode`}
 					</Button>
 				</MainIp>
+				<LanguageForm />
 			</Main>
 		</LayoutEntry>
 	);

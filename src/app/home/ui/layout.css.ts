@@ -19,7 +19,7 @@ export const Layout= styled(LayoutBase)`
 	grid-template:
 		"subheader	logo"	${widthLogoHalf}
 		"header		logo"	${widthLogoHalf}
-		"main		main"	1fr
+		"main		-"	1fr
 		"footer		footer"	${fontStep(2, "large")}
 		/
 		1fr ${widthLogo.var};

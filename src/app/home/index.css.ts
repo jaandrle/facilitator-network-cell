@@ -5,7 +5,9 @@ import { cssOpacityFade } from "@/ui/animations";
 
 import { Main as MainBase } from "./ui/layout.css";
 export const Main= styled(MainBase)`
-	columns: 2;
+	display: flex;
+	flex-flow: row nowrap;
+	gap: 15%;
 `;
 const MainContent= css`
 	display: inline-flex;
@@ -15,12 +17,13 @@ const MainContent= css`
 	align-items: start;
 `;
 export const MainIp= styled.div`
+	flex: 1;
 	${MainContent}
 	&[aria-busy=true]{
 		${cssOpacityFade}
 	}
 `;
-export const MainHr= styled.span`
+export const MainIpHr= styled.span`
 	display: inline-block;
 	width: 75%;
 	min-width: fit-content;
