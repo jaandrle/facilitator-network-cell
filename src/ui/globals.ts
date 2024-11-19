@@ -9,7 +9,6 @@ import { variables as variablesAnimations, cssOpacityFade } from "./animations";
 export const GlobalStyle = css`
 	${cssFontFaces}
 	:root{
-		interpolate-size: allow-keywords;
 		${variablesColors}
 		${variablesFontSizes}
 		${variablesSizes}
@@ -23,6 +22,7 @@ export const GlobalStyle = css`
 		font-family: ${fontFamilyBase};
 		font-size: ${fontStep(0)};
 		-webkit-tap-highlight-color: transparent;
+		interpolate-size: allow-keywords;
 	}
 	#root { display: contents; }
 	/* category: typography */
@@ -33,8 +33,8 @@ export const GlobalStyle = css`
 	}
 	input, button, a{
 		font-size: inherit;
-		&:focus { outline: none; }
-		&:focus-visible { outline: 1px solid currentColor; }
+		&:focus { outline: 1px solid currentColor; }
+		&:focus:not(:focus-visible) { outline: none; }
 	}
 	caption, figcaption, label, legend { line-height: 1.375; }
 
