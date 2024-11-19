@@ -33,7 +33,7 @@ Linting files (TypeScript using `tsc` and `.editorconfig`).
 This mocks a WebSocket server for local development.
 
 #### bs/helpers/languages.js
-The helper script to sumup all available languages. See [src/translations/index.ts].
+The helper script to sumup all available languages. See `src/translations/index.ts`.
 
 #### bs/i18next/migration.js
 The helper script to migrate old translation files from

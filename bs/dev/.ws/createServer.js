@@ -1,6 +1,23 @@
 import { createServer as createServerNode } from "node:net";
 
 /**
+ * @prop {number} opcode
+ * @prop {string} payload
+ * */
+export class Request{
+	static TEXT= 1;
+	static CLOSE= 8;
+	constructor(buffer){
+		const firstByte = buffer[0];
+		this.opcode = firstByte & 0x0f; // Opcode (e.g., text frame, binary frame, etc.)
+
+		if(this.opcode!==1) return this;
+
+		this.payload= decodeWebSocketFrame(buffer);
+		return this;
+	}
+}
+/**
  * Small wrapper around node:net.createServer. Processing websocket handshake,
  * emitting `message` event (with decoded payload). Also allow sending messages
  * using `socket.emit("response", message)`.
@@ -13,6 +30,7 @@ import { createServer as createServerNode } from "node:net";
  *	 socket.emit("response", { alice: "bob" });
  * })
  * ```
+ * …dev detail, see https://ably.com/topic/websockets
  *
  * @param {(socket: import("node:net").Socket)=> void} onClinet
  * */
@@ -24,7 +42,7 @@ export function createServer(onClinet){
 
 			const keyMatch= request.match(/Sec-WebSocket-Key: (.+)/);
 			if(!keyMatch || !keyMatch[1])
-				return socket.emit("message", decodeWebSocketFrame(data));
+				return socket.emit("message", new Request(data));
 
 			// Handshake
 			const secWebSocketKey = keyMatch[1].trim();
@@ -58,14 +76,6 @@ async function generateAcceptValue(secWebSocketKey) {
 }
 
 function decodeWebSocketFrame(buffer) {
-	const firstByte = buffer[0];
-	const opcode = firstByte & 0x0f; // Opcode (e.g., text frame, binary frame, etc.)
-
-	if (opcode !== 1) {
-		console.error("Unsupported opcode:", opcode);
-		return null;
-	}
-
 	const secondByte = buffer[1];
 	const isMasked = (secondByte & 0x80) === 0x80; // Check if MASK bit is set
 	let payloadLength = secondByte & 0x7f; // Get payload length

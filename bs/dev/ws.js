@@ -22,18 +22,21 @@ $.api("", true)
 .parse();
 
 import { config } from "../helpers/.config.js";
-import { createServer } from "./.ws/createServer.js";
+import { createServer, Request } from "./.ws/createServer.js";
 const actions_path= "./.ws/responses/";
 const actions_files= s.ls(path(actions_path));
 const actions= actions_files.map(file=> file.slice(0, file.lastIndexOf(".")));
 
 export function mockWebSocket(){
 	const server= createServer(function onClient(socket){
-		socket.on("message", message=> {
-			let actionId= -1;
+		socket.on("message", (/** @type {Request} */ request)=> {
+			let actionId= -1, message;
 			try{
-				if(!message) throw new Error();
-				message= JSON.parse(message);
+				if(request.opcode === Request.CLOSE)
+					return wsEcho("Client closed connection");
+				if(request.opcode !== Request.TEXT)
+					return wsEcho("Unsupported opcode:", request.opcode);
+				message= JSON.parse(request.payload);
 				actionId= actions.indexOf(message.action);
 				if(actionId === -1) throw new Error();
 			} catch(e){
@@ -48,10 +51,7 @@ export function mockWebSocket(){
 
 		wsEcho("New client", socket.address());
 		socket.on("error", wsEcho.bind(null, "Error:"));
-		socket.on("close", error=> {
-			wsEcho("Closed:", socket.address());
-			if(error) wsEcho("Error:", error);
-		});
+		socket.on("close", wsEcho.bind(null, "Close:"));
 	});
 
 	const port= config.wsPort;
