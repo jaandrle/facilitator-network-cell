@@ -33,6 +33,8 @@ export const GlobalStyle = css`
 	}
 	input, button, a{
 		font-size: inherit;
+	}
+	input, button, a, [tabindex]{
 		&:focus { outline: 1px solid currentColor; }
 		&:focus:not(:focus-visible) { outline: none; }
 	}

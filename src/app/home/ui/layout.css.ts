@@ -23,6 +23,16 @@ export const Layout= styled(LayoutBase)`
 		"footer		footer"	${fontStep(2, "large")}
 		/
 		1fr ${widthLogo.var};
+
+	@media (max-width: 800px) {
+		grid-template:
+			"logo"
+			"subheader"
+			"header"
+			"main" 1fr
+			"footer" ${fontStep(2, "large")}
+			;
+	}
 `;
 const Headers= css`
 	text-transform: uppercase;
@@ -44,9 +54,17 @@ export const SubHeader = styled.h2`
 `;
 export const Logo = styled.img`
 	grid-area: logo;
+	@media (max-width: 800px) {
+		width: 25vmin;
+		justify-self: end;
+	}
 `;
 export const Main = styled.main`
 	grid-area: main;
+
+	@media (max-width: 800px) {
+		margin-top: ${fontStep(0)};
+	}
 `;
 export const Footer = styled.p`
 	grid-area: footer;

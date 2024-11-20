@@ -6,7 +6,7 @@ import { cssOpacityFade } from "@/ui/animations";
 import { Main as MainBase } from "./ui/layout.css";
 export const Main= styled(MainBase)`
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: row wrap;
 	gap: 15%;
 `;
 const MainContent= css`
