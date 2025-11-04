@@ -10,18 +10,32 @@ import { StrictMode } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GlobalStyle } from "./ui/globals";
-import App from "@/app";
+import { RouterProvider, createRouter, createHashHistory } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
+
+const history = createHashHistory();
+const router = createRouter({
+	routeTree, history,
+	defaultPreload: "intent",
+	defaultViewTransition: true,
+});
+
+declare module "@tanstack/react-router" {
+	interface Register {
+		router: typeof router;
+	}
+}
+
 createRoot(document.getElementById("root") as HTMLElement).render(
 	<StrictMode>
 		<GlobalStyle />
-		<App />
+		<RouterProvider router={router} />
 		<ToastContainer
 			position="bottom-center"
 			autoClose={5000}
 			hideProgressBar={false}
 			newestOnTop={false}
 			closeOnClick
-			rtl={false}
 			pauseOnFocusLoss
 			draggable
 			pauseOnHover

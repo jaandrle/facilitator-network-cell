@@ -10,6 +10,7 @@ const languages= Object.entries(languagesObj) as [Language, string][];
 export function LanguageForm(){
 	const { t, language, changeLanguage }= useTranslation();
 	const {
+		isOpen,
 		selectedItem,
 		getToggleButtonProps,
 		getLabelProps,
@@ -34,7 +35,7 @@ export function LanguageForm(){
 				<Select {...getToggleButtonProps()}>
 					{selectedItem ? selectedItem[1] : "-"}
 				</Select>
-				<Options {...getMenuProps()}>
+				<Options {...getMenuProps()} aria-hidden={!isOpen}>
 				{languages.map((item, index) => (
 					<li
 						key={item[0]}

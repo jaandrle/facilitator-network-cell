@@ -22,5 +22,11 @@ indent_style = space
 trim_trailing_whitespace = false
 max_line_length = unset
 
+# generated files
+[src/routeTree.gen.ts]
+max_line_length = unset
+indent_style = space
+indent_size = 2
+
 [gradlew.bat]
 end_of_line = unset

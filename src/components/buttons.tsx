@@ -27,7 +27,7 @@ const common= css`
 	&:hover { background-color: ${color("secondary", 40)}; }
 	&:active { background-color: ${color("secondary", 60)}; }
 `;
-import { Link as LinkPure } from "react-router-dom";
+import { Link as LinkPure } from "@tanstack/react-router";
 export const Link = styled(LinkPure)`
 	display: inline-block;
 	text-decoration: none;

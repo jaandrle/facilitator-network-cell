@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { cssFont, fontStep } from "@/ui/typography";
 import { color } from "@/ui/colors";
 import { borderRadius } from "@/ui/sizes";
+import { isOneColumn } from "./layout.css";
+
 export const Form= styled.div`
 	flex: 2;
 `;
@@ -40,26 +42,29 @@ export const Select= styled.div`
 	}
 `;
 export const Options= styled.ul`
-	position:absolute;
-	top:100%;
-	left:0;
+	position: absolute;
+	left: 0;
+	top: 100%;
 	display: block;
 	width: 100%;
 	padding: 0;
-	margin: 0;
-	margin-top: 1px;
+	margin: 1px 0;
 	${cssFont.regular}
 	color: ${color("black")};
 	background-color: ${color("white")};
 	border-radius: ${borderRadius.var};
 	cursor: pointer;
-	max-height: 50vh;
+	max-height: 25vmin;
 	overflow-y: auto;
-	transition: height .5s ease-in-out;
+	transition: height .1s ease-in-out;
 
 	[aria-expanded="false"] + &{
-		display: none;
 		height: 0;
+	}
+	@media ${isOneColumn}{
+		top: unset;
+		bottom: 100%;
+		max-height: 50vmin;
 	}
 
 	li {

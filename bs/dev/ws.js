@@ -13,13 +13,14 @@ const css= echo.css`
 `;
 const wsEcho= (msg, ...msgs)=> echo("%c"+msg, css.ws, ...msgs);
 
-$.api("", true)
-.describe(describeFromReadme())
-.action(function main(){
-	mockWebSocket();
-	//$.exit(0);
-})
-.parse();
+if($.isMain(import.meta))
+	$.api("", true)
+	.describe(describeFromReadme())
+	.action(function main(){
+		mockWebSocket();
+		//$.exit(0);
+	})
+	.parse();
 
 import { config } from "../helpers/.config.js";
 import { createServer, Request } from "./.ws/createServer.js";

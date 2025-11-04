@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 import { NetworkInterface } from '@ionic-native/network-interface';
 
 export function useNetworkInfo() {
@@ -8,17 +8,17 @@ export function useNetworkInfo() {
 		NetworkInterface.getWiFiIPAddress()
 		.then(setValue).catch(()=> setError(true));
 	}, []);
-	return {
+	return useMemo(()=> ({
 		value, error,
 		loading: !value && !error
-	};
+	}), [value, error]);
 }
 export function useNetworkIp() {
 	const { value, error, loading } = useNetworkInfo();
-	return {
+	return useMemo(()=> ({
 		error, loading,
 		value: value?.ip
-	};
+	}), [value, error, loading]);
 }
 
 export default useNetworkInfo;

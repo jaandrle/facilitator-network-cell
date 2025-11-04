@@ -30,7 +30,7 @@ export function useTranslationInit() {
 	const [ loading, setLoading ]= useState(true);
 	useEffect(() => {
 		Promise.all([
-			changeLanguage(lng),
+			changeLanguage(lng, true),
 			(lng !== fallbackLng) && addTranslation(fallbackLng),
 		])
 		.catch(console.error)
@@ -51,7 +51,9 @@ export function useTranslation(){
 /**
  * @throws {Error} Import error (if translation file is not found)
  * */
-async function changeLanguage(lng: string) {
+async function changeLanguage(lng: string | null, force= false) {
+	if (!lng) lng= fallbackLng;
+	if (!force && lng === i18next.language) return;
 	await addTranslation(lng);
 	i18next.changeLanguage(lng);
 	localStorage.setItem(key, lng);

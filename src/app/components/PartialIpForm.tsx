@@ -1,9 +1,9 @@
-import { Input, Form } from "../index.css";
+import { Input, Form } from "./index.css";
 
 import { Button } from "@/components/buttons";
-import { usePartialIp } from "../core/usePartialIp";
+import { usePartialIp } from "./usePartialIp";
 import { toast } from "react-toastify";
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "@/core/translations";
 
 const lastIpName= "last-ip";
@@ -22,20 +22,17 @@ export function PartialIpForm({
 
 	useEffect(() => {
 		if(ipBeginningAuto.error){
-			toast.error("Atomatic IP detection failed");
+			toast.error("Atomatic IP detection failed", { toastId: lastIpName });
 			return;
 		}
 		if(!ip || !ipEnding) return;
 		onIp(ip);
 	}, [ip, ipEnding, onIp]);
-	const handleIpSubmit = useCallback(
-		function (e: FormEvent<HTMLFormElement>){
-			e.preventDefault();
-			const lastIpElement= ( e.target as HTMLFormElement ).elements.namedItem(lastIpName) as HTMLInputElement;
-			setIpEnding(lastIpElement.value);
-		},
-		[]
-	);
+	function handleIpSubmit(e: FormEvent<HTMLFormElement>){
+		e.preventDefault();
+		const lastIpElement= ( e.target as HTMLFormElement ).elements.namedItem(lastIpName) as HTMLInputElement;
+		setIpEnding(lastIpElement.value);
+	}
 	return (
 		<Form onSubmit={handleIpSubmit} aria-disabled={disabled}>
 			<Input

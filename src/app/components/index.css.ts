@@ -3,11 +3,15 @@ import { fontStep } from "@/ui/typography";
 import { color } from "@/ui/colors";
 import { cssOpacityFade } from "@/ui/animations";
 
-import { Main as MainBase } from "./ui/layout.css";
+import { Main as MainBase, isOneColumn } from "./layout.css";
 export const Main= styled(MainBase)`
 	display: flex;
-	flex-flow: row wrap;
+	flex-flow: row nowrap;
 	gap: 15%;
+
+	@media ${isOneColumn}{
+		flex-flow: column nowrap;
+	}
 `;
 const MainContent= css`
 	display: inline-flex;
@@ -32,7 +36,7 @@ export const MainIpHr= styled.span`
 export const Form= styled.form`
 	${MainContent}
 `;
-export { LayoutEntry } from "./ui/layout";
+export { LayoutEntry } from "./layout";
 
 import { Input as InputBase } from "@/components/form";
 export const Input= styled(InputBase)`

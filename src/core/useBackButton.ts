@@ -1,20 +1,20 @@
 import { useEffect } from "react";
-import { App as $ } from "@capacitor/app";
+import { App } from "@capacitor/app";
 import { Dialog } from "@capacitor/dialog";
 
 export function useBackButtonRegister(){
 	useEffect(function () {
-		$.addListener("backButton", async function () {
+		App.addListener("backButton", async function () {
 			if(history.state.idx) return history.back();
 			const { value }= await Dialog.confirm({
 				title: "Exit",
 				message: "Are you sure you want to exit the app?",
 			});
 			if(!value) return;
-			$.exitApp();
+			App.exitApp();
 		});
 		return function () {
-			$.removeAllListeners();
+			App.removeAllListeners();
 		};
 	}, []);
 }

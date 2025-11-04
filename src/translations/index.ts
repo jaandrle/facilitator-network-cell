@@ -2,7 +2,21 @@
 
 export const languages= {
 	"cs": "Čeština",
-	"en": "English "
+	"en": "English",
+	"cs1": "Čeština",
+	"en1": "English",
+	"cs2": "Čeština",
+	"en2": "English",
+	"cs3": "Čeština",
+	"en3": "English",
+	"cs4": "Čeština",
+	"en4": "English",
+	"cs5": "Čeština",
+	"en5": "English",
+	"cs6": "Čeština",
+	"en6": "English",
+	"cs7": "Čeština",
+	"en7": "English",
 } as const;
 
 export type Language= keyof typeof languages;

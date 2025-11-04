@@ -1,6 +1,7 @@
 import { defineConfig, createFilter, createLogger } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
 import { config } from "./bs/helpers/.config.js";
 import { updateLanguages } from "./bs/helpers/.languages.js";
@@ -8,6 +9,16 @@ import { updateLanguages } from "./bs/helpers/.languages.js";
 export default defineConfig({
 	define: { VITE: { config } },
 	plugins: [
+		tanstackRouter({
+			target: "react",
+			autoCodeSplitting: true,
+			routesDirectory: "./src/app",
+			routeFilePrefix: "app-",
+			routeFileIgnorePrefix: "",
+			generatedRouteTree: "./routeTree.gen.ts",
+			quoteStyle: "double",
+			semicolons: true,
+		}),
 		react(),
 		tsconfigPaths(),
 		{

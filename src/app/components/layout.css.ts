@@ -9,6 +9,8 @@ const headingSize= cssVariable("_heading-size", fontStep(2, "normal"));
 const widthLogo= cssVariable("_width-logo", `calc(${headingSize.var} + ${paddingPage.var})`);
 const widthLogoHalf= `calc(${widthLogo.var} / 2)`;
 
+export const isOneColumn= "(max-width: 800px) and (orientation: portrait)";
+
 export const Layout= styled(LayoutBase)`
 	${headingSize.def}
 	${widthLogo.def}
@@ -24,7 +26,7 @@ export const Layout= styled(LayoutBase)`
 		/
 		1fr ${widthLogo.var};
 
-	@media (max-width: 800px) {
+	@media ${isOneColumn} {
 		grid-template:
 			"logo"
 			"subheader"
@@ -54,7 +56,7 @@ export const SubHeader = styled.h2`
 `;
 export const Logo = styled.img`
 	grid-area: logo;
-	@media (max-width: 800px) {
+	@media ${isOneColumn} {
 		width: 25vmin;
 		justify-self: end;
 	}
@@ -62,7 +64,7 @@ export const Logo = styled.img`
 export const Main = styled.main`
 	grid-area: main;
 
-	@media (max-width: 800px) {
+	@media ${isOneColumn} {
 		margin-top: ${fontStep(0)};
 	}
 `;

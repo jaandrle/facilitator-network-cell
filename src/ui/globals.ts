@@ -9,6 +9,7 @@ import { variables as variablesAnimations, cssOpacityFade } from "./animations";
 export const GlobalStyle = css`
 	${cssFontFaces}
 	:root{
+		--app-scale: 1;
 		${variablesColors}
 		${variablesFontSizes}
 		${variablesSizes}
@@ -17,12 +18,14 @@ export const GlobalStyle = css`
 	html, body {
 		height: 100%;
 		min-height: 100%;
+		overflow: hidden;
 	}
 	body {
 		font-family: ${fontFamilyBase};
-		font-size: ${fontStep(0)};
+		font-size: calc(var(--app-scale) * ${fontStep(0)});
 		-webkit-tap-highlight-color: transparent;
 		interpolate-size: allow-keywords;
+		transform: scale(var(--app-scale));
 	}
 	#root { display: contents; }
 	/* category: typography */
