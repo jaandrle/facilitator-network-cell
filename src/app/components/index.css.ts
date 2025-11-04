@@ -3,7 +3,7 @@ import { fontStep } from "@/ui/typography";
 import { color } from "@/ui/colors";
 import { cssOpacityFade } from "@/ui/animations";
 
-import { Main as MainBase, isOneColumn } from "./layout.css";
+import { Main as MainBase, isOneColumn } from "../ui/layout.css";
 export const Main= styled(MainBase)`
 	display: flex;
 	flex-flow: row nowrap;

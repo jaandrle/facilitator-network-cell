@@ -1,4 +1,4 @@
-import { Layout, Header, SubHeader, Logo, Main, Footer } from "./layout.css";
+import { Layout, Header, SubHeader, Logo, Main, Footer } from "../ui/layout.css";
 
 import { ReactElement, useLayoutEffect, useState } from "react";
 import logoSrc from "@/assets/cis-logo.png";

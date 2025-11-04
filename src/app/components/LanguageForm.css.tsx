@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { cssFont, fontStep } from "@/ui/typography";
 import { color } from "@/ui/colors";
 import { borderRadius } from "@/ui/sizes";
-import { isOneColumn } from "./layout.css";
-
+import { isOneColumn } from "../ui/layout.css";
 export const Form= styled.div`
 	flex: 2;
 `;
