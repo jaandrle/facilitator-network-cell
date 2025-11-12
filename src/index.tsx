@@ -1,21 +1,21 @@
-const el= (tag: string, idl: Record<string, string>)=>
-	Object.assign(document.createElement(tag), idl);
+const el = (tag: string, idl: Record<string, string>) => Object.assign(document.createElement(tag), idl);
 document.head.append(
 	el("title", { textContent: VITE.config.appName }),
 	el("meta", { name: "theme-color", content: VITE.config.appColor }),
 );
 
-import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GlobalStyle } from "./ui/globals";
-import { RouterProvider, createRouter, createHashHistory } from "@tanstack/react-router";
+import { createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
+import { GlobalStyle } from "./ui/globals";
 
 const history = createHashHistory();
 const router = createRouter({
-	routeTree, history,
+	routeTree,
+	history,
 	defaultPreload: "intent",
 	defaultViewTransition: true,
 });
@@ -41,5 +41,5 @@ createRoot(document.getElementById("root") as HTMLElement).render(
 			pauseOnHover
 			theme="dark"
 		/>
-	</StrictMode>
+	</StrictMode>,
 );

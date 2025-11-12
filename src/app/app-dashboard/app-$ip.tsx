@@ -1,11 +1,9 @@
-
-import { Layout as LayoutRaw } from "@/ui/layout";
 import { createFileRoute } from "@tanstack/react-router";
-import { useAPI } from "@/api";
-import { ReadyState, ApiState } from "@/api";
 import { useEffect } from "react";
-import { useTranslation } from "@/core/translations";
+import { type ApiState, ReadyState, useAPI } from "@/api";
 import { Button } from "@/components/buttons";
+import { useTranslation } from "@/core/translations";
+import { Layout as LayoutRaw } from "@/ui/layout";
 
 export const Route = createFileRoute("/dashboard/$ip")({
 	component: Page,
@@ -18,7 +16,7 @@ function useLaguageEffect(api: ApiState) {
 		if (languageWS.readyState !== ReadyState.DATA) return;
 
 		changeLanguage(languageWS.data);
-	}, [languageWS]);
+	}, [languageWS, changeLanguage]);
 	if (languageWS.readyState !== ReadyState.DATA) languageWS.send();
 }
 

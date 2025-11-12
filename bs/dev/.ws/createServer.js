@@ -4,16 +4,16 @@ import { createServer as createServerNode } from "node:net";
  * @prop {number} opcode
  * @prop {string} payload
  * */
-export class Request{
-	static TEXT= 1;
-	static CLOSE= 8;
-	constructor(buffer){
+export class Request {
+	static TEXT = 1;
+	static CLOSE = 8;
+	constructor(buffer) {
 		const firstByte = buffer[0];
 		this.opcode = firstByte & 0x0f; // Opcode (e.g., text frame, binary frame, etc.)
 
-		if(this.opcode!==1) return this;
+		if (this.opcode !== 1) return this;
 
-		this.payload= decodeWebSocketFrame(buffer);
+		this.payload = decodeWebSocketFrame(buffer);
 		return this;
 	}
 }
@@ -34,15 +34,14 @@ export class Request{
  *
  * @param {(socket: import("node:net").Socket)=> void} onClinet
  * */
-export function createServer(onClinet){
+export function createServer(onClinet) {
 	return createServerNode((socket) => {
 		onClinet(socket);
 		socket.on("data", async (data) => {
-			const request= data.toString();
+			const request = data.toString();
 
-			const keyMatch= request.match(/Sec-WebSocket-Key: (.+)/);
-			if(!keyMatch || !keyMatch[1])
-				return socket.emit("message", new Request(data));
+			const keyMatch = request.match(/Sec-WebSocket-Key: (.+)/);
+			if (!keyMatch || !keyMatch[1]) return socket.emit("message", new Request(data));
 
 			// Handshake
 			const secWebSocketKey = keyMatch[1].trim();
@@ -59,14 +58,16 @@ export function createServer(onClinet){
 
 			socket.write(responseHeaders);
 		});
-		socket.on("response", message=> {
+		socket.on("response", (message) => {
 			message = typeof message === "string" ? message : JSON.stringify(message);
 			const frame = Buffer.from([0x81, message.length, ...Buffer.from(message)]);
 			socket.write(frame);
-		})
+		});
 	});
 }
+
 import { createHash } from "node:crypto";
+
 async function generateAcceptValue(secWebSocketKey) {
 	const MAGIC_STRING = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 

@@ -1,26 +1,26 @@
 import styled from "styled-components";
-import { cssFont, fontStep } from "@/ui/typography";
+import { inputPadding } from "@/components/form";
 import { color } from "@/ui/colors";
 import { borderRadius } from "@/ui/sizes";
+import { cssFont } from "@/ui/typography";
 import { isOneColumn } from "../ui/layout.css";
-export const Form= styled.div`
+export const Form = styled.div`
 	flex: 2;
 `;
-export const Label= styled.label`
+export const Label = styled.label`
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
-	padding: 0 ${fontStep(-1, "xsmall")};
-	width: 100%;
+	${inputPadding}
 	${cssFont.bold}
 	color: ${color("black")};
 	background-color: ${color("white")};
 	border-radius: ${borderRadius.var};
 	position: relative;
 `;
-export const Select= styled.div`
+export const Select = styled.div`
 	${cssFont.regular}
-	padding: .5em 1.5em .5em .25em;
+	padding: .359rem 1.5em .359rem .25em;
 	cursor: pointer;
 	position: relative;
 
@@ -40,7 +40,7 @@ export const Select= styled.div`
 		background: url(assets/icon/fa-angle-down.svg) no-repeat;
 	}
 `;
-export const Options= styled.ul`
+export const Options = styled.ul`
 	position: absolute;
 	left: 0;
 	top: 100%;

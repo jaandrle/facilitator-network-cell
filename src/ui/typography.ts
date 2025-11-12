@@ -9,11 +9,11 @@ import Delivery_W_Lt from "@/assets/fonts/Delivery_W_Lt.woff2";
 import Delivery_W_LtIt from "@/assets/fonts/Delivery_W_LtIt.woff2";
 import Delivery_W_Rg from "@/assets/fonts/Delivery_W_Rg.woff2";
 
-export const fontFamilyBase= 'Delivery, "Hind", sans-serif';
-export const fontFamilyHeadings= 'Delivery, "Hind", sans-serif';
-export const fontFamilyQuotes= '"Playfair Display", sans-serif';
+export const fontFamilyBase = 'Delivery, "Hind", sans-serif';
+export const fontFamilyHeadings = 'Delivery, "Hind", sans-serif';
+export const fontFamilyQuotes = '"Playfair Display", sans-serif';
 
-export const cssFont= {
+export const cssFont = {
 	regular: css`
 		font-weight: 400;
 		font-stretch: normal;
@@ -55,21 +55,23 @@ export const cssFont= {
 		font-style: normal;
 	`,
 } as const;
-const fontStepSizes= {
+const fontStepSizes = {
 	xsmall: ".1rem",
 	small: ".25rem",
 	normal: ".75rem",
 	large: "1rem",
 } as const;
-type FontStepSizes= typeof fontStepSizes;
-type FontSteps= -2 | -1 | 0 | 1 | 2;
+type FontStepSizes = typeof fontStepSizes;
+type FontSteps = -2 | -1 | 0 | 1 | 2;
 /**
  * 1rem +/- {@link FontSteps} * {@link fontStepSizes}
  * */
-export function fontStep(n: FontSteps, size: keyof FontStepSizes= "small"): string {
+export function fontStep(n: FontSteps, size: keyof FontStepSizes = "small"): string {
 	return `calc(var(--app-scale) * (1rem + var(--font-step-${size}) * ${n}))`;
 }
-export const variablesFontSizes= Object.entries(fontStepSizes).map(([k, v])=>`--font-step-${k}: ${v};`).join("\n");
+export const variablesFontSizes = Object.entries(fontStepSizes)
+	.map(([k, v]) => `--font-step-${k}: ${v};`)
+	.join("\n");
 
 export const cssFontFaces = css`
 	@font-face {
@@ -120,4 +122,4 @@ export const cssFontFaces = css`
 		font-display: block;
 		src: url(${Delivery_W_LtIt}) format('woff2');
 	}
-`
+`;

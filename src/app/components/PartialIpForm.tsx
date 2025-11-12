@@ -1,36 +1,30 @@
-import { Input, Form } from "./index.css";
-
-import { Button } from "@/components/buttons";
-import { usePartialIp } from "./usePartialIp";
+import { type FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { FormEvent, useEffect, useState } from "react";
+import { Button } from "@/components/buttons";
 import { useTranslation } from "@/core/translations";
+import { Form, Input } from "./index.css";
+import { usePartialIp } from "./usePartialIp";
 
-const lastIpName= "last-ip";
+const lastIpName = "last-ip";
 
-export function PartialIpForm({
-	onIp, isLoading
-}: {
-	onIp: (ip: string) => void;
-	isLoading?: boolean
-}){
-	const { t }= useTranslation();
-	const [ ipEnding, setIpEnding ] = useState("");
+export function PartialIpForm({ onIp, isLoading }: { onIp: (ip: string) => void; isLoading?: boolean }) {
+	const { t } = useTranslation();
+	const [ipEnding, setIpEnding] = useState("");
 	const ipBeginningAuto = usePartialIp();
 	const disabled = ipBeginningAuto.error || isLoading;
-	const ip= ipBeginningAuto.loading ? "" : ipBeginningAuto.value + ipEnding;
+	const ip = ipBeginningAuto.loading ? "" : ipBeginningAuto.value + ipEnding;
 
 	useEffect(() => {
-		if(ipBeginningAuto.error){
+		if (ipBeginningAuto.error) {
 			toast.error("Atomatic IP detection failed", { toastId: lastIpName });
 			return;
 		}
-		if(!ip || !ipEnding) return;
+		if (!ip || !ipEnding) return;
 		onIp(ip);
-	}, [ip, ipEnding, onIp]);
-	function handleIpSubmit(e: FormEvent<HTMLFormElement>){
+	}, [ip, ipEnding, onIp, ipBeginningAuto.error]);
+	function handleIpSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		const lastIpElement= ( e.target as HTMLFormElement ).elements.namedItem(lastIpName) as HTMLInputElement;
+		const lastIpElement = (e.target as HTMLFormElement).elements.namedItem(lastIpName) as HTMLInputElement;
 		setIpEnding(lastIpElement.value);
 	}
 	return (
@@ -46,6 +40,6 @@ export function PartialIpForm({
 			/>
 			<Button type="submit" disabled={disabled}>{t`homeConnect`}</Button>
 		</Form>
-	)
+	);
 }
 export default PartialIpForm;

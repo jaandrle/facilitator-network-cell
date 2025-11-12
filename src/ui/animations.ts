@@ -3,7 +3,7 @@ import {cssVariable} from "@/core/cssVariable";
 */
 import { css } from "styled-components";
 
-export const cssOpacityFade= css`
+export const cssOpacityFade = css`
 	transition: opacity .5s ease-in-out;
 	opacity: 0.5;
 `;
@@ -29,7 +29,7 @@ transition: opacity .5s ease-in-out;
 `;
 */
 
-export const variables= [
+export const variables = [
 	/*
 	animationBlinking.def,
 	blinkingKeyframes,

@@ -1,15 +1,15 @@
 #!/usr/bin/env -S npx nodejsscript
 import { describeFromReadme } from "../.common.js";
-import { buildVite } from "./vite.js";
 import { buildCapacitor } from "./capacitor.js";
+import { buildVite } from "./vite.js";
 
 $.api("", true)
-.describe(describeFromReadme())
-.option("--lint", "Force lint before build", false)
-.action(async function main({ lint }){
-	$.is_verbose= true;
-	buildVite({ lint });
-	await buildCapacitor($.slice(1));
-	$.exit(0);
-})
-.parse();
+	.describe(describeFromReadme())
+	.option("--lint", "Force lint before build", false)
+	.action(async function main({ lint }) {
+		$.is_verbose = true;
+		buildVite({ lint });
+		await buildCapacitor($.slice(1));
+		$.exit(0);
+	})
+	.parse();

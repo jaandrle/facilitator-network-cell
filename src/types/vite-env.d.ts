@@ -1,13 +1,14 @@
 /// <reference types="vite/client" />
-import { config } from "../../bs/helpers/.config";
+import type { config } from "../../bs/helpers/.config";
+
 declare global {
 	declare const VITE: {
 		readonly config: typeof config;
 	};
 }
-interface ImportMetaEnv {
-}
+// biome-ignore lint/complexity/noBannedTypes: TBD
+type ImportMetaEnv = {};
 
-interface ImportMeta {
+export interface ImportMeta {
 	readonly env: ImportMetaEnv;
 }

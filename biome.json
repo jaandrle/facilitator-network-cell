@@ -1,0 +1,42 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"indentStyle": "tab",
+		"lineWidth": 120
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noConstructorReturn": "off"
+			}
+		}
+	},
+	"files": {
+		"includes": ["**/src/**/*.ts", "**/src/**/*.tsx", "**/bs/**/*.js", "!**/src/routeTree.gen.ts"]
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.json"],
+			"formatter": {
+				"lineWidth": null
+			}
+		},
+		{
+			"includes": ["**/*.yml"],
+			"formatter": {
+				"indentStyle": "space",
+				"indentWidth": 2
+			}
+		}
+	]
+}

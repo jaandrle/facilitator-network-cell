@@ -1,11 +1,11 @@
-import { styled, css } from "styled-components";
+import { css, styled } from "styled-components";
 import { cssVariable } from "@/core/cssVariable";
 
 import { color } from "@/ui/colors";
 import { cssFont, fontStep } from "@/ui/typography";
 
-const shadowTopLeft= cssVariable("shadow-top-left", fontStep(-2, "small"));
-const common= css`
+const shadowTopLeft = cssVariable("shadow-top-left", fontStep(-2, "small"));
+const common = css`
 	cursor: pointer;
 	white-space: nowrap;
 	vertical-align: middle;
@@ -27,6 +27,7 @@ const common= css`
 	&:hover { background-color: ${color("secondary", 40)}; }
 	&:active { background-color: ${color("secondary", 60)}; }
 `;
+
 import { Link as LinkPure } from "@tanstack/react-router";
 export const Link = styled(LinkPure)`
 	display: inline-block;

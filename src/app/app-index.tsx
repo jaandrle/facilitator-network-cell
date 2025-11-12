@@ -1,15 +1,13 @@
-
-import { useTranslation } from "@/core/translations";
-import { Main, MainIpHr, MainIp } from "./components/index.css";
-
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
-import { Button } from "@/components/buttons";
-import { PartialIpForm } from "./components/PartialIpForm";
-import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { toast } from "react-toastify";
+import { Button } from "@/components/buttons";
+import { useTranslation } from "@/core/translations";
+import { Main, MainIp, MainIpHr } from "./components/index.css";
 import { LanguageForm } from "./components/LanguageForm";
 import { LayoutEntry } from "./components/layout";
+import { PartialIpForm } from "./components/PartialIpForm";
 
 export const Route = createFileRoute("/")({
 	component: Page,
@@ -26,7 +24,7 @@ export function Page() {
 			navigate({ to: "/dashboard/$ip", params: { ip } });
 		} catch (error) {
 			setIsLoading(false);
-			if (!(error instanceof Error)) return toast.error("Unknown error: " + error);
+			if (!(error instanceof Error)) return toast.error(`Unknown error: ${error}`);
 			toast.error(error.message);
 		}
 	}
@@ -42,7 +40,7 @@ export function Page() {
 			handleIp(ScanResult);
 		} catch (error) {
 			setIsLoading(false);
-			if (!(error instanceof Error)) return toast.error("Unknown error: " + error);
+			if (!(error instanceof Error)) return toast.error(`Unknown error: ${error}`);
 			if (error.message.includes("cancelled")) return;
 			toast.error(error.message);
 		}

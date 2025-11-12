@@ -27,7 +27,10 @@ Prepares the capacitor configuration and builds the android package.
 must use additional arguments (see `npx cap build --help`).**
 
 #### bs/dev/lint.js
-Linting files (TypeScript using `tsc` and `.editorconfig`).
+Linting files.
+
+#### bs/dev/biome.js
+[Getting Started | Biome](https://biomejs.dev/guides/getting-started/).
 
 #### bs/dev/ws.js
 This mocks a WebSocket server for local development.

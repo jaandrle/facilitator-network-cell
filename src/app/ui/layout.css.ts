@@ -1,17 +1,17 @@
-import { Layout as LayoutBase } from "@/ui/layout";
 import styled, { css } from "styled-components";
-import { color } from "@/ui/colors";
-import { cssFont, fontStep } from "@/ui/typography";
 import { cssVariable } from "@/core/cssVariable";
+import { color } from "@/ui/colors";
+import { Layout as LayoutBase } from "@/ui/layout";
 import { paddingPage } from "@/ui/sizes";
+import { cssFont, fontStep } from "@/ui/typography";
 
-const headingSize= cssVariable("_heading-size", fontStep(2, "normal"));
-const widthLogo= cssVariable("_width-logo", `calc(${headingSize.var} + ${paddingPage.var})`);
-const widthLogoHalf= `calc(${widthLogo.var} / 2)`;
+const headingSize = cssVariable("_heading-size", fontStep(2, "normal"));
+const widthLogo = cssVariable("_width-logo", `calc(${headingSize.var} + ${paddingPage.var})`);
+const widthLogoHalf = `calc(${widthLogo.var} / 2)`;
 
-export const isOneColumn= "(max-width: 800px) and (orientation: portrait)";
+export const isOneColumn = "(max-width: 800px) and (orientation: portrait)";
 
-export const Layout= styled(LayoutBase)`
+export const Layout = styled(LayoutBase)`
 	${headingSize.def}
 	${widthLogo.def}
 	display: grid;
@@ -36,7 +36,7 @@ export const Layout= styled(LayoutBase)`
 			;
 	}
 `;
-const Headers= css`
+const Headers = css`
 	text-transform: uppercase;
 	color: ${color("primary")};
 	font-size: ${headingSize.var};

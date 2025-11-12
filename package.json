@@ -18,6 +18,9 @@
 		"network-cell"
 	],
 	"scripts": {
+		"start": "echo '\\033[33mUse `bs` (see `bs/README.md`) instead of `npm run start`\\033[0m' && bs/localhost.js",
+		"build": "echo '\\033[33mUse `bs` (see `bs/README.md`) instead of `npm run build`\\033[0m' && bs/build/all.js",
+		"lint": "echo '\\033[33mUse `bs` (see `bs/README.md`) instead of `npm run lint`\\033[0m' && bs/dev/lint.js",
 		"prepare": "bs/npm/prepare.js"
 	},
 	"dependencies": {
@@ -42,13 +45,13 @@
 		"styled-components": "~6.1"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "2.3.4",
 		"@capacitor/cli": "~7.4",
 		"@tanstack/router-plugin": "~1.133",
 		"@types/react": "~19.2",
 		"@types/react-dom": "~19.2",
 		"@vitejs/plugin-react": "~5.1",
 		"capacitor-set-version": "~2.2",
-		"editorconfig-checker": "~6.1",
 		"nodejsscript": "~1",
 		"typescript": "~5.9",
 		"vite": "~7.1",

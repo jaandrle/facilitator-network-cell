@@ -1,12 +1,13 @@
 import "../../node_modules/cssremedy/css/remedy.css";
 import "../../node_modules/cssremedy/css/quotes.css";
 import { createGlobalStyle as css } from "styled-components";
-import { cssFontFaces, fontFamilyBase, fontFamilyHeadings, fontStep, variablesFontSizes } from "./typography";
+import { cssOpacityFade, variables as variablesAnimations } from "./animations";
 import { variables as variablesColors } from "./colors";
 import { variables as variablesSizes } from "./sizes";
-import { variables as variablesAnimations, cssOpacityFade } from "./animations";
+import { cssFontFaces, fontFamilyBase, fontFamilyHeadings, fontStep, variablesFontSizes } from "./typography";
 
 export const GlobalStyle = css`
+	*, ::before, ::after { box-sizing: unset; }
 	${cssFontFaces}
 	:root{
 		--app-scale: 1;
