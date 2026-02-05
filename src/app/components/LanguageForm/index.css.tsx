@@ -3,14 +3,13 @@ import { inputPadding } from "@/components/form";
 import { color } from "@/ui/colors";
 import { borderRadius } from "@/ui/sizes";
 import { cssFont } from "@/ui/typography";
-import { isOneColumn } from "../ui/layout.css";
 export const Form = styled.div`
 	flex: 2;
 `;
 export const Label = styled.label`
 	display: flex;
-	flex-flow: row nowrap;
-	align-items: center;
+	flex-flow: column nowrap;
+	align-items: start;
 	${inputPadding}
 	${cssFont.bold}
 	color: ${color("black")};
@@ -20,7 +19,7 @@ export const Label = styled.label`
 `;
 export const Select = styled.div`
 	${cssFont.regular}
-	padding: .359rem 1.5em .359rem .25em;
+	padding: .359rem 1.5em .359rem 0;
 	cursor: pointer;
 	position: relative;
 
@@ -59,11 +58,6 @@ export const Options = styled.ul`
 
 	[aria-expanded="false"] + &{
 		height: 0;
-	}
-	@media ${isOneColumn}{
-		top: unset;
-		bottom: 100%;
-		max-height: 50vmin;
 	}
 
 	li {

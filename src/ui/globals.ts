@@ -10,7 +10,7 @@ export const GlobalStyle = css`
 	*, ::before, ::after { box-sizing: unset; }
 	${cssFontFaces}
 	:root{
-		--app-scale: 1;
+		--js-app-scale: 1;
 		${variablesColors}
 		${variablesFontSizes}
 		${variablesSizes}
@@ -23,10 +23,11 @@ export const GlobalStyle = css`
 	}
 	body {
 		font-family: ${fontFamilyBase};
-		font-size: calc(var(--app-scale) * ${fontStep(0)});
+		font-size: ${fontStep(0)};
 		-webkit-tap-highlight-color: transparent;
 		interpolate-size: allow-keywords;
-		transform: scale(var(--app-scale));
+		transform: scale(var(--js-app-scale));
+		transform-origin: 0 0;
 	}
 	#root { display: contents; }
 	/* category: typography */

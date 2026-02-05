@@ -5,7 +5,6 @@ import { fontStep } from "./typography";
 
 const padding = cssVariable("_padding", fontStep(1, "large"));
 const bgBase = cssVariable("_bg-base", `url(${url_bg}) center / cover no-repeat`);
-const width = cssVariable("_w", `calc(100% - ${padding.var} * 2)`);
 
 export type LayoutProps = {
 	"data-variant"?: "entry";
@@ -36,12 +35,5 @@ export const Layout = styled.div<LayoutProps>`
 		[dir=rtl] &{
 			transform: scaleX(-1);
 		}
-	}
-	&[data-variant="${"entry" as LayoutProps["data-variant"]}"]::before {
-		${width.def}
-		background:
-			linear-gradient(-180deg, rgba(255, 204, 0, 0.7) 12%, rgba(255, 204, 0, 0) 100%)
-				${padding.var} ${padding.var} / ${width.var} ${width.var} no-repeat,
-			${bgBase.var};
 	}
 `;

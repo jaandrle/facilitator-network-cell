@@ -38,9 +38,9 @@ export const variables = [
  * color("primary", 40); //=> hsl(var(--hsl-primary) var(--l-40))
  * ```
  * */
-export function color(hs: HS, l: Lightness): string;
-export function color(hs: HSL): string;
-export function color(hs: HS | HSL, l?: Lightness): string {
+export function color<lHS extends HS, lL extends Lightness>(hs: lHS, l: lL): `hsl(var(--hs-${lHS}) var(--l-${lL}))`;
+export function color<lHSL extends HSL>(hs: lHSL): `hsl(var(--hsl-${lHSL}))`;
+export function color(hs: HS | HSL, l?: Lightness) {
 	if (l) return `hsl(var(--hs-${hs}) var(--l-${l}))`;
 	return `hsl(var(--hsl-${hs}))`;
 }

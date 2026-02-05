@@ -3,10 +3,16 @@ import { useLayoutEffect, useMemo, useState } from "react";
 
 export function useNetworkInfo() {
 	const [error, setError] = useState<boolean>(false);
-	const [value, setValue] = useState<{ ip: string; subnet: string } | null>(null);
+	const [value, setValue] = useState<{ ip: string; subnet?: string } | null>(null);
 	useLayoutEffect(() => {
 		NetworkInterface.getWiFiIPAddress()
 			.then(setValue)
+			.catch(() => {
+				if(VITE.RUN_MODE!=="localhost")
+					return setError(true);
+				const ip = VITE.IP_ADDRESSES_MANUAL ?? VITE.IP_ADDRESSES_AUTO;
+				setValue({ ip });
+			})
 			.catch(() => setError(true));
 	}, []);
 	return useMemo(

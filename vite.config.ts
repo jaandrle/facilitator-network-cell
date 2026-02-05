@@ -1,4 +1,6 @@
-import { defineConfig, createFilter, createLogger } from "vite";
+/// <reference types="vite/client" />
+
+import { defineConfig, createFilter, createLogger, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
@@ -6,8 +8,12 @@ import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { config } from "./bs/helpers/.config.js";
 import { updateLanguages } from "./bs/helpers/.languages.js";
 
+const fromEnv = Object.fromEntries(
+	Object.entries(loadEnv("development", process.cwd(), "VITE_"))
+		.map(([k, v]) => [k.slice(5), v])
+);
 export default defineConfig({
-	define: { VITE: { config } },
+	define: { VITE: { config, ...fromEnv } },
 	plugins: [
 		tanstackRouter({
 			target: "react",
@@ -40,5 +46,9 @@ export default defineConfig({
 		outDir: "../dist",
 		minify: false,
 		emptyOutDir: true,
+	},
+	server: {
+		headers: {
+		},
 	},
 });

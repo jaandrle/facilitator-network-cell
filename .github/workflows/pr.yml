@@ -17,4 +17,6 @@ jobs:
         with:
           node-version: 22.17
       - run: npm ci
+        env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
       - run: bs/dev/lint.js

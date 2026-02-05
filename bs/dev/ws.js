@@ -17,53 +17,82 @@ const wsEcho = (msg, ...msgs) => echo(`%c${msg}`, css.ws, ...msgs);
 if ($.isMain(import.meta))
 	$.api("", true)
 		.describe(describeFromReadme())
-		.action(function main() {
-			mockWebSocket();
-			//$.exit(0);
+		.action(async function main() {
+			await mockWebSocket();
+			$.exit(0);
 		})
 		.parse();
 
 import { config } from "../helpers/.config.js";
-import { createServer, Request } from "./.ws/createServer.js";
 
-const actions_path = "./.ws/responses/";
+const actions_path = "./.ws-responses/";
 const actions_files = s.ls(path(actions_path));
 const actions = actions_files.map((file) => file.slice(0, file.lastIndexOf(".")));
 
 export function mockWebSocket() {
-	const server = createServer(function onClient(socket) {
-		socket.on("message", (/** @type {Request} */ request) => {
-			let actionId = -1,
-				message;
-			try {
-				if (request.opcode === Request.CLOSE) return wsEcho("Client closed connection");
-				if (request.opcode !== Request.TEXT) return wsEcho("Unsupported opcode:", request.opcode);
-				message = JSON.parse(request.payload);
-				actionId = actions.indexOf(message.action);
-				if (actionId === -1) throw new Error();
-			} catch (_e) {
-				return wsEcho("Failed to decode message:", message);
-			}
-			wsEcho("Received data from client:", message);
-			const action_file = actions_files[actionId];
-			const response = s.cat(path`${actions_path}${action_file}`).xargs(JSON.parse);
-			wsEcho("Sending data to client:", action_file);
-			socket.emit("response", response);
+	return Promise.all([ mockWebSocketIo(), mockWebSocketPing() ]);
+}
+import { Server } from "socket.io";
+export function mockWebSocketIo() {
+	return new Promise((resolve, reject) => {
+		const port = config.wsPort;
+		const io = new Server(port, {
+			cors: {
+				origin: [
+					"http://localhost:5173",
+					"http://localhost/",
+				],
+				methods: ["GET", "POST"],
+				credentials: true,
+			},
 		});
+		io.on("connection", function onClient(socket) {
+			wsEcho(`${mockWebSocketIo.name} on port ${port}`);
+			for(let i = 0; i < actions_files.length; i++) {
+				socket.on(actions[i], (data, callback) => {
+					wsEcho("Received data from client:", data);
+					const action_file = actions_files[i];
+					const response = s.cat(path`${actions_path}${action_file}`).xargs(JSON.parse);
+					wsEcho("Sending data to client:", action_file);
+					callback(response);
+				});
+			}
 
-		wsEcho("New client", socket.address());
-		socket.on("error", wsEcho.bind(null, "Error:"));
-		socket.on("close", wsEcho.bind(null, "Close:"));
+			socket.on("error", wsEcho.bind(null, "Error:"));
+			socket.on("close", wsEcho.bind(null, "Close:"));
+		});
+		io.on("close", ()=> {
+			wsEcho("Server Closed");
+			resolve();
+		});
+		io.on("error", (err)=> {
+			wsEcho("Server Error:", err);
+			reject();
+		});
 	});
-
-	const port = config.wsPort;
-	server.listen(
-		{ port, host: "0.0.0.0", reuseAddress: true },
-		wsEcho.bind(null, `${mockWebSocket.name} on port ${port}`),
-	);
-	server.on("close", wsEcho.bind(null, "Server Closed"));
-	server.on("error", (err) => {
-		if (err.code === "EADDRINUSE") return wsEcho(err.message);
-		wsEcho("Server Error:", err);
+}
+import { createServer } from "node:http";
+import { WebSocketServer } from "ws";
+/** Used to find server port-1. */
+export function mockWebSocketPing() {
+	return new Promise((resolve, reject) => {
+		const server = createServer();
+		new WebSocketServer({ server });
+		const port = config.wsPort - 1;
+		server.listen(
+			{ port, host: "0.0.0.0", reuseAddress: true },
+			wsEcho.bind(null, `${mockWebSocketPing.name} on port ${port}`),
+		);
+		server.on("close", ()=> {
+			wsEcho(`${mockWebSocketPing.name} Closed`);
+			resolve();
+		});
+		server.on("error", (err) => {
+			wsEcho(
+				`${mockWebSocketPing.name} Error`,
+				err.code === "EADDRINUSE" ? err.message : err
+			);
+			reject(err);
+		});
 	});
 }

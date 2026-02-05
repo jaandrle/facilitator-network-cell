@@ -17,6 +17,8 @@ jobs:
         with:
           node-version: 22.17
       - run: npm ci
+        env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
       - run: ./bs/dev/biome.js Formatting --fix
       - name: Commit formatted files
         uses: stefanzweifel/git-auto-commit-action@28e16e81777b558cc906c8750092100bbb34c5e3 # v7.0.0

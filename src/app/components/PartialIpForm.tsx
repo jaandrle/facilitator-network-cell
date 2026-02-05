@@ -1,13 +1,22 @@
 import { type FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Button } from "@/components/buttons";
 import { useTranslation } from "@/core/translations";
-import { Form, Input } from "./index.css";
-import { usePartialIp } from "./usePartialIp";
+import { usePartialIp } from "../core/usePartialIp";
+import { Form, Input } from "../index.css";
 
 const lastIpName = "last-ip";
 
-export function PartialIpForm({ onIp, isLoading }: { onIp: (ip: string) => void; isLoading?: boolean }) {
+export function PartialIpForm({
+	id,
+	onIp,
+	onInput,
+	isLoading,
+}: {
+	id?: string;
+	onIp: (ip: string) => void;
+	onInput?: () => void;
+	isLoading?: boolean;
+}) {
 	const { t } = useTranslation();
 	const [ipEnding, setIpEnding] = useState("");
 	const ipBeginningAuto = usePartialIp();
@@ -28,17 +37,17 @@ export function PartialIpForm({ onIp, isLoading }: { onIp: (ip: string) => void;
 		setIpEnding(lastIpElement.value);
 	}
 	return (
-		<Form onSubmit={handleIpSubmit} aria-disabled={disabled}>
+		<Form id={id} onSubmit={handleIpSubmit} aria-disabled={disabled}>
 			<Input
 				name={lastIpName}
 				type="text"
 				pattern="[0-9]{1,3}"
 				inputMode="numeric"
 				placeholder={t`homeCodePlaceholder`}
+				onKeyDown={onInput}
 				required
 				disabled={disabled}
 			/>
-			<Button type="submit" disabled={disabled}>{t`homeConnect`}</Button>
 		</Form>
 	);
 }

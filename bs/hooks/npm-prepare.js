@@ -4,7 +4,7 @@ import { describeFromReadme } from "../.common.js";
 $.api("", true)
 	.describe(describeFromReadme())
 	.action(function main() {
-		const path_gh = "bs/git-hooks";
+		const path_gh = "bs/hooks/git-post-merge";
 		const current = s.$("-fS").run`git config core.hooksPath`;
 		if (current.code) {
 			s.$("-V").run`git config core.hooksPath ${path_gh}`;

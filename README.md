@@ -14,6 +14,9 @@ Contact:
 
 1. `git clone git@github.com:IndigoMultimediaTeam/facilitator-network-cell.git`
 1. `cd facilitator-network-cell`
+1. Login to Github packages:
+	1. Personal access token with `read:packages` scope. (can be created on Github > Settings > Developer settings > Personal access tokens)
+	1. `npm login --registry=https://npm.pkg.github.com/ --scope=@indigomultimediateam` (use the token)
 1. `npm ci`
 1. [Project overview](./#-project-overview)
 

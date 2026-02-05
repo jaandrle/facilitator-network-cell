@@ -1,8 +1,7 @@
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
-import { useTranslationInit } from "@/core/translations";
-import { useBackButtonRegister } from "@/core/useBackButton";
+import { useBackButtonRegister, useTranslationInit } from "@/core/";
 import { isScaled } from "@/ui/sizes";
 
 export const Route = createRootRoute({
@@ -25,10 +24,10 @@ function Root() {
 	}, [loading]);
 	useEffect(() => {
 		const listener = () => {
-			document.body.style.removeProperty("--app-scale");
+			document.body.style.removeProperty("--js-app-scale");
 			if (!matchMedia(isScaled).matches) return;
 			const { clientHeight } = document.documentElement;
-			document.body.style.setProperty("--app-scale", `${clientHeight / 500}`);
+			document.body.style.setProperty("--js-app-scale", `${clientHeight / 500}`);
 		};
 		listener();
 		window.addEventListener("resize", listener);
@@ -43,3 +42,4 @@ function Root() {
 		</>
 	);
 }
+

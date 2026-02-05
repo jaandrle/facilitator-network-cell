@@ -1,6 +1,7 @@
 #!/usr/bin/env -S npx nodejsscript
 import { describeFromReadme } from "./.common.js";
 import { mockWebSocket } from "./dev/ws.js";
+import { updateEnv } from "./helpers/.env.js";
 
 const wsOption = "--ws";
 $.api("", true)
@@ -9,6 +10,7 @@ $.api("", true)
 	.action(async function main({ ws = false } = {}) {
 		if (ws) mockWebSocket();
 
+		updateEnv("localhost");
 		const options = $.slice(1).filter((p) => p !== wsOption);
 		await s.runA`npx vite ${options}`;
 		$.exit(0);

@@ -1,42 +1,44 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { type ApiState, ReadyState, useAPI } from "@/api";
-import { Button } from "@/components/buttons";
-import { useTranslation } from "@/core/translations";
+import { type IPAddress, useAPI } from "@/api";
+import { Button } from "@/components/";
+import { useTranslation } from "@/core/";
 import { Layout as LayoutRaw } from "@/ui/layout";
 
 export const Route = createFileRoute("/dashboard/$ip")({
 	component: Page,
 });
 
-function useLaguageEffect(api: ApiState) {
-	const languageWS = api.language;
+function useLaguageEffect(ip: IPAddress) {
+	const { useEmit } = useAPI(ip);
+	const lang = useEmit("server.getLang");
 	const { changeLanguage } = useTranslation();
 	useEffect(() => {
-		if (languageWS.readyState !== ReadyState.DATA) return;
+		if (lang.response !== null && lang.state !== "pending") return;
+		if (lang.state === "error") return; // TODO?
 
-		changeLanguage(languageWS.data);
-	}, [languageWS, changeLanguage]);
-	if (languageWS.readyState !== ReadyState.DATA) languageWS.send();
+		changeLanguage(lang.response);
+	}, [lang, changeLanguage]);
+	return lang;
 }
 
 export function Page() {
 	const { ip } = Route.useParams();
-	const api = useAPI(ip);
-	const isConnected = api.readyState === WebSocket.OPEN;
-
-	useLaguageEffect(api);
-
 	const { t } = useTranslation();
-	const { presentation } = api;
-
-	if (presentation.readyState === ReadyState.DATA) console.log(presentation.data);
+	const { state, useEmit } = useAPI(ip);
+	const isConnected = state === "connected";
+	const lang = useLaguageEffect(ip);
+	const presentation = useEmit("getConfigPresentation");
+	useEffect(() => {
+		console.log(lang, presentation);
+	}, [lang, presentation]);
 
 	return (
 		<LayoutRaw aria-busy={!isConnected} aria-live="polite">
-			<Button onClick={() => presentation.send()} type="button">
+			<Button onClick={() => presentation.emit(undefined)} type="button">
 				{t`dashboardButtonMenu`}
 			</Button>
+			<Link to="/" reloadDocument style={{ color: "white" }}>Try again</Link>
 		</LayoutRaw>
 	);
 }

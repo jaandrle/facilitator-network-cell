@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useTranslation } from "@/core/translations";
 import type { Language } from "@/translations";
 import { languages as languagesObj } from "@/translations";
-import { Form, Label, Options, Select } from "./LanguageForm.css";
+import { Form, Label, Options, Select } from "./index.css";
 
 const languages = Object.entries(languagesObj) as [Language, string][];
 
