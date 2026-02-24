@@ -1,6 +1,6 @@
 import { cssVariable } from "@/core";
 
-export const paddingPage = cssVariable("padding-page", "2.5rem");
+export const paddingPage = cssVariable("padding-page", "1.9rem");
 export const borderRadius = cssVariable("border-radius-button", "4px");
 
 export const variables = [paddingPage.def, borderRadius.def].join("\n");

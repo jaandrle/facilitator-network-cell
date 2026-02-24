@@ -3,35 +3,53 @@ export type Endpoints = {
 		request: undefined;
 		response: string;
 	};
-	getConfigPresentation: {
-		request: undefined;
-		response: string;
-	};
 	listPresentation: {
 		request: undefined;
 		response: {
-			id: string;
+			changelog: string;
+			lang: string;
+			lang_name: string;
+			last_update_at: string;
 			name: string;
-			language: string;
+			presentation_id: string;
 			version: string;
 		}[];
+	};
+	getPresentationConfig: {
+		request: { presentationId: string };
+		response: {
+			changelog: string;
+			lang: string;
+			lang_name: string;
+			last_update_at: string;
+			name: string;
+			presentation_id: string;
+			base_url: string;
+			version: string;
+		};
 	};
 	getPresentation: {
 		request: { presentationId: string };
 		response: {
-			id: string;
-			title: string;
-			slides: {
-				id: string;
-				index: number;
-				total: number;
-				type: "video" | "image" | "content";
-				mediaUrl?: string;
-				activities: { id: string; title: string; done: boolean; isNew: boolean }[];
-				notes: string;
-				music: { id: string; title: string; active: boolean }[];
-			}[];
+			day: number;
+			sessions: Record<
+				string,
+				{
+					from: string;
+					to: string;
+					title: string;
+					games: string[];
+				}
+			>;
 		};
+	};
+	getGames: {
+		request: { presentationId: string };
+		response: { id: string; title: string; done: boolean; isNew: boolean }[];
+	};
+	getMusic: {
+		request: { presentationId: string; slideId: number };
+		response: { id: string; title: string; active: boolean }[];
 	};
 	nextSlide: {
 		request: { presentationId: string };
@@ -39,8 +57,7 @@ export type Endpoints = {
 			id: string;
 			index: number;
 			total: number;
-			type: "video" | "image" | "content";
-			mediaUrl?: string;
+			url: string;
 			activities: { id: string; title: string; done: boolean; isNew: boolean }[];
 			notes: string;
 			music: { id: string; title: string; active: boolean }[];
@@ -52,8 +69,7 @@ export type Endpoints = {
 			id: string;
 			index: number;
 			total: number;
-			type: "video" | "image" | "content";
-			mediaUrl?: string;
+			url: string;
 			activities: { id: string; title: string; done: boolean; isNew: boolean }[];
 			notes: string;
 			music: { id: string; title: string; active: boolean }[];
@@ -65,6 +81,14 @@ export type Endpoints = {
 	};
 	toggleMusic: {
 		request: { musicId: string; active: boolean };
+		response: { success: boolean };
+	};
+	getVolume: {
+		request: { presentationId: string; slideId: number };
+		response: { volume: number };
+	};
+	setVolume: {
+		request: { presentationId: string; slideId: number; volume: number };
 		response: { success: boolean };
 	};
 	updateNotes: {

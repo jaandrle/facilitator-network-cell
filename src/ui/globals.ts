@@ -48,7 +48,7 @@ export const GlobalStyle = css`
 	input, button, a{
 		font-size: inherit;
 	}
-	input, button, a, [tabindex]{
+	input, button, a, textarea, [tabindex]{
 		outline: none;
 		&:focus-visible {
 			box-shadow: 0 0 0 2px ${color("black")} inset;

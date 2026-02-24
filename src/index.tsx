@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { createHashHistory, createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { GlobalStyle } from "./ui/globals";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const history = createHashHistory();
 const router = createRouter({
@@ -26,10 +27,14 @@ declare module "@tanstack/react-router" {
 	}
 }
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root") as HTMLElement).render(
 	<StrictMode>
 		<GlobalStyle />
-		<RouterProvider router={router} />
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={router} />
+		</QueryClientProvider>
 		<ToastContainer
 			position="bottom-center"
 			autoClose={5000}

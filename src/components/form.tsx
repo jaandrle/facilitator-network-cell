@@ -24,10 +24,7 @@ export const Label = styled.label`
 `;
 
 import type { InputHTMLAttributes } from "react";
-export function InputWithLabel({
-	children,
-	...props
-}: InputHTMLAttributes<HTMLInputElement> & { children: string }) {
+export function InputWithLabel({ children, ...props }: InputHTMLAttributes<HTMLInputElement> & { children: string }) {
 	return (
 		<Label>
 			{children}

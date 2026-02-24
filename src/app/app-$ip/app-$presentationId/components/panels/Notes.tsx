@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslation } from "@/core";
-import { Container, Header, Tab, NotesTextarea } from "./index.css";
+import { NotesSaving, NotesTextarea } from "./index.css";
 
 export type NotesPanelProps = {
 	notes: string;
-	slideId: string | undefined;
-	onSaveNotes: (slideId: string, notes: string) => void;
+	slideId: number;
+	onSaveNotes: (slideId: number, notes: string) => void;
 };
 
 export function NotesPanel({ notes, slideId, onSaveNotes }: NotesPanelProps) {
@@ -47,14 +47,9 @@ export function NotesPanel({ notes, slideId, onSaveNotes }: NotesPanelProps) {
 	}, []);
 
 	return (
-		<Container>
-			<Header>
-				<Tab $active type="button">
-					{t`presentationNotes`}
-				</Tab>
-				{isSaving && <span>{t`presentationNotesSaving`}</span>}
-			</Header>
+		<>
 			<NotesTextarea value={localNotes} onChange={handleChange} placeholder={t`presentationNotesPlaceholder`} />
-		</Container>
+			<NotesSaving aria-live="polite">{isSaving && t`presentationNotesSaving`}</NotesSaving>
+		</>
 	);
 }

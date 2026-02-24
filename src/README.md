@@ -14,6 +14,7 @@ Basic React app with TypeScript.
   for drawing network cell circles background
 - [@beqa/react-slots - npm](https://www.npmjs.com/package/@beqa/react-slots) and [@beqa/unplugin-transform-react-slots - npm](https://www.npmjs.com/package/@beqa/unplugin-transform-react-slots) for slots
 - [jotai - npm](https://www.npmjs.com/package/jotai) for (shared) state management
+- [@tanstack/react-query](https://tanstack.com/query/latest) for data fetching and state management
 - [vite-plugin-svg-sprite - npm](https://www.npmjs.com/package/vite-plugin-svg-sprite) for SVG sprite, see Assets
   section below
 

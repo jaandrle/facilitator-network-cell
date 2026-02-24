@@ -57,6 +57,16 @@ export default defineConfig({
 		outDir: "../dist",
 		minify: false,
 		emptyOutDir: true,
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					ui: [
+						"src/ui/sizes.ts",
+						"src/ui/index.ts",
+					],
+				},
+			},
+		},
 	},
 	server: {
 		headers: {

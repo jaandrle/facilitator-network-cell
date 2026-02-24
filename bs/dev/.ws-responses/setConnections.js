@@ -1,0 +1,7 @@
+export default function setConnections() {
+	return {
+		action: "setConnections",
+		count: 25,
+		clients: [{ name: "Alice", id: 0 }],
+	};
+}

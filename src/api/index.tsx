@@ -1,62 +1,69 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import type { Endpoints, IPAddress } from "./types";
+import { atom, useAtom, useAtomValue } from "jotai";
 import { io, type Socket } from "socket.io-client";
-export * from "./useFindSocketIp";
-import type { IPAddress, Endpoints } from "./types";
+import { useQuery as useQueryTanstack, useMutation as useMutationTanstack } from "@tanstack/react-query";
+import { useParams } from "@tanstack/react-router";
+import { useEffect } from "react";
+
 export type { IPAddress };
+const sharedIp = atom<IPAddress | null>(null);
+const sharedSocket = atom<Socket | null>(function computed(get, { signal }) {
+	const ip = get(sharedIp);
+	if (!ip) return null;
+	const socket = io(`${ip}:${VITE.config.wsPort}`, { withCredentials: true });
+	signal.addEventListener("abort", () => socket.disconnect());
+	return socket;
+});
+export { sharedIp as serverIp };
+export * from "./useFindSocketIp";
 
-export type State = "connecting" | "connected" | "disconnected";
-let socket: Socket | null = null;
-
-export function useAPI(ipAddress: IPAddress) {
-	if (socket === null) socket = io(`${ipAddress}:${VITE.config.wsPort}`, { withCredentials: true });
-	const [state, setState] = useState<State>(
-		socket.connected ? "connected" : socket.disconnected ? "disconnected" : "connecting",
-	);
-	useEffect(() => {
-		const s: Socket = socket as Socket;
-		const onConnect = () => setState("connected");
-		const onDisconnect = () => setState("disconnected");
-		s.on("connect", onConnect);
-		s.on("disconnect", onDisconnect);
-
-		return () => {
-			s.off("connect", onConnect);
-			s.off("disconnect", onDisconnect);
-		};
-	}, []);
-
-	return useMemo(
-		() => ({
-			state,
-			useEmit: useEmit.bind(null, state) as <T extends keyof Endpoints>(name: T) => ReturnType<typeof useEmit<T>>,
-		}),
-		[state],
-	);
+class RequestError extends Error {
+	static get notConnected() {
+		return new RequestError("not-connected");
+	}
+	static get aborted() {
+		return new RequestError("aborted");
+	}
 }
-type StateEmit = "idle" | "pending" | "done" | "error";
-export type UseEmit = ReturnType<typeof useEmit>;
-function useEmit<T extends keyof Endpoints>(stateIo: State, name: T) {
-	const s: Socket = socket as Socket;
-	const [response, setResponse] = useState<Endpoints[T]["response"] | null>(null);
-	const [stateEmit, setState] = useState<StateEmit>("idle");
 
-	const emit = useRef((data: Endpoints[T]["request"]) => {
-		setState("pending");
-		setResponse(null);
-		s.emit(name, data, (response: Endpoints[T]["response"]) => {
-			setResponse(response);
-			setState("done");
-		});
-	}).current;
-	const state: StateEmit | "disconnected" =
-		stateIo === "connected" ? stateEmit : stateIo === "connecting" ? "pending" : "disconnected";
+function useSocket() {
+	const { ip } = useParams({ strict: false }) as { ip?: IPAddress };
+	const [serverIp, setServerIp] = useAtom(sharedIp);
+	useEffect(() => {
+		if (!ip) return;
+		if (ip === serverIp) return;
+		setServerIp(ip);
+	}, [ip, serverIp, setServerIp]);
+	return useAtomValue(sharedSocket);
+}
 
-	return useMemo(
-		() => ({
-			response,
-			state,
-			emit,
-		}),
-		[response, state, emit],
-	);
+const staleTime = 1.5 * 60 * 60 * 1000; //= 1.5h
+export function useQuery<T extends keyof Endpoints>(name: T, data: Endpoints[T]["request"]) {
+	const socket = useSocket();
+	return useQueryTanstack({
+		queryKey: [name, data] as const,
+		async queryFn({ queryKey: [name, data], signal }) {
+			if (!socket) throw RequestError.notConnected;
+			const response = await socket.emitWithAck(name, data);
+			if (signal.aborted) throw RequestError.aborted;
+			return response as Endpoints[T]["response"];
+		},
+		enabled: socket !== null,
+		staleTime,
+	});
+}
+import type { UseMutationOptions } from "@tanstack/react-query";
+export function useMutation<T extends keyof Endpoints>(
+	name: T,
+	options?: UseMutationOptions<Endpoints[T]["response"], Error, Endpoints[T]["request"]>,
+) {
+	const socket = useSocket();
+	return useMutationTanstack({
+		...options,
+		mutationKey: [name] as const,
+		mutationFn(input: Endpoints[T]["request"]) {
+			if (!socket) return Promise.reject(new Error("not connected"));
+			return socket.emitWithAck(name, input) as Promise<Endpoints[T]["response"]>;
+		},
+	});
 }

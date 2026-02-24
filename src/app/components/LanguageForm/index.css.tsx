@@ -70,11 +70,11 @@ export const Options = styled.ul`
 		box-sizing: border-box;
 
 		&[data-highlighted="true"] {
-			background-color: ${color("gray", 80)};
+			background-color: ${color("gray", 85)};
 			border-radius: ${borderRadius.var};
 		}
 	}
 	li + li {
-		border-top: 1px solid ${color("gray", 80)};
+		border-top: 1px solid ${color("gray", 85)};
 	}
 `;

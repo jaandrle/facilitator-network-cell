@@ -1,82 +1,63 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
-import { useAPI } from "@/api";
-import { usePresentation, useTimer } from "./core";
+import { useQueryGetPresentation, useSlideNav } from "./core";
 import { useTranslation } from "@/core";
 
 export const Route = createFileRoute("/$ip/$presentationId/")({
 	component: Page,
+	validateSearch: (search) =>
+		({
+			slide: typeof search.slide === "number" ? search.slide : 1,
+		}) as { slide?: number },
 });
 
-import { ActivitiesPanel, NotesPanel, SlidePreview } from "./components";
-import { Layout, SlidesZone, PanelsZone } from "./index.css";
+import { Button } from "@/components";
+import {
+	Activities,
+	AdditionalContainer,
+	Music,
+	NotesPanel,
+	SlidePreview,
+	SlidePreviewSlots,
+	Timer,
+	Time,
+	Sidebar,
+} from "./components";
+import { Layout, SlidesZone, PanelsZone, ActionsPrevNext, ActionsTimer } from "./index.css";
 function Page() {
-	const { ip, presentationId } = Route.useParams();
 	const { t } = useTranslation();
-	const { state } = useAPI(ip);
-	const isConnected = state === "connected";
-
-	const {
-		currentSlide,
-		nextSlide,
-		isFirst,
-		isLast,
-		load,
-		goToNextSlide,
-		goToPrevSlide,
-		toggleActivity,
-		toggleMusic,
-		updateNotes,
-	} = usePresentation(ip, presentationId);
-
-	const timer = useTimer();
-
-	useEffect(() => {
-		if (isConnected) {
-			load();
-		}
-	}, [isConnected, load]);
-
-	const progress = currentSlide ? `${currentSlide.index + 1} / ${currentSlide.total}` : "0 / 0";
-	const nextProgress = nextSlide ? `${nextSlide.index + 1} / ${nextSlide.total}` : "0 / 0";
+	const { totalSlides } = useQueryGetPresentation();
+	const slide = useSlideNav(totalSlides);
 
 	return (
 		<Layout>
+			<Time />
+			<Sidebar />
 			<SlidesZone>
-				<SlidePreview
-					slide={currentSlide}
-					label={t`presentationCurrentSlide`}
-					progress={progress}
-					isActive
-				>
-					<button type="button" onClick={goToPrevSlide} disabled={isFirst}>
-						{t`presentationPrevious`}
-					</button>
-					<button type="button" onClick={goToNextSlide} disabled={isLast}>
-						{t`presentationNext`}
-					</button>
+				<SlidePreview slideNumber={slide.current} label={t`presentationCurrentSlide`} data-type="current">
+					<SlidePreviewSlots.actions>
+						<ActionsPrevNext>
+							<Button type="button" onClick={slide.prev} disabled={slide.status === "first"}>
+								{t`presentationPreviousSlide`}
+							</Button>
+							<Button type="button" onClick={slide.next} disabled={slide.status === "last"}>
+								{t`presentationNextSlide`}
+							</Button>
+						</ActionsPrevNext>
+					</SlidePreviewSlots.actions>
 				</SlidePreview>
 
-				<SlidePreview
-					slide={nextSlide}
-					label={t`presentationNextSlide`}
-					progress={nextProgress}
-				>
-					<button type="button" onClick={timer.toggle}>
-						{timer.isRunning ? t`presentationTimerStop` : t`presentationTimerStart`}
-					</button>
-					<span>{timer.formattedTime}</span>
+				<SlidePreview slideNumber={slide.current + 1} label={t`presentationNextSlide`} data-type="next">
+					<SlidePreviewSlots.actions>
+						<ActionsTimer>
+							<Timer />
+						</ActionsTimer>
+					</SlidePreviewSlots.actions>
 				</SlidePreview>
 			</SlidesZone>
 
 			<PanelsZone>
-				<ActivitiesPanel
-					activities={currentSlide?.activities ?? []}
-					music={currentSlide?.music ?? []}
-					onToggleActivity={toggleActivity}
-					onToggleMusic={toggleMusic}
-				/>
-				<NotesPanel notes={currentSlide?.notes ?? ""} slideId={currentSlide?.id} onSaveNotes={updateNotes} />
+				<AdditionalContainer slideId={slide.current} panels={[Activities, Music]} />
+				<NotesPanel notes="" slideId={slide.current} onSaveNotes={() => {}} />
 			</PanelsZone>
 		</Layout>
 	);

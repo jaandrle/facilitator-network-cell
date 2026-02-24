@@ -35,7 +35,10 @@ const LayoutStyle = styled.div<LayoutProps>`
 		}
 	}
 `;
-import { HTMLNetworkCellCirclesElement, type HTMLNetworkCellCirclesAttributes } from "@indigomultimediateam/networkcell-circles";
+import {
+	HTMLNetworkCellCirclesElement,
+	type HTMLNetworkCellCirclesAttributes,
+} from "@indigomultimediateam/networkcell-circles";
 export const NetworkcellCircles = styled(HTMLNetworkCellCirclesElement.tagName)<HTMLNetworkCellCirclesAttributes>`
 	z-index: -1;
 	position: absolute;

@@ -6,8 +6,9 @@ import { Button, InputWithLabel, SvgIcon } from "@/components";
 import { useTranslation } from "@/core";
 import { LanguageForm, LayoutEntry, PartialIpForm } from "./components";
 import { ButtonConnect, Main, MainIp, MainIpHr, type MainIpVariants } from "./index.css";
-import { useFindSocketIp } from "@/api";
+import { serverIp, useFindSocketIp } from "@/api";
 import { svgIconQrId } from "./assets";
+import { useSetAtom } from "jotai";
 
 export const Route = createFileRoute("/")({
 	component: Page,
@@ -22,10 +23,12 @@ export function Page() {
 	const [showIpForm, setShowIpForm] = useState(false);
 	const { t } = useTranslation();
 	const navigate = useNavigate();
+	const setIp = useSetAtom(serverIp);
 	const handleIp = useRef(async function handleIp(ip: string) {
 		try {
 			if (!/^([0-9]{1,3}\.){3}[0-9]{1,3}$/.test(ip)) throw new Error("Scanned QR code seems invalid");
 			setIsLoading(false);
+			setIp(ip);
 			navigate({ to: "/$ip", params: { ip } });
 		} catch (error) {
 			setIsLoading(false);

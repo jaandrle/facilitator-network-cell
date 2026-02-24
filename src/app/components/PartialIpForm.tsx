@@ -48,8 +48,8 @@ export function PartialIpForm({
 					placeholder={t`homeCodePlaceholder`}
 					onKeyDown={onInput}
 					required
-					disabled={disabled}>
-				</Input>
+					disabled={disabled}
+				></Input>
 			</Label>
 		</Form>
 	);

@@ -4,3 +4,5 @@ export { borderRadius, isScaled, paddingPage, referential } from "./sizes";
 export { cssFont, cssFontFaces, fontFamilyBase, fontFamilyHeadings, fontFamilyQuotes, fontStep } from "./typography";
 export { cssVariables } from "./globals";
 export * from "./layout";
+export * from "./viewTransition";
+export type Anchor = `--anchor-${string}`;

@@ -40,16 +40,17 @@ export function useTimer() {
 		setIsRunning((running) => !running);
 	}, []);
 
-	const formattedTime = useMemo(() => {
-		const minutes = Math.floor(elapsedSeconds / 60);
+	const data = useMemo(() => {
+		const hours = Math.floor(elapsedSeconds / 3600);
+		const minutes = Math.floor((elapsedSeconds - hours * 3600) / 60);
 		const seconds = elapsedSeconds % 60;
-		return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+		return [hours, minutes, seconds];
 	}, [elapsedSeconds]);
 
 	return {
 		isRunning,
 		elapsedSeconds,
-		formattedTime,
+		data,
 		start,
 		stop,
 		reset,

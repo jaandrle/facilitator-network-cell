@@ -24,19 +24,17 @@ export function LanguageForm() {
 
 	return (
 		<Form>
-				<Select {...getToggleButtonProps()}>
-			<Label {...getLabelProps()}>
-					{t`homeChooseLanguage`}
-			</Label>
-					{selectedItem ? selectedItem[1] : "-"}
-				</Select>
-				<Options {...getMenuProps()} aria-hidden={!isOpen}>
-					{languages.map((item, index) => (
-						<li key={item[0]} {...getItemProps({ item, index })} data-highlighted={highlightedIndex === index}>
-							{item[1]}
-						</li>
-					))}
-				</Options>
+			<Select {...getToggleButtonProps()}>
+				<Label {...getLabelProps()}>{t`homeChooseLanguage`}</Label>
+				{selectedItem ? selectedItem[1] : "-"}
+			</Select>
+			<Options {...getMenuProps()} aria-hidden={!isOpen}>
+				{languages.map((item, index) => (
+					<li key={item[0]} {...getItemProps({ item, index })} data-highlighted={highlightedIndex === index}>
+						{item[1]}
+					</li>
+				))}
+			</Options>
 		</Form>
 	);
 }
