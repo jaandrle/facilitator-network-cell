@@ -4,12 +4,13 @@ Basic React app with TypeScript.
 ### Tech stack
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [TanStack Router](https://tanstack.com/router/) with Vite
 - [React useWebSocket](https://www.npmjs.com/package/react-use-websocket)
 - [Styled Components](https://styled-components.com/)
 - [i18next](https://www.i18next.com/) and [react-i18next](https://react.i18next.com/)
 
 ### App structure
-- [`./src/api`](./api): app (data) workflow
+- [`./src/api`](./api/README.md): app (data) workflow - WebSocket communication with TV devices
 - **[`./src/app`](./app/README.md): This folder contains pages/endpoints**
 - [`./src/assets`](./assets): Public static assets
 - [`./src/manifest.json`](./manifest.json): App manifest (partially generated using **bs**)

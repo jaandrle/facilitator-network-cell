@@ -1,8 +1,8 @@
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
-import { useBackButtonRegister, useTranslationInit } from "@/core/";
-import { isScaled } from "@/ui/sizes";
+import { useBackButtonRegister, useTranslationInit } from "@/core";
+import { isScaled } from "@/ui";
 
 export const Route = createRootRoute({
 	component: Root,
@@ -42,4 +42,3 @@ function Root() {
 		</>
 	);
 }
-

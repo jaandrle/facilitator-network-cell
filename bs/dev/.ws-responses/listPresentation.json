@@ -1,11 +1,16 @@
-{
-	"action": "listPresentation",
-	"data": [
-		{
-			"name": "facilitator-network-cell",
-			"version": "0.0.1",
-			"folder": "folder",
-			"lang_name": "lang"
-		}
-	]
-}
+[
+	{
+		"id": "1",
+		"name": "CIS Foundation - Day 1",
+		"version": "2.1.0",
+		"folder": "folder",
+		"language": "English"
+	},
+	{
+		"id": "2",
+		"name": "CIS Foundation - Day 2",
+		"version": "2.1.0",
+		"folder": "folder",
+		"language": "English"
+	}
+]

@@ -30,7 +30,7 @@ const actions_files = s.ls(path(actions_path));
 const actions = actions_files.map((file) => file.slice(0, file.lastIndexOf(".")));
 
 export function mockWebSocket() {
-	return Promise.all([ mockWebSocketIo(), mockWebSocketPing() ]);
+	return Promise.all([mockWebSocketIo(), mockWebSocketPing()]);
 }
 import { Server } from "socket.io";
 export function mockWebSocketIo() {
@@ -38,17 +38,14 @@ export function mockWebSocketIo() {
 		const port = config.wsPort;
 		const io = new Server(port, {
 			cors: {
-				origin: [
-					"http://localhost:5173",
-					"http://localhost/",
-				],
+				origin: ["http://localhost:5173", "http://localhost/"],
 				methods: ["GET", "POST"],
 				credentials: true,
 			},
 		});
 		io.on("connection", function onClient(socket) {
 			wsEcho(`${mockWebSocketIo.name} on port ${port}`);
-			for(let i = 0; i < actions_files.length; i++) {
+			for (let i = 0; i < actions_files.length; i++) {
 				socket.on(actions[i], (data, callback) => {
 					wsEcho("Received data from client:", data);
 					const action_file = actions_files[i];
@@ -61,11 +58,11 @@ export function mockWebSocketIo() {
 			socket.on("error", wsEcho.bind(null, "Error:"));
 			socket.on("close", wsEcho.bind(null, "Close:"));
 		});
-		io.on("close", ()=> {
+		io.on("close", () => {
 			wsEcho("Server Closed");
 			resolve();
 		});
-		io.on("error", (err)=> {
+		io.on("error", (err) => {
 			wsEcho("Server Error:", err);
 			reject();
 		});
@@ -83,15 +80,12 @@ export function mockWebSocketPing() {
 			{ port, host: "0.0.0.0", reuseAddress: true },
 			wsEcho.bind(null, `${mockWebSocketPing.name} on port ${port}`),
 		);
-		server.on("close", ()=> {
+		server.on("close", () => {
 			wsEcho(`${mockWebSocketPing.name} Closed`);
 			resolve();
 		});
 		server.on("error", (err) => {
-			wsEcho(
-				`${mockWebSocketPing.name} Error`,
-				err.code === "EADDRINUSE" ? err.message : err
-			);
+			wsEcho(`${mockWebSocketPing.name} Error`, err.code === "EADDRINUSE" ? err.message : err);
 			reject(err);
 		});
 	});

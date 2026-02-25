@@ -1,13 +1,9 @@
-import { HTMLNetworkCellCirclesElement } from "@indigomultimediateam/networkcell-circles";
 import styled, { css } from "styled-components";
-import { cssVariable } from "@/core/cssVariable";
-import { color } from "@/ui/colors";
-import { Layout as LayoutBase } from "@/ui/layout";
-import { paddingPage } from "@/ui/sizes";
-import { cssFont, fontStep } from "@/ui/typography";
+import { cssVariable } from "@/core";
+import { Layout as LayoutBase, color, paddingPage, cssFont, fontStep } from "@/ui";
 
 const headingGap = cssVariable("_heading-gap", "1rem");
-const headingSize = cssVariable("_heading-size", fontStep(2, "large"));
+const headingSize = cssVariable("_heading-size", fontStep(2, "xlarge"));
 const widthLogo = cssVariable("_width-logo", `calc(${headingSize.var} / 2 + ${paddingPage.var})`);
 
 export const Layout = styled(LayoutBase)`
@@ -15,7 +11,6 @@ export const Layout = styled(LayoutBase)`
 	${headingSize.def}
 	${widthLogo.def}
 	display: grid;
-	padding: ${paddingPage.var};
 	/*
 	 * areas:
 	 * .			.			logo
@@ -30,12 +25,12 @@ export const Layout = styled(LayoutBase)`
 		[header-start] 0 [subheader-start] 0 [main-start]
 		1fr
 		[main-end] 0 [subheader-end] 0 [header-end];
-	--_grid-col-logo: [logo-start] 10rem [logo-end];
+	--_grid-col-logo: [logo-start] 8rem [logo-end];
 	grid-template-columns:
 		[footer-start] 1rem var(--_grid-cols-left) 1rem var(--_grid-col-logo) 0 [footer-end];
 	--_grid-rows-top:
-		[logo-start] 2.5rem
-		[subheader-start] 7.5rem
+		[logo-start] 1rem
+		[subheader-start] 7rem
 		[logo-end] 5rem
 		[subheader-end];
 	--_grid-rows-body:
@@ -79,15 +74,4 @@ export const Footer = styled.p`
 	grid-area: footer;
 	color: ${color("white")};
 	text-align: center;
-`;
-export const NetworkcellCircles = styled(HTMLNetworkCellCirclesElement.tagName)`
-	z-index: -1;
-
-	position: absolute;
-	inset-block-end: ${paddingPage.var};
-	inset-inline-end: ${paddingPage.var};
-	height: 80%;
-	${Layout}:has(&) {
-		position: relative;
-	}
 `;

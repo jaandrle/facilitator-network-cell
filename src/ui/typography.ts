@@ -60,15 +60,17 @@ const fontStepSizes = {
 	small: ".25rem",
 	normal: ".75rem",
 	large: "1rem",
+	xlarge: "1.5rem",
 } as const;
 type FontStepSizes = typeof fontStepSizes;
 type FontSteps = -2 | -1 | 0 | 1 | 2;
 /**
  * 1rem +/- {@link FontSteps} * {@link fontStepSizes}
  * */
-export function fontStep<
-	N extends FontSteps, S extends keyof FontStepSizes
->(n: N, size: S = "small" as S): `calc(var(--js-app-scale) * (1rem + var(--font-step-${S}) * ${N}))` {
+export function fontStep<N extends FontSteps, S extends keyof FontStepSizes>(
+	n: N,
+	size: S = "small" as S,
+): `calc(var(--js-app-scale) * (1rem + var(--font-step-${S}) * ${N}))` {
 	return `calc(var(--js-app-scale) * (1rem + var(--font-step-${size}) * ${n}))`;
 }
 export const variablesFontSizes = Object.entries(fontStepSizes)

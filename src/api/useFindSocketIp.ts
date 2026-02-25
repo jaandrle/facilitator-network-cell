@@ -1,6 +1,6 @@
 import type { IPAddress } from "./types";
 import { useState, useEffect, useMemo } from "react";
-import { useNetworkIp } from "@/core/useNetworkInfo";
+import { useNetworkIp } from "@/core";
 
 let ip_find: Promise<void> | null = null;
 let ip_result: number | null = null;
@@ -11,19 +11,16 @@ const maxConcurrency = 24;
 // not-found — tablet: ~36.278 s, pc: ~15.228 s
 export function useFindSocketIp() {
 	const thisIp = useNetworkIp();
-	const ip_start = !thisIp.value
-		? thisIp.value
-		: thisIp.value.slice(0, thisIp.value.lastIndexOf("."));
+	const ip_start = !thisIp.value ? thisIp.value : thisIp.value.slice(0, thisIp.value.lastIndexOf("."));
 	const [state, setState] = useState<"loading" | "success" | "error">("loading");
 	const [ip, setIp] = useState<IPAddress>();
-	useEffect(()=> {
+	useEffect(() => {
 		if (!ip_start) return;
 
 		let alive = true;
 		const listener: SearchListener = (result) => {
 			if (!alive) return;
-			if (result instanceof Error)
-				return setState("error");
+			if (result instanceof Error) return setState("error");
 
 			setIp(result);
 			setState("success");
@@ -34,7 +31,8 @@ export function useFindSocketIp() {
 			const abort = new AbortController();
 			ip_find = (function findIpConcurrent() {
 				const ips = createProbIpList(thisIp.value);
-				let index_ip = 0, active = 0;
+				let index_ip = 0,
+					active = 0;
 
 				return new Promise<IPAddress>((resolve, reject) => {
 					let id_timeout: number | null = null;
@@ -55,7 +53,7 @@ export function useFindSocketIp() {
 						active++;
 
 						ping(`${ip_start}.${ip}`, { signal: abort.signal })
-							.then(result => {
+							.then((result) => {
 								abort.abort(); // stop all others
 								resolve(result);
 							})
@@ -90,21 +88,27 @@ export function useFindSocketIp() {
 		};
 	}, [ip_start, thisIp.value]);
 
-	return useMemo(() => ({
-		ip,
-		state: thisIp.error ? "error" : state,
-	}), [ ip, state, thisIp.error ]);
+	return useMemo(
+		() => ({
+			ip,
+			state: thisIp.error ? "error" : state,
+		}),
+		[ip, state, thisIp.error],
+	);
 }
 // Tablet: ~15±5s; PC:~2.5 average for 100 tries
 function ping<IP extends IPAddress>(ip: IP, { signal }: { signal: AbortSignal }) {
-	signal= AbortSignal.any([AbortSignal.timeout(timeout), signal]);
-	const once = ((settled = false) => (cb: (input: unknown) => void) => {
-		return (input: unknown) => {
-			if (settled) return;
-			settled = true;
-			cb(input);
+	signal = AbortSignal.any([AbortSignal.timeout(timeout), signal]);
+	const once = (
+		(settled = false) =>
+		(cb: (input: unknown) => void) => {
+			return (input: unknown) => {
+				if (settled) return;
+				settled = true;
+				cb(input);
+			};
 		}
-	})();
+	)();
 	return new Promise<IP>((resolve, reject) => {
 		const ws = new WebSocket(`ws://${ip}:${VITE.config.wsPort - 1}`);
 		const onAbort = once(() => {
@@ -127,9 +131,9 @@ function ping<IP extends IPAddress>(ip: IP, { signal }: { signal: AbortSignal })
  * 3. sorted by likelihood of being a real user device on Wi-Fi
  */
 function createProbIpList(ip?: IPAddress): number[] {
-	const nearby = !ip ? (() => 0) : ipNearby(ip);
+	const nearby = !ip ? () => 0 : ipNearby(ip);
 	return Array.from({ length: 256 }, (_, i) => i)
-		.map(i => ({
+		.map((i) => ({
 			ip: i,
 			score: ipProbabilityScore(i, nearby(i)),
 		}))
@@ -138,17 +142,16 @@ function createProbIpList(ip?: IPAddress): number[] {
 			if (a.score !== b.score) return b.score - a.score;
 			return Math.random() - 0.5;
 		})
-		.map(v => v.ip);
+		.map((v) => v.ip);
 }
 const scoreSteps = 25;
 /** Ideally ⅓ of the maxConcurrency and ½ for smaller/½ for larger neighborhood ips */
 const near_limit = Math.max(Math.round(maxConcurrency / 2), Math.round(maxConcurrency / 6));
-function ipNearby(ip: IPAddress){
+function ipNearby(ip: IPAddress) {
 	const ip_end = Number(ip.slice(ip.lastIndexOf(".") + 1));
 
 	return (i: number) => {
-		if (VITE.RUN_MODE === "localhost" && i === ip_end)
-			return scoreSteps;
+		if (VITE.RUN_MODE === "localhost" && i === ip_end) return scoreSteps;
 		const diff = Math.abs(ip_end - i);
 		return diff <= near_limit ? scoreSteps : 0;
 	};

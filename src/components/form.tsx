@@ -1,30 +1,46 @@
-import { css, styled } from "styled-components";
-import { color } from "@/ui/colors";
-import { borderRadius } from "@/ui/sizes";
-import { fontStep } from "@/ui/typography";
+import { styled } from "styled-components";
+import { color, fontStep } from "@/ui";
 
-export const inputPadding = css`
-	padding: ${fontStep(-1, "small")} ${fontStep(-1, "xsmall")};
-`;
 export const Input = styled.input`
-	text-align: center;
-	background: rgba(255, 253, 253, 1);
-	border: 1px solid rgba(165, 165, 165, 0.4);
-	border-radius: ${borderRadius.var};
-	box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.51);
-	${inputPadding}
+	background: ${color("white")};
+	border: 0;
+	padding: 0;
 
 	&::placeholder {
 		color: ${color("gray", 60)};
 		text-transform: uppercase;
 	}
-	&:focus{
+	&:focus {
 		outline-width: 0;
-	}
-	&:focus-visible{
-		outline-width: 1px;
 	}
 	&:not(:placeholder-shown):invalid{
 		color: ${color("red", 40)}
 	}
 `;
+export const Label = styled.label`
+	display: flex;
+	flex-flow: column nowrap;
+	gap: ${fontStep(-1, "normal")};
+	padding: ${fontStep(-1, "small")} ${fontStep(-1, "xsmall")};
+	color: ${color("gray", 60)};
+	cursor: pointer;
+
+	transition: outline .25s ease-out;
+	outline: 3px solid transparent;
+	&:has(${Input}:focus-visible) {
+		outline-color: hsla(211, 100%, 58%, 1);
+	}
+`;
+
+import type { InputHTMLAttributes } from "react";
+export function InputWithLabel({
+	children,
+	...props
+}: InputHTMLAttributes<HTMLInputElement> & { children: string }) {
+	return (
+		<Label>
+			{children}
+			<Input {...props} />
+		</Label>
+	);
+}

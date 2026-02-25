@@ -1,27 +1,19 @@
 import styled from "styled-components";
-import { inputPadding } from "@/components/form";
-import { color } from "@/ui/colors";
-import { borderRadius } from "@/ui/sizes";
-import { cssFont } from "@/ui/typography";
+import { color, borderRadius, cssFont } from "@/ui";
+
 export const Form = styled.div`
+	position: relative;
 	flex: 2;
 `;
-export const Label = styled.label`
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: start;
-	${inputPadding}
-	${cssFont.bold}
-	color: ${color("black")};
-	background-color: ${color("white")};
-	border-radius: ${borderRadius.var};
-	position: relative;
+import { Label as LabelBase } from "@/components";
+export const Label = styled(LabelBase)`
+	padding: 0;
 `;
 export const Select = styled.div`
 	${cssFont.regular}
 	padding: .359rem 1.5em .359rem 0;
 	cursor: pointer;
-	position: relative;
+	color: ${color("black")};
 
 	&::after {
 		content: "";

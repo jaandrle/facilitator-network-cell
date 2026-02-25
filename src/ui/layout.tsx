@@ -1,27 +1,25 @@
 import { styled } from "styled-components";
 import url_bg from "@/assets/bg.png";
-import { cssVariable } from "@/core/cssVariable";
-import { fontStep } from "./typography";
+import { cssVariable } from "@/core";
+import { paddingPage } from "./sizes";
+import type { ReactNode } from "react";
 
-const padding = cssVariable("_padding", fontStep(1, "large"));
 const bgBase = cssVariable("_bg-base", `url(${url_bg}) center / cover no-repeat`);
 
 export type LayoutProps = {
 	"data-variant"?: "entry";
+	children?: ReactNode;
 };
-/**
- * This is the base page element
- * */
-export const Layout = styled.div<LayoutProps>`
-	${padding.def}
+/** This is the base page element styles */
+const LayoutStyle = styled.div<LayoutProps>`
 	${bgBase.def}
 	width: 100%;
 	height: 100%;
 	position: relative;
-	padding: ${padding.var};
+	padding: ${paddingPage.var};
 	box-sizing: border-box;
 
-	&::before{
+	&[data-variant="entry"]::before{
 		z-index: -1;
 		content: "";
 		position: absolute;
@@ -37,3 +35,24 @@ export const Layout = styled.div<LayoutProps>`
 		}
 	}
 `;
+import { HTMLNetworkCellCirclesElement } from "@indigomultimediateam/networkcell-circles";
+export const NetworkcellCircles = styled(HTMLNetworkCellCirclesElement.tagName)`
+	z-index: -1;
+	position: absolute;
+	inset-block-end: ${paddingPage.var};
+	inset-inline-end: ${paddingPage.var};
+	height: 80%;
+	${LayoutStyle}:has(&) {
+		position: relative;
+	}
+	${LayoutStyle}[data-variant="entry"] &{
+	}
+`;
+export function Layout({ children, ...props }: LayoutProps) {
+	return (
+		<LayoutStyle {...props}>
+			{children}
+			<NetworkcellCircles />
+		</LayoutStyle>
+	);
+}

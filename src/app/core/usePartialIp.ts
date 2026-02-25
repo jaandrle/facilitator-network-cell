@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useNetworkIp } from "@/core/useNetworkInfo";
+import { useNetworkIp } from "@/core";
 
 export function usePartialIp() {
 	const { value, loading, error } = useNetworkIp();

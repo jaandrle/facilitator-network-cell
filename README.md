@@ -21,7 +21,7 @@ Contact:
 1. [Project overview](./#-project-overview)
 
 ## 🔍 Project overview
-Project uses:
+Capacitor-based Android app with React web frontend. Project uses:
 
 1. Git and Github Actions (CI)
 	- the `main` branch is protected
@@ -29,7 +29,7 @@ Project uses:
 	- relevant files: [`.github/workflows/pr.yml`](./.github/workflows/pr.yml)
 1. NPM
 	- relevant files: [`package.json`](./package.json), see `config` key (refered as **C**)
-1. Build system: [bs/README.md](./bs/README.md) (refered as **bs**)
+1. **Build system: [bs/](./bs/README.md) (refered as *bs*)**
 	- internally uses [Vite](https://vite.dev/guide/) (relevant files: [`vite.config.ts`](./vite.config.ts))
 	- and ↓
 1. [Capacitor by Ionic - Cross-platform apps with web technology](https://capacitorjs.com/)
@@ -37,7 +37,8 @@ Project uses:
 	- relevant files: [`capacitor.config.json`](./capacitor.config.json) (partially generated using **C**, see **bs**),
 	[`android`](./android)
 	- this app was created using [`@capacitor/create-app`](https://github.com/ionic-team/create-capacitor-app)
-1. [Web app (part)](./src/README.md)
+1. **[Web app (part)](./src/README.md)**
+	- app code logic
 
 ## Resources
 - [IndigoMultimediaTeam/CIS-Foundation-Facilitator: Android Cordova App for Facilitators in CIS Foundation Project](
@@ -45,3 +46,12 @@ https://github.com/IndigoMultimediaTeam/CIS-Foundation-Facilitator)
 - [IndigoMultimediaTeam/android-tv-network-cell: Network Cell Manager for Google TV](
 https://github.com/IndigoMultimediaTeam/android-tv-network-cell)
 - Discord: https://discord.com/channels/@me/855089988126244894/1298621989631819839
+
+## Additional Resources
+
+- [Capacitor Documentation](https://capacitorjs.com/docs)
+- [Vite Documentation](https://vite.dev/guide/)
+- [TanStack Router](https://tanstack.com/router/latest)
+- [Biome Documentation](https://biomejs.dev/)
+- [Project GitHub](https://github.com/IndigoMultimediaTeam/facilitator-network-cell)
+- [Network Cell Manager](https://github.com/IndigoMultimediaTeam/android-tv-network-cell)

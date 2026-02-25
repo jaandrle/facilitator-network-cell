@@ -1,8 +1,8 @@
-import { type FormEvent, useEffect, useState } from "react";
+import { type SubmitEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useTranslation } from "@/core/translations";
-import { usePartialIp } from "../core/usePartialIp";
-import { Form, Input } from "../index.css";
+import { useTranslation } from "@/core";
+import { usePartialIp } from "../core";
+import { Form, Input, Label } from "../index.css";
 
 const lastIpName = "last-ip";
 
@@ -25,29 +25,32 @@ export function PartialIpForm({
 
 	useEffect(() => {
 		if (ipBeginningAuto.error) {
-			toast.error("Atomatic IP detection failed", { toastId: lastIpName });
+			toast.error("Automatic IP detection failed", { toastId: lastIpName });
 			return;
 		}
 		if (!ip || !ipEnding) return;
 		onIp(ip);
 	}, [ip, ipEnding, onIp, ipBeginningAuto.error]);
-	function handleIpSubmit(e: FormEvent<HTMLFormElement>) {
+	function handleIpSubmit(e: SubmitEvent<HTMLFormElement>) {
 		e.preventDefault();
 		const lastIpElement = (e.target as HTMLFormElement).elements.namedItem(lastIpName) as HTMLInputElement;
 		setIpEnding(lastIpElement.value);
 	}
 	return (
 		<Form id={id} onSubmit={handleIpSubmit} aria-disabled={disabled}>
-			<Input
-				name={lastIpName}
-				type="text"
-				pattern="[0-9]{1,3}"
-				inputMode="numeric"
-				placeholder={t`homeCodePlaceholder`}
-				onKeyDown={onInput}
-				required
-				disabled={disabled}
-			/>
+			<Label>
+				Code
+				<Input
+					name={lastIpName}
+					type="text"
+					pattern="[0-9]{1,3}"
+					inputMode="numeric"
+					placeholder={t`homeCodePlaceholder`}
+					onKeyDown={onInput}
+					required
+					disabled={disabled}>
+				</Input>
+			</Label>
 		</Form>
 	);
 }

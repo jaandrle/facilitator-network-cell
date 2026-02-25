@@ -6,7 +6,7 @@ type RemoveVitePrefix<T extends string> = T extends `VITE_${infer U}` ? U : T;
 //remove VITE_ from IpEnv keys `{ VITE_key: "value" }`
 type IpConfig<T extends keyof IpEnv> = {
 	[Key in RemoveVitePrefix<T>]: IpEnv[`VITE_${Key}`];
-}
+};
 declare global {
 	declare const VITE: {
 		readonly config: typeof config;

@@ -10,43 +10,53 @@
 
 import { Route as rootRouteImport } from "./app/app-__root";
 import { Route as IndexRouteImport } from "./app/app-index";
-import { Route as DashboardIpRouteImport } from "./app/app-dashboard/app-$ip";
+import { Route as IpIndexRouteImport } from "./app/app-$ip/app-index";
+import { Route as IpPresentationIdIndexRouteImport } from "./app/app-$ip/app-$presentationId/app-index";
 
 const IndexRoute = IndexRouteImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => rootRouteImport,
 } as any);
-const DashboardIpRoute = DashboardIpRouteImport.update({
-  id: "/dashboard/$ip",
-  path: "/dashboard/$ip",
+const IpIndexRoute = IpIndexRouteImport.update({
+  id: "/$ip/",
+  path: "/$ip/",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const IpPresentationIdIndexRoute = IpPresentationIdIndexRouteImport.update({
+  id: "/$ip/$presentationId/",
+  path: "/$ip/$presentationId/",
   getParentRoute: () => rootRouteImport,
 } as any);
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
-  "/dashboard/$ip": typeof DashboardIpRoute;
+  "/$ip": typeof IpIndexRoute;
+  "/$ip/$presentationId": typeof IpPresentationIdIndexRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
-  "/dashboard/$ip": typeof DashboardIpRoute;
+  "/$ip": typeof IpIndexRoute;
+  "/$ip/$presentationId": typeof IpPresentationIdIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/": typeof IndexRoute;
-  "/dashboard/$ip": typeof DashboardIpRoute;
+  "/$ip/": typeof IpIndexRoute;
+  "/$ip/$presentationId/": typeof IpPresentationIdIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/dashboard/$ip";
+  fullPaths: "/" | "/$ip" | "/$ip/$presentationId";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/dashboard/$ip";
-  id: "__root__" | "/" | "/dashboard/$ip";
+  to: "/" | "/$ip" | "/$ip/$presentationId";
+  id: "__root__" | "/" | "/$ip/" | "/$ip/$presentationId/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
-  DashboardIpRoute: typeof DashboardIpRoute;
+  IpIndexRoute: typeof IpIndexRoute;
+  IpPresentationIdIndexRoute: typeof IpPresentationIdIndexRoute;
 }
 
 declare module "@tanstack/react-router" {
@@ -58,11 +68,18 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof IndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/dashboard/$ip": {
-      id: "/dashboard/$ip";
-      path: "/dashboard/$ip";
-      fullPath: "/dashboard/$ip";
-      preLoaderRoute: typeof DashboardIpRouteImport;
+    "/$ip/": {
+      id: "/$ip/";
+      path: "/$ip";
+      fullPath: "/$ip";
+      preLoaderRoute: typeof IpIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/$ip/$presentationId/": {
+      id: "/$ip/$presentationId/";
+      path: "/$ip/$presentationId";
+      fullPath: "/$ip/$presentationId";
+      preLoaderRoute: typeof IpPresentationIdIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
   }
@@ -70,7 +87,8 @@ declare module "@tanstack/react-router" {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DashboardIpRoute: DashboardIpRoute,
+  IpIndexRoute: IpIndexRoute,
+  IpPresentationIdIndexRoute: IpPresentationIdIndexRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,7 +1,7 @@
 import { useSelect } from "downshift";
 
 import { useEffect } from "react";
-import { useTranslation } from "@/core/translations";
+import { useTranslation } from "@/core";
 import type { Language } from "@/translations";
 import { languages as languagesObj } from "@/translations";
 import { Form, Label, Options, Select } from "./index.css";
@@ -24,9 +24,12 @@ export function LanguageForm() {
 
 	return (
 		<Form>
+				<Select {...getToggleButtonProps()}>
 			<Label {...getLabelProps()}>
-				{t`homeChooseLanguage`}
-				<Select {...getToggleButtonProps()}>{selectedItem ? selectedItem[1] : "-"}</Select>
+					{t`homeChooseLanguage`}
+			</Label>
+					{selectedItem ? selectedItem[1] : "-"}
+				</Select>
 				<Options {...getMenuProps()} aria-hidden={!isOpen}>
 					{languages.map((item, index) => (
 						<li key={item[0]} {...getItemProps({ item, index })} data-highlighted={highlightedIndex === index}>
@@ -34,7 +37,6 @@ export function LanguageForm() {
 						</li>
 					))}
 				</Options>
-			</Label>
 		</Form>
 	);
 }

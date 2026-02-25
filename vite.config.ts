@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 import { defineConfig, createFilter, createLogger, loadEnv } from "vite";
+import unplugin from "@beqa/unplugin-transform-react-slots";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
@@ -24,6 +25,9 @@ export default defineConfig({
 			generatedRouteTree: "./routeTree.gen.ts",
 			quoteStyle: "double",
 			semicolons: true,
+		}),
+		unplugin.vite({
+			exclude: /\.(json)/,
 		}),
 		react(),
 		tsconfigPaths(),

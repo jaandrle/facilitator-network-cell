@@ -8,8 +8,7 @@ export function useNetworkInfo() {
 		NetworkInterface.getWiFiIPAddress()
 			.then(setValue)
 			.catch(() => {
-				if(VITE.RUN_MODE!=="localhost")
-					return setError(true);
+				if (VITE.RUN_MODE !== "localhost") return setError(true);
 				const ip = VITE.IP_ADDRESSES_MANUAL ?? VITE.IP_ADDRESSES_AUTO;
 				setValue({ ip });
 			})

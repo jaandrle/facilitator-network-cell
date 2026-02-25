@@ -1,9 +1,7 @@
 import styled, { css } from "styled-components";
-import { cssOpacityFade } from "@/ui/animations";
-import { color } from "@/ui/colors";
-import { fontStep } from "@/ui/typography";
+import { cssOpacityFade, color, fontStep } from "@/ui";
 
-import { Main as MainBase } from "./ui/layout.css";
+import { Main as MainBase } from "./ui";
 export const Main = styled(MainBase)`
 	display: flex;
 	flex-flow: row nowrap;
@@ -34,7 +32,8 @@ export const Form = styled.form`
 `;
 export { LayoutEntry } from "./components/layout";
 
-import { Input as InputBase } from "@/components/form";
+import { Input as InputBase, Label } from "@/components/form";
+export { Label };
 export const Input = styled(InputBase)`
 	&[inputMode=numeric][pattern$="{1,3}"]{
 		font-size: ${fontStep(0)};

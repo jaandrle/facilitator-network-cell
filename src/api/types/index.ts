@@ -1,2 +1,2 @@
 export type IPAddress = string;
-export type { Endpoints } from './endpoints';
+export type { Endpoints } from "./endpoints";

@@ -1,4 +1,4 @@
-import { cssVariable } from "@/core/cssVariable";
+import { cssVariable } from "@/core";
 
 export const paddingPage = cssVariable("padding-page", "2.5rem");
 export const borderRadius = cssVariable("border-radius-button", "4px");

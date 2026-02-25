@@ -1,7 +1,5 @@
 import { css, styled } from "styled-components";
-
-import { color } from "@/ui/colors";
-import { cssFont, fontStep } from "@/ui/typography";
+import { color, cssFont, fontStep } from "@/ui";
 
 const common = css`
 	cursor: pointer;
@@ -29,7 +27,7 @@ export const Link = styled(LinkPure)`
 	display: inline-block;
 	text-decoration: none;
 	${common}
-`;
+` as typeof LinkPure;
 
 export const Button = styled.button`
 	${common}

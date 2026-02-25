@@ -1,10 +1,10 @@
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useId, useRef, useState } from "react";
+import { type SubmitEvent, useEffect, useId, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { Button } from "@/components/";
-import { useTranslation } from "@/core/";
-import { LanguageForm, LayoutEntry, PartialIpForm } from "./components/";
+import { Button, InputWithLabel } from "@/components";
+import { useTranslation } from "@/core";
+import { LanguageForm, LayoutEntry, PartialIpForm } from "./components";
 import { Main, MainIp, MainIpHr } from "./index.css";
 import { useFindSocketIp } from "@/api";
 
@@ -14,14 +14,18 @@ export const Route = createFileRoute("/")({
 
 export function Page() {
 	const idForm = useId();
+	const idPasswordForm = useId();
 	const [isLoading, setIsLoading] = useState(false);
+	const [password, setPassword] = useState("");
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [showIpForm, setShowIpForm] = useState(false);
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const handleIp = useRef(async function handleIp(ip: string) {
 		try {
 			if (!/^([0-9]{1,3}\.){3}[0-9]{1,3}$/.test(ip)) throw new Error("Scanned QR code seems invalid");
 			setIsLoading(false);
-			navigate({ to: "/dashboard/$ip", params: { ip } });
+			navigate({ to: "/$ip", params: { ip } });
 		} catch (error) {
 			setIsLoading(false);
 			if (!(error instanceof Error)) return toast.error(`Unknown error: ${error}`);
@@ -29,10 +33,42 @@ export function Page() {
 		}
 	}).current;
 	const ipFound = useFindSocketIp(); //TODO: test
+
+	// Handle IP found - navigate if authenticated or no password yet
 	useEffect(() => {
 		if (ipFound.state !== "success" || !ipFound.ip) return;
+		if (!isAuthenticated) return;
 		handleIp(ipFound.ip);
-	}, [ipFound, handleIp]);
+	}, [ipFound, handleIp, isAuthenticated]);
+
+	// Handle IP search failure
+	useEffect(() => {
+		if (ipFound.state === "error" && isAuthenticated) {
+			setIsLoading(false);
+			setShowIpForm(true);
+		}
+	}, [ipFound.state, isAuthenticated]);
+
+	function handlePasswordSubmit(e: SubmitEvent<HTMLFormElement>) {
+		e.preventDefault();
+		const HARDCODED_PASSWORD = "1234"; // TODO: Make this configurable
+
+		if (password === HARDCODED_PASSWORD) {
+			setIsAuthenticated(true);
+			if (ipFound.state === "success" && ipFound.ip) {
+				// IP already found - navigate
+				handleIp(ipFound.ip);
+			} else if (ipFound.state === "loading") {
+				// Still searching - show loading
+				setIsLoading(true);
+			} else {
+				// IP search failed - show form
+				setShowIpForm(true);
+			}
+		} else {
+			toast.error("Invalid password");
+		}
+	}
 	async function handleIpScan() {
 		if (isLoading) return;
 		setIsLoading(true);
@@ -54,13 +90,44 @@ export function Page() {
 		<LayoutEntry title={t`homeTitle`} subtitle={t`homeSubtitle`}>
 			<Main>
 				<MainIp aria-busy={isLoading} aria-live="polite">
-					<PartialIpForm id={idForm} onIp={handleIp} isLoading={isLoading} />
-					<MainIpHr>{t`homeOr`}</MainIpHr>
-					<Button onClick={handleIpScan} type="button">
-						{t`homeScanQrCode`}
-					</Button>
-					<LanguageForm />
-					<Button formTarget={idForm} type="submit">{t`homeConnect`}</Button>
+					{!isAuthenticated && !showIpForm ? (
+						<>
+							<form id={idPasswordForm} onSubmit={handlePasswordSubmit}>
+								<InputWithLabel
+									id="password"
+									type="password"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									placeholder="Enter password"
+									autoFocus
+									required
+								>
+									Password
+								</InputWithLabel>
+							</form>
+							<LanguageForm />
+							<Button form={idPasswordForm} type="submit">
+								{t`homeConnect`}
+							</Button>
+						</>
+					) : isLoading ? (
+						<>
+							<p>Searching for device...</p>
+							<LanguageForm />
+						</>
+					) : (
+						<>
+							<PartialIpForm id={idForm} onIp={handleIp} isLoading={isLoading} />
+							<MainIpHr>{t`homeOr`}</MainIpHr>
+							<Button onClick={handleIpScan} type="button">
+								{t`homeScanQrCode`}
+							</Button>
+							<LanguageForm />
+							<Button form={idForm} type="submit">
+								{t`homeConnect`}
+							</Button>
+						</>
+					)}
 				</MainIp>
 			</Main>
 		</LayoutEntry>

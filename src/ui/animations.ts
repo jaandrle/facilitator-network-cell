@@ -1,33 +1,13 @@
 /*
-import {cssVariable} from "@/core/cssVariable";
+import {cssVariable} from "@/core";
 */
-import { css } from "styled-components";
+import { css, keyframes } from "styled-components";
+import { color } from "./colors";
 
 export const cssOpacityFade = css`
 	transition: opacity .5s ease-in-out;
 	opacity: 0.5;
 `;
-/*
-const blinking= `---blinking-ani`;
-const blinkingKeyframes= `
-@keyframes ${blinking} {
-	0% { opacity: .5; opacity: unset; }
-	50% { opacity: .25; }
-	100% { opacity: .5; opacity: unset; }
-}
-`;
-export const animationBlinking= cssVariable<string>(
-	"animation-blinking",
-	`${blinking} 2s infinite cubic-bezier(.86,0,.07,1)`
-);
-export const cssAnimationBlinking= css`
-opacity: .5;
-transition: opacity .5s ease-in-out;
-@media not (prefers-reduced-motion: reduce) {
-	animation: ${animationBlinking.var};
-}
-`;
-*/
 
 export const variables = [
 	/*
@@ -35,3 +15,16 @@ export const variables = [
 	blinkingKeyframes,
 	*/
 ].join("\n");
+
+
+const skeletonFrames = keyframes`
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+`;
+export const skeletonAnimation = css`
+	@media not (prefers-reduced-motion: reduce) {
+		background: linear-gradient(45deg, ${color("gray", 80)} 0%, ${color("gray", 60)} 50%, ${color("gray", 80)} 100%);
+		animation: ${skeletonFrames} 1.5s cubic-bezier(.65,.05,.36,1) infinite;
+		background-size: 200% 100%;
+	}
+`;

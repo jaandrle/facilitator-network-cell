@@ -2,8 +2,8 @@ import { App } from "@capacitor/app";
 import { Capacitor } from "@capacitor/core";
 import { type ReactElement, useLayoutEffect, useState } from "react";
 import logoSrc from "@/assets/cis-logo.png";
-import { useTranslation } from "@/core/translations";
-import { Footer, Header, Layout, Logo, type Main, NetworkcellCircles, SubHeader } from "../ui/layout.css";
+import { useTranslation } from "@/core";
+import { Footer, Header, Layout, Logo, type Main, SubHeader } from "../ui";
 
 export function LayoutEntry({
 	title,
@@ -30,7 +30,6 @@ export function LayoutEntry({
 				{t`homeVersion`} {version}
 			</Footer>
 			<Logo src={logoSrc} alt="CIS Logo" />
-			<NetworkcellCircles />
 		</Layout>
 	);
 }

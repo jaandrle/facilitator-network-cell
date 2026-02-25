@@ -8,14 +8,9 @@ export type State = "connecting" | "connected" | "disconnected";
 let socket: Socket | null = null;
 
 export function useAPI(ipAddress: IPAddress) {
-	if (socket === null) socket =
-			io(`${ipAddress}:${VITE.config.wsPort}`, { withCredentials: true });
+	if (socket === null) socket = io(`${ipAddress}:${VITE.config.wsPort}`, { withCredentials: true });
 	const [state, setState] = useState<State>(
-		socket.connected
-			? "connected"
-			: (socket.disconnected
-				? "disconnected"
-				: "connecting")
+		socket.connected ? "connected" : socket.disconnected ? "disconnected" : "connecting",
 	);
 	useEffect(() => {
 		const s: Socket = socket as Socket;
@@ -27,13 +22,16 @@ export function useAPI(ipAddress: IPAddress) {
 		return () => {
 			s.off("connect", onConnect);
 			s.off("disconnect", onDisconnect);
-		}
+		};
 	}, []);
 
-	return useMemo(() => ({
-		state,
-		useEmit: useEmit.bind(null, state),
-	}), [state]);
+	return useMemo(
+		() => ({
+			state,
+			useEmit: useEmit.bind(null, state) as <T extends keyof Endpoints>(name: T) => ReturnType<typeof useEmit<T>>,
+		}),
+		[state],
+	);
 }
 type StateEmit = "idle" | "pending" | "done" | "error";
 export type UseEmit = ReturnType<typeof useEmit>;
@@ -49,11 +47,15 @@ function useEmit<T extends keyof Endpoints>(stateIo: State, name: T) {
 			setState("done");
 		});
 	}).current;
-	const state: StateEmit | "disconnected" = stateIo === "connected" ? stateEmit : (stateIo === "connecting" ? "pending" : "disconnected");
+	const state: StateEmit | "disconnected" =
+		stateIo === "connected" ? stateEmit : stateIo === "connecting" ? "pending" : "disconnected";
 
-	return useMemo(() => ({
-		response,
-		state,
-		emit,
-	}), [response, state, emit]);
+	return useMemo(
+		() => ({
+			response,
+			state,
+			emit,
+		}),
+		[response, state, emit],
+	);
 }
