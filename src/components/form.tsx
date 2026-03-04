@@ -10,9 +10,6 @@ export const Input = styled.input`
 		color: ${color("gray", 60)};
 		text-transform: uppercase;
 	}
-	&:focus {
-		outline-width: 0;
-	}
 	&:not(:placeholder-shown):invalid{
 		color: ${color("red", 40)}
 	}
@@ -24,12 +21,6 @@ export const Label = styled.label`
 	padding: ${fontStep(-1, "small")} ${fontStep(-1, "xsmall")};
 	color: ${color("gray", 60)};
 	cursor: pointer;
-
-	transition: outline .25s ease-out;
-	outline: 3px solid transparent;
-	&:has(${Input}:focus-visible) {
-		outline-color: hsla(211, 100%, 58%, 1);
-	}
 `;
 
 import type { InputHTMLAttributes } from "react";

@@ -5,8 +5,10 @@ Route: `/:ip/:presentationId` - View and interact with presentation slides on th
 ### Components
 - `SlidePreview.tsx` - Slide preview component
 - `panels/` - Slide panel components
-	- `Activities.tsx` - Activities panel
 	- `Notes.tsx` - Notes panel
+	- `additional/`
+		- `Activities.tsx` - Activities (games) panel
+		- `Music.tsx` - Music panel
 
 ### Endpoints
 - [`../`](../README.md)

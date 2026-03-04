@@ -42,6 +42,7 @@ function useEmit<T extends keyof Endpoints>(stateIo: State, name: T) {
 
 	const emit = useRef((data: Endpoints[T]["request"]) => {
 		setState("pending");
+		setResponse(null);
 		s.emit(name, data, (response: Endpoints[T]["response"]) => {
 			setResponse(response);
 			setState("done");

@@ -3,17 +3,18 @@ import { color, borderRadius, cssFont } from "@/ui";
 
 export const Form = styled.div`
 	position: relative;
-	flex: 2;
+	height: 100%;
 `;
 import { Label as LabelBase } from "@/components";
 export const Label = styled(LabelBase)`
 	padding: 0;
 `;
-export const Select = styled.div`
+export const Select = styled(LabelBase)`
 	${cssFont.regular}
-	padding: .359rem 1.5em .359rem 0;
 	cursor: pointer;
 	color: ${color("black")};
+	box-sizing: border-box;
+	height: 100%;
 
 	&::after {
 		content: "";
@@ -36,7 +37,10 @@ export const Options = styled.ul`
 	left: 0;
 	top: 100%;
 	display: block;
+	min-width: fit-content;
 	width: 100%;
+	max-height: 25vmin;
+	overflow: hidden auto;
 	padding: 0;
 	margin: 1px 0;
 	${cssFont.regular}
@@ -44,12 +48,11 @@ export const Options = styled.ul`
 	background-color: ${color("white")};
 	border-radius: ${borderRadius.var};
 	cursor: pointer;
-	max-height: 25vmin;
-	overflow-y: auto;
 	transition: height .1s ease-in-out;
 
-	[aria-expanded="false"] + &{
+	&[aria-hidden="true"]{
 		height: 0;
+		display: none;
 	}
 
 	li {

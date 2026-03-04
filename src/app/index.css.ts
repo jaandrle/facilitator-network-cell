@@ -8,24 +8,36 @@ export const Main = styled(MainBase)`
 	gap: 15%;
 `;
 const MainContent = css`
-	display: inline-flex;
-	flex-flow: row wrap;
-	gap: ${fontStep(1, "small")};
+	display: grid;
+	grid-template-columns: 1fr 1fr .25fr;
+	gap: 3px;
 	background-color: ${color("white")};
 `;
-export const MainIp = styled.div`
+export type MainIpVariants = "nonauth" | "loading" | "fail";
+export const MainIp = styled.div<{
+	"aria-busy"?: boolean;
+	"data-variant": MainIpVariants;
+}>`
 	height: fit-content;
 	align-items: center;
-	padding-inline: ${fontStep(0)};
 	${MainContent}
 	&[aria-busy=true]{
 		${cssOpacityFade}
+	}
+	/* TODO */
+	&[data-variant="fail"]{
+		grid-template-columns: 1fr .25fr .25fr 1fr .25fr;
+	}
+	&[data-variant="loading"]{
+		grid-template-columns: 1fr 1fr;
+		padding-inline: 3%;
+		min-width: 50%;
+		gap: 0 3%;
 	}
 `;
 export const MainIpHr = styled.span`
 	display: inline-block;
 	min-width: fit-content;
-	text-align: center;
 `;
 export const Form = styled.form`
 	${MainContent}
@@ -40,4 +52,9 @@ export const Input = styled(InputBase)`
 		width: 7em;
 		font-variant-numeric: tabular-nums;
 	}
+`;
+
+import { Button } from "@/components";
+export const ButtonConnect = styled(Button)`
+	margin-inline: ${fontStep(0)};
 `;

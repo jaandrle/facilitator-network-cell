@@ -6,7 +6,6 @@ const common = css`
 	white-space: nowrap;
 	vertical-align: middle;
 	user-select: none;
-	outline: none;
 	border: 0;
 	color: ${color("white")};
 	background-color: ${color("primary")};

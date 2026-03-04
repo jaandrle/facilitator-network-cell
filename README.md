@@ -14,7 +14,7 @@ Contact:
 
 1. `git clone git@github.com:IndigoMultimediaTeam/facilitator-network-cell.git`
 1. `cd facilitator-network-cell`
-1. Login to Github packages:
+1. **Login to Github packages (project uses private packages!)**:
 	1. Personal access token with `read:packages` scope. (can be created on Github > Settings > Developer settings > Personal access tokens)
 	1. `npm login --registry=https://npm.pkg.github.com/ --scope=@indigomultimediateam` (use the token)
 1. `npm ci`
@@ -46,12 +46,3 @@ https://github.com/IndigoMultimediaTeam/CIS-Foundation-Facilitator)
 - [IndigoMultimediaTeam/android-tv-network-cell: Network Cell Manager for Google TV](
 https://github.com/IndigoMultimediaTeam/android-tv-network-cell)
 - Discord: https://discord.com/channels/@me/855089988126244894/1298621989631819839
-
-## Additional Resources
-
-- [Capacitor Documentation](https://capacitorjs.com/docs)
-- [Vite Documentation](https://vite.dev/guide/)
-- [TanStack Router](https://tanstack.com/router/latest)
-- [Biome Documentation](https://biomejs.dev/)
-- [Project GitHub](https://github.com/IndigoMultimediaTeam/facilitator-network-cell)
-- [Network Cell Manager](https://github.com/IndigoMultimediaTeam/android-tv-network-cell)

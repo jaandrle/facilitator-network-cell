@@ -2,7 +2,7 @@ import "../../node_modules/cssremedy/css/remedy.css";
 import "../../node_modules/cssremedy/css/quotes.css";
 import { createGlobalStyle as css } from "styled-components";
 import { cssOpacityFade, variables as variablesAnimations } from "./animations";
-import { variables as variablesColors } from "./colors";
+import { color, variables as variablesColors } from "./colors";
 import { variables as variablesSizes } from "./sizes";
 import { cssFontFaces, fontFamilyBase, fontFamilyHeadings, fontStep, variablesFontSizes } from "./typography";
 
@@ -40,8 +40,16 @@ export const GlobalStyle = css`
 		font-size: inherit;
 	}
 	input, button, a, [tabindex]{
-		&:focus { outline: 1px solid currentColor; }
-		&:focus:not(:focus-visible) { outline: none; }
+		outline: none;
+		&:focus-visible {
+			box-shadow: 0 0 0 2px ${color("black")} inset;
+			transition: box-shadow .2s ease-in-out;
+		}
+	}
+	label:has(input:focus-visible) {
+		box-shadow: 0 0 0 2px ${color("black")} inset;
+		transition: box-shadow .2s ease-in-out;
+		input { box-shadow: none; outline: none; }
 	}
 	caption, figcaption, label, legend { line-height: 1.375; }
 

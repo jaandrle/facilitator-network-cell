@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Button, InputWithLabel } from "@/components";
 import { useTranslation } from "@/core";
 import { LanguageForm, LayoutEntry, PartialIpForm } from "./components";
-import { Main, MainIp, MainIpHr } from "./index.css";
+import { ButtonConnect, Main, MainIp, MainIpHr, type MainIpVariants } from "./index.css";
 import { useFindSocketIp } from "@/api";
 
 export const Route = createFileRoute("/")({
@@ -86,11 +86,12 @@ export function Page() {
 			toast.error(error.message);
 		}
 	}
+	const state: MainIpVariants = !isAuthenticated && !showIpForm ? "nonauth" : isLoading ? "loading" : "fail";
 	return (
 		<LayoutEntry title={t`homeTitle`} subtitle={t`homeSubtitle`}>
 			<Main>
-				<MainIp aria-busy={isLoading} aria-live="polite">
-					{!isAuthenticated && !showIpForm ? (
+				<MainIp data-variant={state} aria-busy={isLoading} aria-live="polite">
+					{state === "nonauth" ? (
 						<>
 							<form id={idPasswordForm} onSubmit={handlePasswordSubmit}>
 								<InputWithLabel
@@ -106,13 +107,13 @@ export function Page() {
 								</InputWithLabel>
 							</form>
 							<LanguageForm />
-							<Button form={idPasswordForm} type="submit">
+							<ButtonConnect form={idPasswordForm} type="submit">
 								{t`homeConnect`}
-							</Button>
+							</ButtonConnect>
 						</>
-					) : isLoading ? (
+					) : state === "loading" ? (
 						<>
-							<p>Searching for device...</p>
+							<p>Searching for device…</p>
 							<LanguageForm />
 						</>
 					) : (
@@ -123,9 +124,9 @@ export function Page() {
 								{t`homeScanQrCode`}
 							</Button>
 							<LanguageForm />
-							<Button form={idForm} type="submit">
+							<ButtonConnect form={idForm} type="submit">
 								{t`homeConnect`}
-							</Button>
+							</ButtonConnect>
 						</>
 					)}
 				</MainIp>
