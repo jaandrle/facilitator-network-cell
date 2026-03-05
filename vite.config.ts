@@ -2,6 +2,7 @@
 
 import { defineConfig, createFilter, createLogger, loadEnv } from "vite";
 import unplugin from "@beqa/unplugin-transform-react-slots";
+import createSvgSpritePlugin from "vite-plugin-svg-sprite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
@@ -16,6 +17,12 @@ const fromEnv = Object.fromEntries(
 export default defineConfig({
 	define: { VITE: { config, ...fromEnv } },
 	plugins: [
+		createSvgSpritePlugin({
+			symbolId: "svgsprite-[name]",
+			exportType: "custom",
+			include: ["**/assets/*.svg", "**/assets/**/*.svg"],
+			adapter: "id",
+		}),
 		tanstackRouter({
 			target: "react",
 			autoCodeSplitting: true,

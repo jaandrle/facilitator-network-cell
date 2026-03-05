@@ -2,11 +2,12 @@ import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capac
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type SubmitEvent, useEffect, useId, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { Button, InputWithLabel } from "@/components";
+import { Button, InputWithLabel, SvgIcon } from "@/components";
 import { useTranslation } from "@/core";
 import { LanguageForm, LayoutEntry, PartialIpForm } from "./components";
 import { ButtonConnect, Main, MainIp, MainIpHr, type MainIpVariants } from "./index.css";
 import { useFindSocketIp } from "@/api";
+import { svgIconQrId } from "./assets";
 
 export const Route = createFileRoute("/")({
 	component: Page,
@@ -121,6 +122,7 @@ export function Page() {
 							<PartialIpForm id={idForm} onIp={handleIp} isLoading={isLoading} />
 							<MainIpHr>{t`homeOr`}</MainIpHr>
 							<Button onClick={handleIpScan} type="button">
+								<SvgIcon icon={svgIconQrId} />
 								{t`homeScanQrCode`}
 							</Button>
 							<LanguageForm />

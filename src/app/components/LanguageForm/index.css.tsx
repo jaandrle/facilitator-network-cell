@@ -6,6 +6,7 @@ export const Form = styled.div`
 	height: 100%;
 `;
 import { Label as LabelBase } from "@/components";
+import { svgIconArrowDownUrl } from "../../assets";
 export const Label = styled(LabelBase)`
 	padding: 0;
 `;
@@ -17,19 +18,21 @@ export const Select = styled(LabelBase)`
 	height: 100%;
 
 	&::after {
+		--_rotate-boolean: 1;
 		content: "";
 		font-size: .65em;
 		display: block;
 		width: 1em;
 		height: 1em;
-		background: url(assets/icon/fa-angle-up.svg) no-repeat;
+		background: url(${svgIconArrowDownUrl}) center no-repeat;
 		position: absolute;
 		top: 50%;
 		right: 1em;
-		transform: translateY(-50%);
+		transform: translateY(-50%) rotateX(calc(var(--_rotate-boolean) * 180deg));
+		transition: transform .15s ease-in-out;
 	}
 	&[aria-expanded="false"]::after {
-		background: url(assets/icon/fa-angle-down.svg) no-repeat;
+		--_rotate-boolean: 0;
 	}
 `;
 export const Options = styled.ul`
@@ -64,6 +67,7 @@ export const Options = styled.ul`
 		padding-inline: 1em;
 		margin: 0;
 		transition: background-color .15s ease-in-out;
+		box-sizing: border-box;
 
 		&[data-highlighted="true"] {
 			background-color: ${color("gray", 80)};

@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
-import url_bg from "@/assets/bg.png";
+import { imageBgUrl } from "@/assets";
 import { cssVariable } from "@/core";
 import { paddingPage } from "./sizes";
 import type { ReactNode } from "react";
 
-const bgBase = cssVariable("_bg-base", `url(${url_bg}) center / cover no-repeat`);
+const bgBase = cssVariable("_bg-base", `url(${imageBgUrl}) center / cover no-repeat`);
 
 export type LayoutProps = {
 	"data-variant"?: "entry";

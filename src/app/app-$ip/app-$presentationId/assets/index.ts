@@ -1,0 +1,13 @@
+import type { SvgIconId } from "@/components";
+import svgIconActivities from "./icon-activities.svg";
+export const svgIconActivitiesId = svgIconActivities as SvgIconId;
+import svgIconArrowRight from "./icon-arrow-right.svg";
+export const svgIconArrowRightId = svgIconArrowRight as SvgIconId;
+import svgIconMusicOff from "./icon-music-off.svg";
+export const svgIconMusicOffId = svgIconMusicOff as SvgIconId;
+import svgIconMusicOn from "./icon-music-on.svg";
+export const svgIconMusicOnId = svgIconMusicOn as SvgIconId;
+import svgIconTick from "./icon-tick.svg";
+export const svgIconTickId = svgIconTick as SvgIconId;
+import svgIconTimer from "./icon-timer.svg";
+export const svgIconTimerId = svgIconTimer as SvgIconId;
