@@ -30,6 +30,7 @@
 		"@capacitor/barcode-scanner": "~2.2",
 		"@capacitor/core": "~7.4",
 		"@capacitor/dialog": "~7.0",
+		"@capacitor/keyboard": "~7.0",
 		"@capacitor/splash-screen": "~7.0",
 		"@indigomultimediateam/networkcell-circles": "~1.2",
 		"@ionic-native/network-interface": "~5.36",

@@ -2,7 +2,7 @@ import { App } from "@capacitor/app";
 import { Dialog } from "@capacitor/dialog";
 import { useEffect } from "react";
 
-export function useBackButtonRegister() {
+export function useRegisterAppBackButton() {
 	useEffect(() => {
 		App.addListener("backButton", async () => {
 			if (history.state.idx) return history.back();

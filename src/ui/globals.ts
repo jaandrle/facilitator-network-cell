@@ -6,27 +6,36 @@ import { color, variables as variablesColors } from "./colors";
 import { variables as variablesSizes } from "./sizes";
 import { cssFontFaces, fontFamilyBase, fontFamilyHeadings, fontStep, variablesFontSizes } from "./typography";
 
+export const cssVariables = {
+	appScale: "--js-app-scale",
+	appDh: "--js-app-dh",
+} as const;
 export const GlobalStyle = css`
 	*, ::before, ::after { box-sizing: unset; }
 	${cssFontFaces}
 	:root{
-		--js-app-scale: 1;
+		${cssVariables.appScale}: 1;
+		${cssVariables.appDh}: 100%;
 		${variablesColors}
 		${variablesFontSizes}
 		${variablesSizes}
 		${variablesAnimations}
 	}
 	html, body {
-		height: 100%;
-		min-height: 100%;
+		height: var(${cssVariables.appDh});
 		overflow: hidden;
+	}
+	html[data-js-keyboard-open="true"]{
+		&, body {
+			overflow: hidden auto;
+		}
 	}
 	body {
 		font-family: ${fontFamilyBase};
 		font-size: ${fontStep(0)};
 		-webkit-tap-highlight-color: transparent;
 		interpolate-size: allow-keywords;
-		transform: scale(var(--js-app-scale));
+		transform: scale(var(${cssVariables.appScale}));
 		transform-origin: 0 0;
 	}
 	#root { display: contents; }
