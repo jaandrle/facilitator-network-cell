@@ -1,98 +1,150 @@
-export type Endpoints = {
+import * as v from "valibot";
+
+// Define all endpoint schemas using Valibot
+export const EndpointSchemas = {
 	"server.getLang": {
-		request: undefined;
-		response: string;
-	};
+		request: v.undefined_(),
+		response: v.string(),
+	},
 	listPresentation: {
-		request: undefined;
-		response: {
-			changelog: string;
-			lang: string;
-			lang_name: string;
-			last_update_at: string;
-			name: string;
-			presentation_id: string;
-			version: string;
-		}[];
-	};
+		request: v.undefined_(),
+		response: v.array(
+			v.object({
+				changelog: v.string(),
+				lang: v.string(),
+				lang_name: v.string(),
+				last_update_at: v.string(),
+				name: v.string(),
+				presentation_id: v.string(),
+				version: v.string(),
+			}),
+		),
+	},
 	getPresentationConfig: {
-		request: { presentationId: string };
-		response: {
-			changelog: string;
-			lang: string;
-			lang_name: string;
-			last_update_at: string;
-			name: string;
-			presentation_id: string;
-			base_url: string;
-			version: string;
-		};
-	};
+		request: v.object({ presentationId: v.string() }),
+		response: v.object({
+			changelog: v.string(),
+			lang: v.string(),
+			lang_name: v.string(),
+			last_update_at: v.string(),
+			name: v.string(),
+			presentation_id: v.string(),
+			base_url: v.string(),
+			version: v.string(),
+		}),
+	},
 	getPresentation: {
-		request: { presentationId: string };
-		response: {
-			day: number;
-			sessions: Record<
-				string,
-				{
-					from: string;
-					to: string;
-					title: string;
-					games: string[];
-				}
-			>;
-		};
-	};
+		request: v.object({ presentationId: v.string() }),
+		response: v.object({
+			day: v.number(),
+			sessions: v.record(
+				v.string(),
+				v.object({
+					from: v.string(),
+					to: v.string(),
+					title: v.string(),
+					games: v.array(v.string()),
+				}),
+			),
+		}),
+	},
 	getGames: {
-		request: { presentationId: string };
-		response: { id: string; title: string; done: boolean; isNew: boolean }[];
-	};
+		request: v.object({ presentationId: v.string() }),
+		response: v.array(
+			v.object({
+				id: v.string(),
+				title: v.string(),
+				done: v.boolean(),
+				isNew: v.boolean(),
+			}),
+		),
+	},
 	getMusic: {
-		request: { presentationId: string; slideId: number };
-		response: { id: string; title: string; active: boolean }[];
-	};
+		request: v.object({ presentationId: v.string(), slideId: v.number() }),
+		response: v.array(
+			v.object({
+				id: v.string(),
+				title: v.string(),
+				active: v.boolean(),
+			}),
+		),
+	},
 	nextSlide: {
-		request: { presentationId: string };
-		response: {
-			id: string;
-			index: number;
-			total: number;
-			url: string;
-			activities: { id: string; title: string; done: boolean; isNew: boolean }[];
-			notes: string;
-			music: { id: string; title: string; active: boolean }[];
-		};
-	};
+		request: v.object({ presentationId: v.string() }),
+		response: v.object({
+			id: v.string(),
+			index: v.number(),
+			total: v.number(),
+			url: v.string(),
+			activities: v.array(
+				v.object({
+					id: v.string(),
+					title: v.string(),
+					done: v.boolean(),
+					isNew: v.boolean(),
+				}),
+			),
+			notes: v.string(),
+			music: v.array(
+				v.object({
+					id: v.string(),
+					title: v.string(),
+					active: v.boolean(),
+				}),
+			),
+		}),
+	},
 	prevSlide: {
-		request: { presentationId: string };
-		response: {
-			id: string;
-			index: number;
-			total: number;
-			url: string;
-			activities: { id: string; title: string; done: boolean; isNew: boolean }[];
-			notes: string;
-			music: { id: string; title: string; active: boolean }[];
-		};
-	};
+		request: v.object({ presentationId: v.string() }),
+		response: v.object({
+			id: v.string(),
+			index: v.number(),
+			total: v.number(),
+			url: v.string(),
+			activities: v.array(
+				v.object({
+					id: v.string(),
+					title: v.string(),
+					done: v.boolean(),
+					isNew: v.boolean(),
+				}),
+			),
+			notes: v.string(),
+			music: v.array(
+				v.object({
+					id: v.string(),
+					title: v.string(),
+					active: v.boolean(),
+				}),
+			),
+		}),
+	},
 	toggleActivity: {
-		request: { activityId: string; done: boolean };
-		response: { success: boolean };
-	};
+		request: v.object({ activityId: v.string(), done: v.boolean() }),
+		response: v.object({ success: v.boolean() }),
+	},
 	toggleMusic: {
-		request: { musicId: string; active: boolean };
-		response: { success: boolean };
-	};
+		request: v.object({ musicId: v.string(), active: v.boolean() }),
+		response: v.object({ success: v.boolean() }),
+	},
 	getVolume: {
-		request: { presentationId: string; slideId: number };
-		response: { volume: number };
-	};
+		request: v.object({ presentationId: v.string(), slideId: v.number() }),
+		response: v.object({ volume: v.number() }),
+	},
 	setVolume: {
-		request: { presentationId: string; slideId: number; volume: number };
-		response: { success: boolean };
-	};
+		request: v.object({ presentationId: v.string(), slideId: v.number(), volume: v.number() }),
+		response: v.object({ success: v.boolean() }),
+	},
 	updateNotes: {
-		request: { slideId: string; notes: string };
-		response: { success: boolean };
+		request: v.object({ slideId: v.string(), notes: v.string() }),
+		response: v.object({ success: v.boolean() }),
+	},
+} as const;
+
+// Type inference from Valibot schemas
+export type Endpoints = {
+	[K in keyof typeof EndpointSchemas]: {
+		request: v.InferInput<(typeof EndpointSchemas)[K]["request"]>;
+		response: v.InferOutput<(typeof EndpointSchemas)[K]["response"]>;
 	};
 };

@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQueryGetPresentation, useSlideNav } from "./core";
 import { useTranslation } from "@/core";
+import * as v from "valibot";
 
 export const Route = createFileRoute("/$ip/$presentationId/")({
 	component: Page,
-	validateSearch: (search) =>
-		({
-			slide: typeof search.slide === "number" ? search.slide : 1,
-		}) as { slide?: number },
+	validateSearch: v.object({
+		slide: v.fallback(v.number(), 1),
+	}),
 });
 
 import { Button } from "@/components";

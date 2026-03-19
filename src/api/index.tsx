@@ -4,6 +4,7 @@ import { io, type Socket } from "socket.io-client";
 import { useQuery as useQueryTanstack, useMutation as useMutationTanstack } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { validateWebSocketRequest, validateWebSocketResponse } from "./validation";
 
 export type { IPAddress };
 const sharedIp = atom<IPAddress | null>(null);
@@ -44,9 +45,15 @@ export function useQuery<T extends keyof Endpoints>(name: T, data: Endpoints[T][
 		queryKey: [name, data] as const,
 		async queryFn({ queryKey: [name, data], signal }) {
 			if (!socket) throw RequestError.notConnected;
-			const response = await socket.emitWithAck(name, data);
+
+			// Validate request before sending
+			const validatedRequest = validateWebSocketRequest(name, data);
+
+			const response = await socket.emitWithAck(name, validatedRequest);
 			if (signal.aborted) throw RequestError.aborted;
-			return response as Endpoints[T]["response"];
+
+			// Validate response before returning
+			return validateWebSocketResponse(name, response);
 		},
 		enabled: socket !== null,
 		staleTime,
@@ -63,7 +70,10 @@ export function useMutation<T extends keyof Endpoints>(
 		mutationKey: [name] as const,
 		mutationFn(input: Endpoints[T]["request"]) {
 			if (!socket) return Promise.reject(new Error("not connected"));
-			return socket.emitWithAck(name, input) as Promise<Endpoints[T]["response"]>;
+
+			// Validate request and response
+			const validatedInput = validateWebSocketRequest(name, input);
+			return socket.emitWithAck(name, validatedInput).then((response) => validateWebSocketResponse(name, response));
 		},
 	});
 }
