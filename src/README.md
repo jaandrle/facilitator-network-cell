@@ -9,8 +9,7 @@ Basic React app with TypeScript.
 - [Styled Components](https://styled-components.com/) for styling
 - [downshift](https://www.npmjs.com/package/downshift) for selects
 - [i18next](https://www.i18next.com/) and [react-i18next](https://react.i18next.com/) for translations
-- [Package
-- networkcell-circles](https://github.com/IndigoMultimediaTeam/HTMLNetworkCellCirclesElement/pkgs/npm/networkcell-circles)
+- [Package networkcell-circles](https://github.com/IndigoMultimediaTeam/HTMLNetworkCellCirclesElement/pkgs/npm/networkcell-circles)
   for drawing network cell circles background
 - [@beqa/react-slots - npm](https://www.npmjs.com/package/@beqa/react-slots) and [@beqa/unplugin-transform-react-slots - npm](https://www.npmjs.com/package/@beqa/unplugin-transform-react-slots) for slots
 - [jotai - npm](https://www.npmjs.com/package/jotai) for (shared) state management

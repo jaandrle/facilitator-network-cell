@@ -1,4 +1,4 @@
-# Add Music visualiser
+# Plan DONE: Add Music visualiser
 
 - it should be used in Music component
 - “bar equalizer”

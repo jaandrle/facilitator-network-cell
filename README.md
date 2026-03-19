@@ -27,6 +27,14 @@ Capacitor-based Android app with React web frontend. Project uses:
 	- the `main` branch is protected
 	- use PR requests, code is linted (formatted)…
 	- relevant files: [`.github/workflows/pr.yml`](./.github/workflows/pr.yml)
+1. [![git3moji](https://img.shields.io/badge/git3moji%E2%80%93v1-%E2%9A%A1%EF%B8%8F%F0%9F%90%9B%F0%9F%93%BA%F0%9F%91%AE%F0%9F%94%A4-fffad8.svg?style=flat-square)](https://robinpokorny.github.io/git3moji/)
+	- **use for commit messages, issues and PRs titles**
+	- TLDR:
+		- `:zap:` ⚡️ – Features and primary concerns
+		- `:bug:` 🐛 – Bugs and fixes
+		- `:tv:`  📺 – CI, tooling, and configuration
+		- `:cop:` 👮 – Tests and linting
+		- `:abc:` 🔤 – Documentation
 1. NPM
 	- relevant files: [`package.json`](./package.json), see `config` key (refered as **C**)
 1. **Build system: [bs/](./bs/README.md) (refered as *bs*)**
@@ -39,6 +47,7 @@ Capacitor-based Android app with React web frontend. Project uses:
 	- this app was created using [`@capacitor/create-app`](https://github.com/ionic-team/create-capacitor-app)
 1. **[Web app (part)](./src/README.md)**
 	- app code logic
+1. No tests for now, issues with mockicg Ionic modules, see `dev/cop-tests` branch
 
 ## Resources
 - [IndigoMultimediaTeam/CIS-Foundation-Facilitator: Android Cordova App for Facilitators in CIS Foundation Project](

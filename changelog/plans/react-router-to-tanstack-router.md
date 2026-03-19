@@ -1,4 +1,4 @@
-# Migration from React Router to TanStack Router
+# Plan DONE: Migration from React Router to TanStack Router
 
 This guide documents the process of migrating from React Router to TanStack Router in this project.
 

@@ -1,7 +1,12 @@
-## IP Selection / Connection Page
+## Select presentations page
 
-Route: `/:ip` lists presentations for a given IP address router.
+### Features
+- lists presentations for a given server
+- can navigate to presentation dashboard
+
+### TODO
+- [ ] need something like logout
 
 ### Endpoints
 - [`../`](../README.md)
-- [`./app-$presentationId`](./app-$presentationId/README.md) - Presentation dashboard
+- [`./$presentationId/`](./app-$presentationId/README.md) - Presentation dashboard

@@ -1,4 +1,4 @@
-# Setting up Biome
+# Plan DONE: Setting up Biome
 
 This document outlines the steps to set up Biome for this project, with a focus on enforcing existing `.editorconfig` settings.
 

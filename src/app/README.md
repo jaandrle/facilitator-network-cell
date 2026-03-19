@@ -1,8 +1,13 @@
-### Frontend pages (URL endpoints)
+## Main (root) route/endpoint with app layout
 
-Main (root) route with app layout:
-
+### Features
+- auto find IP address on background
+- change language option
 - `./app-__root.tsx`: root layout, see TanStack Router docs
 
+### TODO
+- [ ] refind IP address
+- [ ] what if not found
+
 ### Endpoints
-- [`app-$ip/`](./app-$ip/README.md): app connected to router
+- [`/$ip/`](./app-$ip/README.md): app connected to the server

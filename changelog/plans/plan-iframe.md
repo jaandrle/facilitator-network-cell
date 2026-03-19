@@ -1,4 +1,4 @@
-# Plan to align slide (preview) using iframe
+# Plan DONE: Align slide (preview) using iframe
 
 required changes:
 1. Slides will be iframes
