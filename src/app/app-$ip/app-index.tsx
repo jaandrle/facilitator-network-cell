@@ -1,7 +1,6 @@
 import { Li, Ul, Link, H1 } from "./index.css";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
-import { type IPAddress, useQuery } from "@/api";
+import { useQuery } from "@/api";
 import { useTranslation } from "@/core";
 import { Layout as LayoutRaw } from "@/ui";
 
@@ -9,22 +8,9 @@ export const Route = createFileRoute("/$ip/")({
 	component: Page,
 });
 
-function useLanguageEffect(ip: IPAddress) {
-	const lang = useQuery("server.getLang", undefined);
-	const { changeLanguage } = useTranslation();
-	useEffect(() => {
-		if (lang.status === "error") return; // TODO?
-		if (lang.status !== "success") return;
-
-		changeLanguage(lang.data);
-	}, [lang, changeLanguage]);
-	return lang;
-}
-
 export function Page() {
 	const { ip } = Route.useParams();
 	const { t } = useTranslation();
-	//const lang = useLanguageEffect(ip);
 	const { data, status } = useQuery("listPresentation", undefined);
 	const isBusy = status === "pending";
 

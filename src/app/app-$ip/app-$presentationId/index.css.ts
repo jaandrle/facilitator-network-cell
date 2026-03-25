@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { cssFont, fontStep, Layout as LayoutBase } from "@/ui";
+import { fontStep, Layout as LayoutBase } from "@/ui";
 import { cssVariable } from "@/core";
 
 const gap = cssVariable("_gap", "1rem");

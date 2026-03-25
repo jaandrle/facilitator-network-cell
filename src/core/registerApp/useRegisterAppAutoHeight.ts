@@ -1,3 +1,4 @@
+import type { AppHtmlDataset } from "@/types/dom";
 import { useEffect } from "react";
 import { Keyboard, type KeyboardInfo } from "@capacitor/keyboard";
 import { Capacitor } from "@capacitor/core";
@@ -13,9 +14,9 @@ export function useRegisterAppAutoHeight() {
 					? clientHeight + (info as KeyboardInfo).keyboardHeight
 					: clientHeight;
 
-			document.documentElement.dataset.jsKeyboardOpen = Boolean(
+			(document.documentElement.dataset as AppHtmlDataset).jsKeyboardOpen = Boolean(
 				info && (info as KeyboardInfo).keyboardHeight,
-			).toString();
+			).toString() as "true" | "false";
 			document.body.style.setProperty(cssVariables.appDh, `${height}px`);
 		}
 

@@ -7,6 +7,7 @@ import {
 	useRegisterAppBackButton,
 	useTranslationInit,
 } from "@/core";
+import type { AppBodyDataset } from "@/types/dom";
 
 export const Route = createRootRoute({
 	component: Root,
@@ -24,7 +25,7 @@ function Root() {
 		Object.assign(document.documentElement, { lang, dir: i18n.dir() });
 	}, [lang, i18n.dir]);
 	useEffect(() => {
-		document.body.dataset.js_state = loading ? "loading" : "ready";
+		(document.body.dataset as AppBodyDataset).js_state = loading ? "loading" : "ready";
 	}, [loading]);
 	useRegisterAppAutoScale();
 	useRegisterAppAutoHeight();

@@ -1,23 +1,36 @@
 {
 	"compilerOptions": {
+		"verbatimModuleSyntax": true,
+		"noEmit": true,
 		"target": "es2019",
-		"useDefineForClassFields": true,
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"esModuleInterop": false,
-		"allowSyntheticDefaultImports": true,
-		"strict": true,
-		"strictBindCallApply": true,
-		"forceConsistentCasingInFileNames": true,
 		"module": "ESNext",
 		"moduleResolution": "Node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"noEmit": true,
 		"jsx": "react-jsx",
-		"types": [],
+
+		"strict": true,
+		"strictBindCallApply": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noUncheckedSideEffectImports": true,
+		"allowUnreachableCode": false,
+		"noUncheckedIndexedAccess": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"erasableSyntaxOnly": true,
+		"noImplicitOverride": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"useDefineForClassFields": true,
+
+		"noErrorTruncation": false,
+
 		"baseUrl": ".",
+		"types": [],
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"paths": {
 				"@/*": [ "src/*" ]
 		}
