@@ -47,7 +47,13 @@ Capacitor-based Android app with React web frontend. Project uses:
 	- this app was created using [`@capacitor/create-app`](https://github.com/ionic-team/create-capacitor-app)
 1. **[Web app (part)](./src/README.md)**
 	- app code logic
-1. No tests for now, issues with mockicg Ionic modules, see `dev/cop-tests` branch
+1. Uses PlayWright for unit and e2e tests
+	- unit tests are collocated with app code
+		- **testing components relying on TanStack Query/Router doesn’t work at the moment!**
+	- e2e test are located in [tests/e2e](./tests/e2e)
+	- configs, see [`playwright.unit.config.ts`](./playwright.unit.config.ts) and [`playwright.e2e.config.ts`](./playwright.e2e.config.ts)
+	- resources: [Components (experimental) | Playwright](https://playwright.dev/docs/test-components), [How to Set Up Testing with Code-Based Routing | TanStack Router Docs](https://tanstack.com/router/latest/docs/how-to/setup-testing)
+	- implementation plan, see [`changelog/plans/plan-testing.md`](./changelog/plans/plan-testing.md)
 
 ## Resources
 - [IndigoMultimediaTeam/CIS-Foundation-Facilitator: Android Cordova App for Facilitators in CIS Foundation Project](

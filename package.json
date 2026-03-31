@@ -18,9 +18,9 @@
 		"network-cell"
 	],
 	"scripts": {
-		"start": "echo '\\033[33mUse `bs` (see `bs/README.md`) instead of `npm run start`\\033[0m' && bs/localhost.js",
-		"build": "echo '\\033[33mUse `bs` (see `bs/README.md`) instead of `npm run build`\\033[0m' && bs/build/all.js",
-		"lint": "echo '\\033[33mUse `bs` (see `bs/README.md`) instead of `npm run lint`\\033[0m' && bs/dev/lint.js",
+		"start": "echo '\u001b[33mUse `bs` (see `bs/README.md`) instead of `npm run start`\u001b[0m' && bs/localhost.js",
+		"build": "echo '\u001b[33mUse `bs` (see `bs/README.md`) instead of `npm run build`\u001b[0m' && bs/build/all.js",
+		"lint": "echo '\u001b[33mUse `bs` (see `bs/README.md`) instead of `npm run lint`\u001b[0m' && bs/dev/lint.js",
 		"prepare": "bs/hooks/npm-prepare.js"
 	},
 	"dependencies": {
@@ -37,6 +37,7 @@
 		"@tanstack/react-query": "~5.90",
 		"@tanstack/react-router": "~1.133",
 		"@tanstack/react-router-devtools": "~1.133",
+		"@testing-library/react": "~16.3",
 		"cordova-plugin-networkinterface": "~2.2",
 		"cssremedy": "~0.1.0-beta.2",
 		"downshift": "~9.3",
@@ -54,7 +55,10 @@
 		"@beqa/unplugin-transform-react-slots": "~1.0",
 		"@biomejs/biome": "2.3.4",
 		"@capacitor/cli": "~7.4",
+		"@playwright/experimental-ct-react": "~1.58",
+		"@playwright/test": "~1.58",
 		"@tanstack/router-plugin": "~1.133",
+		"@types/node": "^25.5.0",
 		"@types/react": "~19.2",
 		"@types/react-dom": "~19.2",
 		"@vitejs/plugin-react": "~5.1",

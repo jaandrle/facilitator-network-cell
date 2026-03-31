@@ -15,7 +15,9 @@ See section [Development basics](./bs/README.md).
 	- Format code `bs/dev/biome.js Formatting --fix`, it may be needed change code manually if autofix fails (it is
 	  executable).
 1. **Use `bs/` scripts** in other cases (they are all executable).
-1. **No test runner YET**: There are no Jest/Vitest tests configured
+1. **Test**
+	- use colocated test for unit testing
+	- use `bs/test/unit.js` for run test (see `bs/README.md`)
 
 ## Web App Structure
 See section [App structure](./src/README.md) and speciall Colocation convention.

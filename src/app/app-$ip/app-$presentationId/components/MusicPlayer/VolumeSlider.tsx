@@ -10,7 +10,7 @@ function debounce<T extends (...args: any[]) => any>(fn: T, delay: number) {
 	let timeoutId: number;
 	return (...args: Parameters<T>) => {
 		if (timeoutId) clearTimeout(timeoutId);
-		timeoutId = setTimeout(() => fn(...args), delay);
+		timeoutId = setTimeout(() => fn(...args), delay) as unknown as number;
 	};
 }
 

@@ -25,9 +25,18 @@ bs/dev/biome.js Formatting
 - Add `--fix` to apply fixes
 - Add `--verbose` for detailed output
 
+##### bs/test/unit.js
+Runs unit tests (wrapper around `npx playwright test`). Arguments are passed to playwright (you can use `help` to print
+playwright help).
+
 ##### bs/build/vite.js
 Prepares the vite configuration and builds the web (part of the) app to `dist/` directory.
 *Internally runs `npx vite build`*.
+
+##### bs/dev/assets.js
+Generates `index.ts` files for all `assets` folders in `src/` directory.
+See [../src](../src/README.md#assets) for rules. Use `--all` flag to generate constants for all assets options in
+case you want to use new options (code auto-remove unused options otherwise).
 
 #### Development and publishing
 
@@ -39,6 +48,10 @@ you can use additional arguments (see `vite --help`).
 Builds a web app and runs it on device/emulator (only android).
 *Internally runs `bs/build/vite.js && npx cap run android`*, you
 can use additional arguments (see `npx cap run --help`).
+
+##### bs/test/e2e.js
+Runs e2e tests (wrapper around `npx playwright test`). Arguments are passed to playwright (you can use `help` to print
+playwright help).
 
 ##### bs/build.js
 Creates the android package. See `bs/build/capacitor.js` and `bs/build/vite.js`.

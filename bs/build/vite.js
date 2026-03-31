@@ -13,6 +13,7 @@ if ($.isMain(import.meta))
 		})
 		.parse();
 
+import { genereateAssetsIndices } from "../dev/assets.js";
 /**
  * @typedef {Object} BuildOptions
  * @property {boolean} [options.lint] Force lint before build
@@ -20,6 +21,7 @@ if ($.isMain(import.meta))
 /** @param {BuildOptions} options */
 export function buildVite({ lint } = {}) {
 	buildConfig();
+	genereateAssetsIndices();
 	buildFE({ lint });
 }
 

@@ -22,7 +22,7 @@ export function SvgIcon({
 } & Omit<SVGAttributes<SVGElement>, "role">) {
 	return (
 		<Svg role={role} {...props}>
-			<title>{children}</title>
+			{children && <title>{children}</title>}
 			<use href={`#${icon}`} />
 		</Svg>
 	);

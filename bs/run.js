@@ -1,6 +1,7 @@
 #!/usr/bin/env -S npx nodejsscript
 import { describeFromReadme } from "./.common.js";
 import { buildConfig } from "./build/capacitor.js";
+import { genereateAssetsIndices } from "./dev/assets.js";
 import { buildVite } from "./build/vite.js";
 
 $.api("", true)
@@ -9,6 +10,7 @@ $.api("", true)
 	.option("--lint", "Force lint before build", false)
 	.action(async function main({ lint, _: options, ..._ }) {
 		options = options.concat(restoreArgs(_));
+		genereateAssetsIndices();
 		try {
 			buildVite({ lint });
 			buildConfig();

@@ -29,7 +29,8 @@
 		"noErrorTruncation": false,
 
 		"baseUrl": ".",
-		"types": [],
+		"types": [
+		],
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"paths": {
 				"@/*": [ "src/*" ]

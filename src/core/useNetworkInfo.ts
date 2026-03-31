@@ -1,4 +1,5 @@
 import { NetworkInterface } from "@ionic-native/network-interface";
+
 import { useLayoutEffect, useMemo, useState } from "react";
 
 export function useNetworkInfo() {

@@ -48,6 +48,19 @@ app-parent/
 		app-index.tsx # must use ComponentChild and can use Component
 ```
 
+…for component/core also colocate test:
+```
+…/
+	components/
+		Component.tsx
+		Component.test.tsx
+	core/
+		hook.ts
+		hook.test.ts
+		util.ts
+		util.test.ts
+```
+
 #### `src` specifics
 all folders mentioned above contains global styles/components/… and:
 
@@ -61,14 +74,8 @@ all folders mentioned above contains global styles/components/… and:
 …you can use `@/` alias.
 
 ### Assets
-Similarly to components `assets` folder should contain `index.ts` with exported components/….
-
-It is probably nice to use:
-```ts
-import Icon from './Icon.png';
-export const IconId = Icon as Type;
-```
-…as it helps editor/ide to jump to the file when using ‘find definition’ feature.
+Each `assets` folder contains static assets and auto-generated `index.ts` file (see
+[`bs/dev/assets.js`](../bs/README.md#assets) for details).[^1]
 
 #### Default import behavior
 - **for SVG**
@@ -85,3 +92,5 @@ and use `?no-inline` search param.
 
 - see [Vite behavior](https://vite.dev/guide/assets)
 - this uses real image on builded site and returns its URL
+
+[^1]: This happend to be side effect when working on playwright tests and happend to not needed for them.

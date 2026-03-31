@@ -7,4 +7,14 @@ node_modules/
 .DS_Store
 .sourcemaps
 dist/
+
+# generated files
 AGENTS.md
+src/**/assets/index.ts
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/test-results/

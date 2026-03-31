@@ -40,7 +40,7 @@ export function useFindSocketIp() {
 						if (abort.signal.aborted) return;
 						if (index_ip >= ips.length) {
 							if (active === 0) reject(new Error("not found"));
-							else if (id_timeout === null) id_timeout = setTimeout(next, timeout); // ★
+							else if (id_timeout === null) id_timeout = setTimeout(next, timeout) as unknown as number; // ★
 							/* ★
 							 * not strictly correct (promise can resolve earlier) but
 							 * timeout is small enough that it doesn't matter

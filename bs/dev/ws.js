@@ -17,8 +17,9 @@ const wsEcho = (msg, ...msgs) => echo(`%c${msg}`, css.ws, ...msgs);
 if ($.isMain(import.meta))
 	$.api("", true)
 		.describe(describeFromReadme())
-		.action(async function main() {
-			await mockWebSocket();
+		.option("--silent", "Silent mode", false)
+		.action(async function main({ silent }) {
+			await mockWebSocket(silent);
 			$.exit(0);
 		})
 		.parse();
@@ -29,11 +30,12 @@ const actions_path = "./.ws-responses/";
 const actions_files = s.ls(path(actions_path)).filter((f) => f.endsWith(".js"));
 const actions = actions_files.map((file) => file.slice(0, file.lastIndexOf(".")));
 
-export function mockWebSocket() {
-	return Promise.all([mockWebSocketIo(), mockWebSocketPing()]);
+export function mockWebSocket(isSilent) {
+	return Promise.all([mockWebSocketIo(isSilent), mockWebSocketPing()]);
 }
 import { Server } from "socket.io";
-function mockWebSocketIo() {
+function mockWebSocketIo(isSilent) {
+	const echo = isSilent ? () => ({}) : wsEcho;
 	return new Promise((resolve, reject) => {
 		const port = config.wsPort;
 		const io = new Server(port, {
@@ -44,26 +46,26 @@ function mockWebSocketIo() {
 			},
 		});
 		io.on("connection", function onClient(socket) {
-			wsEcho(`${mockWebSocketIo.name} on port ${port}`);
+			echo(`${mockWebSocketIo.name} on port ${port}`);
 			for (let i = 0; i < actions_files.length; i++) {
 				socket.on(actions[i], async (data, callback) => {
-					wsEcho("Received data from client:", data);
+					echo("Received data from client:", data);
 					const handler = await import(path`${actions_path}${actions[i]}.js`);
 					const response = handler.default(data);
-					wsEcho("Sending data to client:", response);
+					echo("Sending data to client:", response);
 					callback(response);
 				});
 			}
 
-			socket.on("error", wsEcho.bind(null, "Error:"));
-			socket.on("close", wsEcho.bind(null, "Close:"));
+			socket.on("error", echo.bind(null, "Error:"));
+			socket.on("close", echo.bind(null, "Close:"));
 		});
 		io.on("close", () => {
-			wsEcho("Server Closed");
+			echo("Server Closed");
 			resolve();
 		});
 		io.on("error", (err) => {
-			wsEcho("Server Error:", err);
+			echo("Server Error:", err);
 			reject();
 		});
 	});
