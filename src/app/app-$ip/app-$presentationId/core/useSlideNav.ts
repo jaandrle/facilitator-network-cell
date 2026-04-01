@@ -1,11 +1,14 @@
 import { startViewTransition } from "@/ui";
 import { viewTransitionSlideNext, viewTransitionSlidePrev } from "../components/SlidePreview.css";
-import { useSearch, useNavigate, useParams } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
+import { useAtomValue } from "jotai";
+import { atomIp, atomPresentationId, atomSlide } from "./atoms";
 
 export function useSlideNav(totalSlides: number) {
-	const { ip, presentationId } = useParams({ from: "/$ip/$presentationId/" });
+	const presentationId = useAtomValue(atomPresentationId) as string;
+	const ip = useAtomValue(atomIp) as string;
 	const navigate = useNavigate();
-	const { slide: current } = useSearch({ from: "/$ip/$presentationId/" }) as { slide: number };
+	const current = useAtomValue(atomSlide) as number;
 	const setCurrent = (value: number) => {
 		if (value < 1 || value > totalSlides || value === current) return;
 		const ani = current < value ? viewTransitionSlideNext : viewTransitionSlidePrev;

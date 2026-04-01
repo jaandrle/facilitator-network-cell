@@ -1,9 +1,7 @@
 import type { Endpoints, IPAddress } from "./types";
-import { atom, useAtom, useAtomValue } from "jotai";
+import { atom, useAtomValue } from "jotai";
 import { io, type Socket } from "socket.io-client";
 import { useQuery as useQueryTanstack, useMutation as useMutationTanstack } from "@tanstack/react-query";
-import { useParams } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { validateWebSocketRequest, validateWebSocketResponse } from "./validation";
 
 export type { IPAddress };
@@ -28,13 +26,6 @@ class RequestError extends Error {
 }
 
 function useSocket() {
-	const { ip } = useParams({ strict: false }) as { ip?: IPAddress };
-	const [serverIp, setServerIp] = useAtom(sharedIp);
-	useEffect(() => {
-		if (!ip) return;
-		if (ip === serverIp) return;
-		setServerIp(ip);
-	}, [ip, serverIp, setServerIp]);
 	return useAtomValue(sharedSocket);
 }
 

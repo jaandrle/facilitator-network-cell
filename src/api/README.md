@@ -14,7 +14,7 @@ The API layer uses a combination of:
 ### 1. WebSocket Connection Management
 
 - **`sharedIp` atom** - Manages the current server IP address
-  - Automatically updates based on route parameters
+  - Updated via the `useSetAtomsFromPage` hook from route parameters
   - Shared across the application using jotai
 
 - **`sharedSocket` atom** - Computed atom that creates and manages the WebSocket connection

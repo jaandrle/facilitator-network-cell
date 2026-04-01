@@ -1,15 +1,16 @@
 import { Li, Ul, Link, H1 } from "./index.css";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@/api";
-import { useTranslation } from "@/core";
+import { useTranslation, useSetAtomsFromPage } from "@/core";
 import { Layout as LayoutRaw } from "@/ui";
+import atoms from "./core/atoms";
 
 export const Route = createFileRoute("/$ip/")({
 	component: Page,
 });
 
 export function Page() {
-	const { ip } = Route.useParams();
+	const { ip } = useSetAtomsFromPage(atoms, Route.useParams());
 	const { t } = useTranslation();
 	const { data, status } = useQuery("listPresentation", undefined);
 	const isBusy = status === "pending";

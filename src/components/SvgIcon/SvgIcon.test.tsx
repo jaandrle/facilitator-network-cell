@@ -15,7 +15,7 @@ test.describe("SvgIcon Component", () => {
 		const svg = await mount(
 			<SvgIcon icon={mockIconId} role="search" aria-hidden="true">
 				Title
-			</SvgIcon>
+			</SvgIcon>,
 		);
 		await expect(svg).toBeVisible();
 		await expect(svg).toHaveAttribute("aria-hidden", "true");

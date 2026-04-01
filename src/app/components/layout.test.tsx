@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/experimental-ct-react";
 import { LayoutEntry } from "./layout";
-import {LayoutEntryChangeTest} from "./__components";
+import { LayoutEntryChangeTest } from "./__components";
 
 test.describe("LayoutEntry Component", () => {
 	test("should render layout with given props", async ({ mount }) => {
@@ -48,7 +48,7 @@ test.describe("LayoutEntry Component", () => {
 
 	test("should maintain layout structure when content changes", async ({ mount }) => {
 		const { promise, resolve } = Promise.withResolvers();
-		const component = await mount( <LayoutEntryChangeTest isDone={resolve} />);
+		const component = await mount(<LayoutEntryChangeTest isDone={resolve} />);
 
 		await promise;
 		const suffix = "Hello Test";

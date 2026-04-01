@@ -21,5 +21,4 @@ test.describe("Timer Component", () => {
 		expect(time_el).toHaveAttribute("datetime", "PT0H0M0S");
 		expect(btns).toHaveCount(1);
 	});
-
 });

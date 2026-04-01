@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQueryGetPresentation, useSlideNav } from "./core";
-import { useTranslation } from "@/core";
+import { useTranslation, useSetAtomsFromPage } from "@/core";
 import * as v from "valibot";
+import atoms from "./core/atoms";
 
 export const Route = createFileRoute("/$ip/$presentationId/")({
 	component: Page,
 	validateSearch: v.object({
-		slide: v.fallback(v.number(), 1),
+		slide: v.optional(v.number(), 1),
 	}),
 });
 
@@ -24,6 +25,7 @@ import {
 } from "./components";
 import { Layout, SlidesZone, PanelsZone, ActionsPrevNext, ActionsTimer } from "./index.css";
 function Page() {
+	useSetAtomsFromPage(atoms, Route.useParams(), Route.useSearch());
 	const { t } = useTranslation();
 	const { totalSlides } = useQueryGetPresentation();
 	const slide = useSlideNav(totalSlides);

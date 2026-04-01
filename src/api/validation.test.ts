@@ -1,7 +1,7 @@
 // Unit tests for API validation utilities
 import { test, expect } from "@playwright/test";
 import { validateWebSocketRequest, validateWebSocketResponse } from "./validation";
-import {after, before} from "node:test";
+import { after, before } from "node:test";
 
 test.describe("API Validation Utilities", () => {
 	const { error } = console;
@@ -10,7 +10,7 @@ test.describe("API Validation Utilities", () => {
 	});
 	after(() => {
 		console.error = error;
-	})
+	});
 	test("validateWebSocketRequest should validate valid request data", () => {
 		const validData = { presentationId: "test123" };
 		const result = validateWebSocketRequest("getPresentation", validData);

@@ -9,10 +9,10 @@ export function LayoutEntryChangeTest({ isDone }: { isDone: (value: unknown) => 
 	});
 	useEffect(() => {
 		if (text === "Hello Test") isDone(true);
-	}, [isDone,text])
+	}, [isDone, text]);
 	return (
-		<LayoutEntry title={`Title ${text}`} subtitle={`Subtitle ${text}`} >
+		<LayoutEntry title={`Title ${text}`} subtitle={`Subtitle ${text}`}>
 			<div>{text}</div>
-		</LayoutEntry
-	>);
+		</LayoutEntry>
+	);
 }

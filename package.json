@@ -58,7 +58,7 @@
 		"@playwright/experimental-ct-react": "~1.58",
 		"@playwright/test": "~1.58",
 		"@tanstack/router-plugin": "~1.133",
-		"@types/node": "^25.5.0",
+		"@types/node": "~22.22",
 		"@types/react": "~19.2",
 		"@types/react-dom": "~19.2",
 		"@vitejs/plugin-react": "~5.1",

@@ -17,6 +17,32 @@ Basic React app with TypeScript.
 - [vite-plugin-svg-sprite - npm](https://www.npmjs.com/package/vite-plugin-svg-sprite) for SVG sprite, see Assets
   section below
 
+### State Management Pattern
+
+The application uses a **Jotai-based state management pattern** for route parameters:
+
+- **Atoms**: Each route level defines its own atoms (e.g., `atomIp`, `atomPresentationId`, `atomSlide`)
+- **`useSetAtomsFromPage` hook**: Automatically syncs route parameters and search params to Jotai atoms
+- **Usage**: Components read from atoms instead of directly accessing route parameters
+
+**Example:**
+```typescript
+// Define atoms (e.g., in src/app/app-$ip/core/atoms.ts)
+export const atomIp = atom<string>();
+
+// In route component
+useSetAtomsFromPage(atoms, Route.useParams(), Route.useSearch());
+
+// In child components
+const ip = useAtomValue(atomIp); // Instead of useParams()
+```
+
+This pattern provides:
+- Better separation of concerns
+- Easier testing (can mock atoms instead of route context)
+- Consistent state access across the application
+- Automatic synchronization between route changes and state
+
 ### App structure
 
 For routing [TanStack Router with Vite](https://tanstack.com/router/latest/docs/framework/react/installation/with-vite)
@@ -29,7 +55,7 @@ Each route/component folder contains:
 - (`app-index.tsx`) `index.tsx` - (route) component (required)
 - `index.css.ts` - (route) component styles
 - `components/` - shared components
-- `core/` - shared hooks/functions
+- `core/` - shared utility functions, hooks and state management utilities
 - `types/` - shared types
 - `ui/` - shared ui
 - `assets/` - shared static assets

@@ -3,15 +3,16 @@ import { useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "@/core";
 import { Tab, Content, Ul, Li, UlPreview, Button, viewTransitionUl, TabSvgIcon, LiSvgIcon } from "../index.css";
-import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@/api";
 import { startViewTransition } from "@/ui";
 import { svgIconMusicOffId, svgIconMusicOnId } from "../../../assets/index.js";
 import { type MusicApiStatus, MusicPlayer } from "../../MusicPlayer/exports";
+import { useAtomValue } from "jotai";
+import { atomPresentationId } from "../../../core";
 
 export function Music({ slideId, activeTab, setActiveTab, headerRef }: AdditionalComponentProps) {
 	const { t } = useTranslation();
-	const { presentationId } = useParams({ from: "/$ip/$presentationId/" });
+	const presentationId = useAtomValue(atomPresentationId) as string;
 	const presentation = useMemo(() => ({ presentationId, slideId }), [presentationId, slideId]);
 	const music = useQuery("getMusic", presentation);
 	const [musicState, setMusicState] = useState<MusicApiStatus>("idle");

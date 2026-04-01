@@ -2,11 +2,12 @@ import { useMemo } from "react";
 import { useQueryGetPresentation } from "./useQueryGetPresentation";
 import { useQuery } from "@/api";
 import { mergeTanStackStatuses } from "./mergeQueryStatuses";
-import { useParams } from "@tanstack/react-router";
+import { useAtomValue } from "jotai";
+import { atomPresentationId } from "./atoms";
 
 export function useSession(currentSlide: number) {
 	const presentationQuery = useQueryGetPresentation();
-	const { presentationId } = useParams({ from: "/$ip/$presentationId/" });
+	const presentationId = useAtomValue(atomPresentationId) as string;
 	const gamesQuery = useQuery("getGames", { presentationId });
 	const status = mergeTanStackStatuses(gamesQuery.status, presentationQuery.status);
 

@@ -1,7 +1,8 @@
 import { useQuery } from "@/api";
-import { useParams } from "@tanstack/react-router";
+import { useAtomValue } from "jotai";
+import { atomPresentationId } from "./atoms";
 
 export function useQueryGetPresentationConfig() {
-	const { presentationId } = useParams({ from: "/$ip/$presentationId/" });
+	const presentationId = useAtomValue(atomPresentationId) as string;
 	return useQuery("getPresentationConfig", { presentationId });
 }

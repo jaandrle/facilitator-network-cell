@@ -34,7 +34,15 @@ test.describe("Button Components", () => {
 
 	test("should be clickable and trigger events", async ({ mount }) => {
 		let clicked = false;
-		const button = await mount(<Button onClick={() => { clicked = true; }}>Clickable</Button>);
+		const button = await mount(
+			<Button
+				onClick={() => {
+					clicked = true;
+				}}
+			>
+				Clickable
+			</Button>,
+		);
 		await button.click();
 		expect(clicked).toBe(true);
 	});

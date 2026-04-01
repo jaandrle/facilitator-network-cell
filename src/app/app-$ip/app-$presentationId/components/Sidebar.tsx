@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQueryGetPresentation, useSession, useSlideNav } from "../core";
+import { atomIp, atomPresentationId, useQueryGetPresentation, useSession, useSlideNav } from "../core";
 import { useTranslation } from "@/core";
 import { Button, Link } from "@/components";
 import {
@@ -14,11 +14,12 @@ import {
 	SvgIcon,
 } from "./Sidebar.css";
 import { svgIconArrowRightId } from "../assets";
-import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@/api";
+import { useAtomValue } from "jotai";
 
 export function Sidebar() {
-	const { ip, presentationId } = useParams({ from: "/$ip/$presentationId/" });
+	const ip = useAtomValue(atomIp) as string;
+	const presentationId = useAtomValue(atomPresentationId) as string;
 	const { t } = useTranslation();
 	const [isOpen, setIsOpen] = useState(false);
 	const { data: presentation, totalSlides } = useQueryGetPresentation();
